@@ -1,0 +1,208 @@
+---
+import Brand from "./Brand.astro";
+import HoverUnderlineLink from "./controls/links/HoverUnderlineLink.astro";
+
+export const mainNavLinks = [
+  {
+    path: "/blog",
+    name: "Blog",
+  },
+  {
+    path: "/games",
+    name: "Games",
+  },
+  {
+    path: "/gallery",
+    name: "Gallery",
+  },
+];
+const menuId = "nav-menu";
+---
+
+<script src="../scripts/menu.js"></script>
+<header>
+  <nav class="header-content">
+    <a href="/" aria-label="Home">
+      <Brand />
+    </a>
+
+    <button
+      class="menu-button"
+      id="mobile-menu-button"
+      aria-haspopup="menu"
+      aria-expanded="false"
+      aria-controls={menuId}
+      aria-label="Toggle menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" id="menu-open" viewBox="0 0 512 512">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="48"
+          d="M84 116h400M84 256h400M84 396h400"></path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" id="menu-close" viewBox="0 0 512 512">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="48"
+          d="M428 428L84 84M428 84L84 428"></path>
+      </svg>
+    </button>
+
+    <ul class="nav-bar dropdown" id={menuId} role="menu" aria-label="Navigation">
+      {
+        mainNavLinks.map((page) => (
+          <li role="menuitem">
+            <HoverUnderlineLink href={page.path} name={page.name}>
+              {page.name}
+            </HoverUnderlineLink>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  /* Add phantom element for grid layout,
+   * hacky but prevents dropdown from pushing content */
+  header::after {
+    content: "&nbsp;";
+    display: block;
+    margin: var(--space-sm);
+    padding-block-end: 1px;
+    font-size: var(--font-size-lg);
+  }
+
+  /* Header styling */
+  .header-content {
+    z-index: 101;
+    position: absolute;
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-items: end;
+    align-items: center;
+    gap: 0;
+
+    inline-size: 100%;
+    max-inline-size: var(--max-width);
+    margin-inline: auto;
+    padding: var(--space-sm);
+
+    background: var(--color-neutral-900);
+    border-block-end: 1px solid var(--color-neutral-700);
+    box-shadow: var(--box-shadow-sm);
+
+    &:has(ul.show) {
+      gap: var(--space-md);
+    }
+  }
+
+  .brand {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Mobile menu button styling */
+  .menu-button {
+    padding: 0;
+
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    color: var(--color-neutral-100);
+
+    &:hover,
+    &:focus {
+      color: var(--color-neutral-200);
+    }
+  }
+
+  #menu-close {
+    display: none;
+  }
+
+  .menu-button[aria-expanded="true"] {
+    > #menu-open {
+      display: none;
+    }
+
+    > #menu-close {
+      display: block;
+    }
+  }
+
+  /* Navigation menu styling */
+  .nav-bar {
+    display: flex;
+    gap: var(--space-md);
+    text-align: center;
+  }
+
+  .dropdown {
+    grid-column: span 2;
+    flex-direction: column;
+
+    inline-size: 100%;
+    max-block-size: 0;
+
+    overflow: hidden;
+  }
+
+  .show {
+    /* Line-height * n + gap * (n - 1) + padding */
+    max-block-size: calc(1.15rem * 3 + var(--space-md) * 2 + var(--space-md) + 0.5rem);
+
+    /* Needed to prevent overflow:hidden from hiding the underline */
+    &:last-child {
+      padding-block-end: 0.5rem;
+    }
+  }
+
+  .hover-underline-link {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--light);
+    color: var(--color-neutral-100);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .header-content {
+      transition: gap var(--anim-length-long) ease-in-out;
+    }
+
+    .dropdown {
+      transition: max-height var(--anim-length-base) ease-in-out;
+    }
+
+    .menu-button {
+      transition: color var(--anim-length-base) ease-in-out;
+    }
+  }
+
+  /* On large enough displays use menu bar */
+  @media only screen and (min-width: 36rem) {
+    .menu-button {
+      display: none;
+    }
+
+    .dropdown {
+      grid-column: auto;
+      flex-direction: row;
+
+      inline-size: auto;
+      max-block-size: none;
+
+      overflow: visible;
+    }
+  }
+</style>

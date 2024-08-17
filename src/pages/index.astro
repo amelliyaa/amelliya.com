@@ -1,16 +1,284 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Picture } from "astro:assets";
+import art1 from "../assets/images/whispers-of-the-dawn.jpeg";
+import art2 from "../assets/images/blade-of-the-sky-city.jpeg";
+import art3 from "../assets/images/journey-to-the-forgotten-realm.jpeg";
+import avatar from "../assets/images/avatar.png";
 
+const title= "Astro";
+const description = "My site's homepage";
+const slideInfo = [
+  {
+    "title": "Whispers of the Dawn",
+    "subtitle": "Venture into a surreal world where a magical lantern guides your path. Solve puzzles and uncover hidden secrets in a journey that blurs the lines between dreams and reality.",
+    "keyArt": art1
+  },
+  {
+    "title": "Blade of the Sky City",
+    "subtitle": "As the last guardian of a forgotten sky city, wield your blade to uncover ancient secrets. Explore stunning floating landscapes and battle powerful foes to protect the legacy of a lost civilization.",
+    "keyArt": art2,
+  },
+  {
+    "title": "Journey to the Forgotten Realm",
+    "subtitle": "Embark on a quest to reach a mystical castle hidden beyond the mountains. Traverse treacherous lands, solve ancient puzzles, and uncover the secrets of a forgotten kingdom.",
+    "keyArt": art3
+  }
+];
+const recentNewsPosts = [
+  {
+    "url": "",
+    "headline": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    "overview": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra felis at felis luctus, id dapibus nisl malesuada.",
+    "thumbnail": {}
+  }
+];
+const gameSlidePrefix = "game-slide-";
+const newsSlideIdPrefix = "news-slide-";
 ---
+<BaseLayout title={title} description={description} isHomepage={true}>
+  <section class="bio" aria-label="Website welcome note">
+    <h1>Welcome to my website</h1>
+    <h2>I make stuff sometimes</h2>
+    <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolore fugit in ipsa molestiae tenetur, velit.</h4>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  </section>
+
+  <div class="card">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad animi architecto ea eius eligendi eos est et facilis illum in, inventore, ipsa iste iure labore maxime minima nam nihil numquam obcaecati officia optio placeat provident quaerat quibusdam quo ratione reiciendis rem rerum sint, soluta ut voluptatum. Architecto, corporis deserunt, est fugiat hic id incidunt iste iusto maxime non obcaecati omnis placeat qui quia quidem totam voluptates. Blanditiis fuga iusto laboriosam rerum vel? Cum doloremque itaque neque quaerat quo, suscipit tempore veniam. At beatae dolores dolorum et in iure natus quasi quidem reiciendis tempora veritatis, voluptates! Beatae, reprehenderit, vel.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
+  </div>
+
+  <section class="featured" aria-label="Featured games">
+
+  </section>
+
+  <section class="progress" aria-label="Current projects progress indicators">
+
+  </section>
+
+  <section class="latest" aria-label="Latest blog posts">
+
+  </section>
+
+
+  <!--<section class="featured" aria-roledescription="carousel" aria-label="Featured content">-->
+  <!--  <div class="slide-controls flex-wrap" role="group" aria-label="Slide controls">-->
+  <!--    <button class="slide-button" aria-label="Previous slide">-->
+  <!--      <svg xmlns="http://www.w3.org/2000/svg" class="icon" id="prev" viewBox="0 0 512 512" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M328 112L184 256l144 144"/></svg>-->
+  <!--    </button>-->
+
+  <!--    <div class="slide-picker-controls" role="group" aria-label="Choose slide to display">-->
+  <!--      {slideInfo.map((slide, index) =>-->
+  <!--        <button class="slide-picker" aria-labelledby={gameSlidePrefix + index} aria-current={index ? "true" : "false"}>-->
+  <!--          <span aria-hidden="true"></span>-->
+  <!--        </button>-->
+  <!--      )}-->
+  <!--    </div>-->
+
+  <!--    <button class="slide-button" aria-label="Next slide">-->
+  <!--      <svg xmlns="http://www.w3.org/2000/svg" class="icon" id="next" viewBox="0 0 512 512" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M184 112l144 144-144 144"/></svg>-->
+  <!--    </button>-->
+  <!--  </div>-->
+
+
+  <!--  <ul class="slide-track">-->
+  <!--    {slideInfo.map((slide, index) =>-->
+  <!--      <div class="slide" id={gameSlidePrefix + index} role="group" aria-roledescription="slide" aria-labelledby={gameSlidePrefix + index + "-heading"}>-->
+  <!--        <hgroup>-->
+  <!--          <h2 class="slide-title" id={gameSlidePrefix + index + "-heading"}>{slide.title}</h2>-->
+  <!--          <p class="slide-subtitle">{slide.subtitle}</p>-->
+  <!--        </hgroup>-->
+  <!--        <Picture src={slide.keyArt} alt={"Key art for the game: " + slide.title} pictureAttributes={{ class: "slide-image" }} />-->
+  <!--        <button aria-label={"Go to " + slide.title + " 's page"}>Visit Game Page</button>-->
+  <!--      </div>-->
+  <!--    )}-->
+  <!--  </ul>-->
+  <!--</section>-->
+
+  <!--<section class="mission-statement" aria-label="Mission statement">-->
+  <!--  <hgroup>-->
+  <!--    <h2 class="statement">Thoughtful Design</h2>-->
+  <!--    <p class="intent">Bringing comfort to players through thoughtfully crafted, inclusive games, all set within a rich and interconnected universe.</p>-->
+  <!--  </hgroup>-->
+  <!--  <Picture src={avatar} alt="" pictureAttributes={{class: "avatar"}}/>-->
+  <!--  <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">-->
+  <!--    <circle fill="currentColor" cx="50" cy="50" r="50" />-->
+  <!--  </svg>-->
+  <!--  &lt;!&ndash; add svg for backdrop here &ndash;&gt;-->
+  <!--</section>-->
+
+</BaseLayout>
+
+
+<style>
+
+
+  /* carousel */
+  .featured {
+    position: relative;
+    display: grid;
+
+    //&::after {
+    //  content: "";
+    //  position: absolute;
+    //
+    //  z-index: -1;
+    //  inset: 0;
+    //  top: 50%;
+    //  height: 100%;
+    //  transform: skewY(-30deg) translateY(-50%);
+    //
+    //
+    //  background-image: linear-gradient(45deg, red, blue);
+    //}
+
+    outline: thin solid red;
+  }
+
+  .carousel {
+    list-style-type: none;
+  }
+
+  .slide-track {
+    outline: thin solid yellow;
+
+
+    position: relative;
+    height: 100%;
+  }
+
+  .slide {
+
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .slide-image > img {
+    width: 50%;
+  }
+
+  /* carousel controls */
+  .slide-controls {
+    outline: thin solid blue;
+  }
+
+  .slide-picker-controls {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 1rem;
+  }
+
+  .slide-picker {
+    outline: 2px solid white;
+    inline-size: 1rem;
+    block-size: 1rem;
+    transform: rotate(45deg);
+    background-color: #171717;
+
+    &.chosen {
+      background-color: #ffffff;
+    }
+  }
+
+  .slide-button {
+    top: 50%;
+    transform: translatey(-50%);
+    block-size: 4rem;
+    inline-size: 4rem;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(0 0 0 / 25%);
+  }
+
+  #next {
+    transform: translate(5%, 5%);
+  }
+
+  #prev {
+    transform: translate(-5%, 5%);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  .mission-statement {
+    position: relative;
+    overflow: clip;
+    background-color: var(--brand-dark);
+    margin: 4rem 0 8rem 0;
+    padding: 4rem 5vw 12rem 5vw;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+
+    block-size: 50rem;
+
+
+    > hgroup {
+      flex: 4;
+    }
+  }
+
+  .statement {
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    display: inline-block;
+    margin: 0 0 var(--space-sm) 0;
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--brand-complementary);
+    font-size: 4rem;
+    font-weight: var(--black);
+    color: black;
+  }
+
+  .intent {
+    position: absolute;
+    z-index: 1;
+    top: 25%;
+
+    inline-size: 50%;
+
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+
+  .circle {
+    position: absolute;
+    left: 100%;
+    transform: translateX(-50%);
+    top: 0;
+    block-size: 500%;
+    color: var(--brand-primary);
+  }
+
+  .avatar {
+    position: absolute;
+    z-index: 2;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+
+  }
+
+</style>

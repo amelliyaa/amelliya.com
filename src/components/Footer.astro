@@ -1,0 +1,176 @@
+---
+import SocialMedia from "./SocialMedia.astro";
+import HoverUnderlineLink from "./controls/links/HoverUnderlineLink.astro";
+import Field from "./controls/Field.astro";
+import Button from "./controls/Button.astro";
+
+import { mainNavLinks } from "./Header.astro";
+
+const sitemap = [
+  ...mainNavLinks,
+  {
+    path: "/about",
+    name: "About",
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+  },
+];
+
+const newsletterEndpoint = "api/subscribe";
+---
+
+<footer>
+  <div class="footer-content">
+    <div class="newsletter">
+      <hgroup>
+        <h2 class="title">Join my Newsletter</h2>
+        <p class="subtitle">
+          and <strong>stay up-to-date</strong> on all my major game announcements.
+        </p>
+      </hgroup>
+
+      <form action={newsletterEndpoint} method="post" class="subscribe-form">
+        <div class="input">
+          <Field id="email-newsletter" type="email" name="email" autocomplete="email" required>
+            Email address
+          </Field>
+        </div>
+        <Button>Subscribe</Button>
+      </form>
+    </div>
+
+    <nav class="site-map">
+      <ul>
+        {
+          sitemap.map((page) => (
+            <li>
+              <HoverUnderlineLink href={page.path} name={page.name}>
+                {page.name}
+              </HoverUnderlineLink>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="social-media-card">
+      <SocialMedia />
+    </div>
+  </div>
+
+  <div class="copyright" aria-label="Copyright notice">
+    <hr />
+    <span>Copyright © 2024 Jane Doe</span>
+  </div>
+</footer>
+
+<style>
+  /* Base component styling */
+  footer {
+    inline-size: 100%;
+    background: var(--color-neutral-900);
+    border-block-start: 1px solid var(--color-neutral-700);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+
+    max-inline-size: var(--max-page-width);
+    margin: var(--space-sm-md) auto var(--space-md-lg) auto;
+    padding-inline: var(--space-sm);
+  }
+
+  /* Social media styling */
+  .social-media-card {
+    flex: 1 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+
+    inline-size: 100%;
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-primary-500);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--box-shadow-md);
+  }
+
+  /* Site map styling */
+  .site-map {
+    flex: 1 0 auto;
+  }
+
+  .site-map > ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm) var(--space-lg);
+  }
+
+  .hover-underline-link {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--light);
+    color: var(--color-neutral-100);
+  }
+
+  /* Newsletter styling */
+  .newsletter {
+    flex: 2 0 fit-content;
+  }
+
+  .newsletter > * {
+    max-inline-size: 60ch;
+  }
+
+  .title {
+    color: var(--color-primary-200);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-md);
+    font-weight: var(--normal);
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  .input {
+    flex: 3 0 fit-content;
+  }
+
+  .button {
+    flex: 1 0 fit-content;
+  }
+
+  /* Copyright styling */
+  .copyright {
+    padding-inline: var(--space-sm);
+    max-inline-size: var(--max-width);
+    text-align: center;
+
+    > hr {
+      border: thin solid var(--color-neutral-800);
+    }
+
+    > span {
+      display: inline-block;
+      margin-block: 0.5rem 1rem;
+      font-family: var(--typeface-workhorse);
+      font-size: var(--font-size-sm);
+      font-weight: var(--light);
+      color: var(--color-neutral-200);
+    }
+  }
+</style>

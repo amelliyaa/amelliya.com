@@ -1,0 +1,24 @@
+---
+const { href, name, rel } = Astro.props;
+---
+
+<a {rel} href={href} class="icon-link" aria-label={`Link to ${name}`}>
+  <slot />
+</a>
+
+<style>
+  .icon-link {
+    color: var(--color-neutral-100);
+
+    &:hover,
+    &:focus {
+      color: var(--color-complement);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .icon-link {
+      transition: color var(--anim-length-base) ease-in-out;
+    }
+  }
+</style>

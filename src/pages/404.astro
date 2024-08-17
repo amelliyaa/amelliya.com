@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Field from "../components/controls/Field.astro";
+
+const title = "Astro";
+const description = "My site's homepage";
+const searchEndpoint = "/search";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="not-found">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-msg">Page Not Found <span aria-hidden="true">🥲</span></h2>
+    <p class="hint">
+      Sorry! But the page you're looking for doesn't seem to exist.
+      <a href="/" class="link" aria-label="Home">Go back home</a>
+      or try searching for it instead.
+    </p>
+
+    <form action={searchEndpoint} method="get" class="search-form">
+      <Field
+        type="search"
+        name="query"
+        id="search-bar"
+        hideLabel="true"
+        placeholder="Search example.com"
+      >
+        Search example.com
+      </Field>
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 512 512" aria-hidden="true">
+        <path
+          d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+          fill="none"
+          stroke="currentColor"
+          stroke-miterlimit="10"
+          stroke-width="32"
+        >
+        </path>
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-miterlimit="10"
+          stroke-width="32"
+          d="M338.29 338.29L448 448"
+        >
+        </path>
+      </svg>
+    </form>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    block-size: 100%;
+    text-align: center;
+  }
+
+  .error-code {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--black);
+    margin: 0;
+  }
+
+  .hint {
+    max-inline-size: var(--max-article-width);
+  }
+
+  .link {
+    text-decoration: underline;
+    border-radius: var(--border-radius-sm);
+
+    &:hover,
+    &:focus {
+      color: var(--color-link-bright);
+    }
+
+    &:active {
+      outline: 2px solid var(--color-primary-400);
+    }
+  }
+
+  .search-form {
+    position: relative;
+    inline-size: clamp(50%, 60ch, 100%);
+  }
+
+  .field {
+    padding-inline-start: 3rem;
+  }
+
+  .icon {
+    color: var(--color-neutral-300);
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    block-size: 1.5rem;
+    transform: translateY(-50%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .link {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+const { ...rest } = Astro.props;
+const brandName = "Jane Doe";
+---
+
+<span class="brand" {...rest}>
+  {brandName}
+</span>
+
+<style>
+  .brand {
+    display: inline-block;
+    font-family: var(--typeface-logo);
+    font-weight: var(--bold);
+    color: var(--color-primary-400);
+    text-wrap: nowrap;
+  }
+</style>

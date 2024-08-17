@@ -1,0 +1,48 @@
+---
+const { id, hideLabel, ...rest } = Astro.props;
+---
+
+<label class:list={["label", hideLabel && "visually-hidden"]} for={id}><slot /></label>
+<input class="field" id={id} {...rest} />
+
+<style>
+  .field {
+    block-size: 3rem;
+    inline-size: 100%;
+    padding-inline: var(--space-sm);
+
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    background-color: var(--color-neutral-800);
+
+    border: none;
+    border-radius: var(--border-radius-md);
+    outline: medium solid var(--color-primary-100);
+
+    &:hover {
+      outline: medium solid var(--color-primary-200);
+    }
+
+    &:focus,
+    &:active {
+      border-radius: var(--border-radius-lg);
+      outline: medium solid var(--color-input-active);
+    }
+  }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-2xs);
+    font-family: var(--typeface-workhorse);
+    font-weight: var(--light);
+    color: var(--color-neutral-200);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .field {
+      transition:
+        border-radius var(--anim-length-short) ease-in-out,
+        outline var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>
