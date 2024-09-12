@@ -26,7 +26,7 @@ const newsletterEndpoint = "api/subscribe";
     <div class="newsletter">
       <hgroup>
         <h2 class="title">Join my Newsletter</h2>
-        <p class="subtitle">
+        <p class="typography-subtitle">
           and <strong>stay up-to-date</strong> on all my major game announcements.
         </p>
       </hgroup>
@@ -41,11 +41,11 @@ const newsletterEndpoint = "api/subscribe";
       </form>
     </div>
 
-    <nav class="site-map">
-      <ul>
+    <nav>
+      <ul class="site-map">
         {
           sitemap.map((page) => (
-            <li>
+            <li class="site-map-item">
               <HoverUnderlineLink href={page.path} name={page.name}>
                 {page.name}
               </HoverUnderlineLink>
@@ -70,7 +70,7 @@ const newsletterEndpoint = "api/subscribe";
   /* Base component styling */
   footer {
     inline-size: 100%;
-    background: var(--color-neutral-900);
+    background-color: var(--color-neutral-900);
     border-block-start: 1px solid var(--color-neutral-700);
   }
 
@@ -103,14 +103,24 @@ const newsletterEndpoint = "api/subscribe";
   }
 
   /* Site map styling */
-  .site-map {
+  nav {
     flex: 1 0 auto;
   }
 
-  .site-map > ul {
+  .site-map {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-sm) var(--space-lg);
+  }
+
+  .site-map-item:nth-last-child(2) {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+
+  .site-map-item:last-child {
+    grid-column: 2 / 3;
+    grid-row: 2;
   }
 
   .hover-underline-link {
@@ -133,7 +143,7 @@ const newsletterEndpoint = "api/subscribe";
     color: var(--color-primary-200);
   }
 
-  .subtitle {
+  .typography-subtitle {
     font-size: var(--font-size-md);
     font-weight: var(--normal);
   }
@@ -157,20 +167,19 @@ const newsletterEndpoint = "api/subscribe";
   /* Copyright styling */
   .copyright {
     padding-inline: var(--space-sm);
-    max-inline-size: var(--max-width);
     text-align: center;
+  }
 
-    > hr {
-      border: thin solid var(--color-neutral-800);
-    }
+  .copyright > hr {
+    border: thin solid var(--color-neutral-800);
+  }
 
-    > span {
-      display: inline-block;
-      margin-block: 0.5rem 1rem;
-      font-family: var(--typeface-workhorse);
-      font-size: var(--font-size-sm);
-      font-weight: var(--light);
-      color: var(--color-neutral-200);
-    }
+  .copyright > span {
+    display: inline-block;
+    margin-block: 0.5rem 1rem;
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--light);
+    color: var(--color-neutral-200);
   }
 </style>

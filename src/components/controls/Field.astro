@@ -18,16 +18,16 @@ const { id, hideLabel, ...rest } = Astro.props;
     border: none;
     border-radius: var(--border-radius-md);
     outline: medium solid var(--color-primary-100);
+  }
 
-    &:hover {
-      outline: medium solid var(--color-primary-200);
-    }
+  .field:hover {
+    outline: medium solid var(--color-primary-200);
+  }
 
-    &:focus,
-    &:active {
-      border-radius: var(--border-radius-lg);
-      outline: medium solid var(--color-input-active);
-    }
+  .field:focus,
+  .field:active {
+    border-radius: var(--border-radius-lg);
+    outline: medium solid var(--color-input-active);
   }
 
   .label {

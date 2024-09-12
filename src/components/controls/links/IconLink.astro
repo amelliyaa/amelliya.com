@@ -9,11 +9,11 @@ const { href, name, rel } = Astro.props;
 <style>
   .icon-link {
     color: var(--color-neutral-100);
+  }
 
-    &:hover,
-    &:focus {
-      color: var(--color-complement);
-    }
+  .icon-link:hover,
+  .icon-link:focus {
+    color: var(--color-complement);
   }
 
   @media (prefers-reduced-motion: no-preference) {

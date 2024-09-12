@@ -1,18 +1,17 @@
 ---
-const { ...rest } = Astro.props;
+const { href } = Astro.props;
 ---
 
-<button class="button" {...rest}>
+<a href={href} class="link-button">
   <slot />
-</button>
+</a>
 
 <style>
-  .button {
+  .link-button {
+    display: inline-block;
     padding: var(--space-xs) var(--space-md);
-    border: none;
     border-radius: 100vmax;
     outline-offset: var(--space-3xs);
-    cursor: pointer;
 
     color: black;
     background-color: var(--color-primary-400);
@@ -21,16 +20,17 @@ const { ...rest } = Astro.props;
     font-family: var(--typeface-workhorse);
     font-weight: var(--semibold);
     font-size: var(--font-size-base);
+    text-align: center;
   }
 
-  .button:hover,
-  .button:focus {
+  .link-button:hover,
+  .link-button:focus {
     outline-style: solid;
     outline-width: medium;
     box-shadow: 0 0 100px 100px rgb(255 255 255 / 20%) inset;
   }
 
-  .button:active {
+  .link-button:active {
     box-shadow: 0 0 100px 100px rgb(0 0 0 / 10%) inset;
   }
 </style>

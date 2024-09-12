@@ -1,284 +1,401 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Picture } from "astro:assets";
-import art1 from "../assets/images/whispers-of-the-dawn.jpeg";
-import art2 from "../assets/images/blade-of-the-sky-city.jpeg";
-import art3 from "../assets/images/journey-to-the-forgotten-realm.jpeg";
-import avatar from "../assets/images/avatar.png";
+import ImageCard from "../components/cards/ImageCard.astro";
+import BlogCard from "../components/cards/BlogCard.astro";
+import LinkButton from "../components/controls/links/LinkButton.astro";
 
-const title= "Astro";
+const recentPosts = (
+  await getCollection("posts", ({ data }) => {
+    return !data.draft;
+  })
+)
+  .sort(function (a, b) {
+    return b.data.published - a.data.published;
+  })
+  .slice(0, 4);
+const games = await getCollection("games");
+const projects = await getCollection("projects");
+
+const title = "Home | Jane Doe";
 const description = "My site's homepage";
-const slideInfo = [
-  {
-    "title": "Whispers of the Dawn",
-    "subtitle": "Venture into a surreal world where a magical lantern guides your path. Solve puzzles and uncover hidden secrets in a journey that blurs the lines between dreams and reality.",
-    "keyArt": art1
-  },
-  {
-    "title": "Blade of the Sky City",
-    "subtitle": "As the last guardian of a forgotten sky city, wield your blade to uncover ancient secrets. Explore stunning floating landscapes and battle powerful foes to protect the legacy of a lost civilization.",
-    "keyArt": art2,
-  },
-  {
-    "title": "Journey to the Forgotten Realm",
-    "subtitle": "Embark on a quest to reach a mystical castle hidden beyond the mountains. Traverse treacherous lands, solve ancient puzzles, and uncover the secrets of a forgotten kingdom.",
-    "keyArt": art3
-  }
-];
-const recentNewsPosts = [
-  {
-    "url": "",
-    "headline": "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "overview": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra felis at felis luctus, id dapibus nisl malesuada.",
-    "thumbnail": {}
-  }
-];
-const gameSlidePrefix = "game-slide-";
-const newsSlideIdPrefix = "news-slide-";
 ---
-<BaseLayout title={title} description={description} isHomepage={true}>
-  <section class="bio" aria-label="Website welcome note">
-    <h1>Welcome to my website</h1>
-    <h2>I make stuff sometimes</h2>
-    <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
-    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dolore fugit in ipsa molestiae tenetur, velit.</h4>
 
+<BaseLayout title={title} description={description}>
+  <section class="welcome" aria-label="Website welcome note">
+    <h1 class="who">Hello, World! I'm <b>Jane</b></h1>
+    <h2 class="what">I make stuff sometimes</h2>
   </section>
 
-  <div class="card">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad animi architecto ea eius eligendi eos est et facilis illum in, inventore, ipsa iste iure labore maxime minima nam nihil numquam obcaecati officia optio placeat provident quaerat quibusdam quo ratione reiciendis rem rerum sint, soluta ut voluptatum. Architecto, corporis deserunt, est fugiat hic id incidunt iste iusto maxime non obcaecati omnis placeat qui quia quidem totam voluptates. Blanditiis fuga iusto laboriosam rerum vel? Cum doloremque itaque neque quaerat quo, suscipit tempore veniam. At beatae dolores dolorum et in iure natus quasi quidem reiciendis tempora veritatis, voluptates! Beatae, reprehenderit, vel.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid asperiores aut autem, cumque deleniti, dolore ducimus ea esse fugiat harum incidunt maiores nostrum odio, officia officiis omnis quasi voluptates!</p>
-  </div>
-
-  <section class="featured" aria-label="Featured games">
-
+  <section class="featured full-width" aria-label="Featured games">
+    <h2 class="featured-headline">EXPLORE THE [UNIVERSE]</h2>
+    <hr class="featured-hr" />
+    <div class="featured-grid">
+      {
+        games.map((game) => (
+          <div class="game-card">
+            <a
+              href={`/games/${game.data.route}`}
+              class="game-cover"
+              aria-label={`Link to ${game.data.title}`}
+            >
+              <ImageCard imagePath={game.data.keyArt.imagePath} alt="" />
+            </a>
+            <span class="game-title">{game.data.title}</span>
+          </div>
+        ))
+      }
+    </div>
   </section>
 
-  <section class="progress" aria-label="Current projects progress indicators">
-
+  <section class="projects" aria-label="Projects I'm currently working on">
+    <h2 class="project-board-header">Jane's Project Board</h2>
+    <div class="project-board">
+      {
+        projects.map((project) => (
+          <div class="project-pin" data-pin-size={project.data.pinSize}>
+            <div class="pin-content">
+              <h3>
+                {project.data.workingTitle}{" "}
+                <span class="pin-progress">{project.data.progress}%</span>
+              </h3>
+              <p>{project.data.description}</p>
+            </div>
+            <span class="pin-updated">
+              Last updated{" "}
+              {new Date(project.data.updated).toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
+          </div>
+        ))
+      }
+    </div>
   </section>
 
-  <section class="latest" aria-label="Latest blog posts">
-
+  <section class="blog-posts full-width" aria-label="Latest blog posts">
+    <h2>Latest Posts</h2>
+    <div class="blog-content">
+      {
+        recentPosts.map((post) => (
+          <BlogCard
+            slug={post.slug}
+            frontmatter={post.data}
+            title={post.data.title}
+            description={post.data.description}
+            updated={post.data.updated}
+            src={post.data.thumbnail.imagePath}
+            alt={post.data.thumbnail.alt}
+            tags={post.data.tags}
+          />
+        ))
+      }
+    </div>
+    <div class="blog-archive">
+      <LinkButton href="/blog" aria-label="Go to the blog">Visit the blog</LinkButton>
+    </div>
   </section>
-
-
-  <!--<section class="featured" aria-roledescription="carousel" aria-label="Featured content">-->
-  <!--  <div class="slide-controls flex-wrap" role="group" aria-label="Slide controls">-->
-  <!--    <button class="slide-button" aria-label="Previous slide">-->
-  <!--      <svg xmlns="http://www.w3.org/2000/svg" class="icon" id="prev" viewBox="0 0 512 512" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M328 112L184 256l144 144"/></svg>-->
-  <!--    </button>-->
-
-  <!--    <div class="slide-picker-controls" role="group" aria-label="Choose slide to display">-->
-  <!--      {slideInfo.map((slide, index) =>-->
-  <!--        <button class="slide-picker" aria-labelledby={gameSlidePrefix + index} aria-current={index ? "true" : "false"}>-->
-  <!--          <span aria-hidden="true"></span>-->
-  <!--        </button>-->
-  <!--      )}-->
-  <!--    </div>-->
-
-  <!--    <button class="slide-button" aria-label="Next slide">-->
-  <!--      <svg xmlns="http://www.w3.org/2000/svg" class="icon" id="next" viewBox="0 0 512 512" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M184 112l144 144-144 144"/></svg>-->
-  <!--    </button>-->
-  <!--  </div>-->
-
-
-  <!--  <ul class="slide-track">-->
-  <!--    {slideInfo.map((slide, index) =>-->
-  <!--      <div class="slide" id={gameSlidePrefix + index} role="group" aria-roledescription="slide" aria-labelledby={gameSlidePrefix + index + "-heading"}>-->
-  <!--        <hgroup>-->
-  <!--          <h2 class="slide-title" id={gameSlidePrefix + index + "-heading"}>{slide.title}</h2>-->
-  <!--          <p class="slide-subtitle">{slide.subtitle}</p>-->
-  <!--        </hgroup>-->
-  <!--        <Picture src={slide.keyArt} alt={"Key art for the game: " + slide.title} pictureAttributes={{ class: "slide-image" }} />-->
-  <!--        <button aria-label={"Go to " + slide.title + " 's page"}>Visit Game Page</button>-->
-  <!--      </div>-->
-  <!--    )}-->
-  <!--  </ul>-->
-  <!--</section>-->
-
-  <!--<section class="mission-statement" aria-label="Mission statement">-->
-  <!--  <hgroup>-->
-  <!--    <h2 class="statement">Thoughtful Design</h2>-->
-  <!--    <p class="intent">Bringing comfort to players through thoughtfully crafted, inclusive games, all set within a rich and interconnected universe.</p>-->
-  <!--  </hgroup>-->
-  <!--  <Picture src={avatar} alt="" pictureAttributes={{class: "avatar"}}/>-->
-  <!--  <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">-->
-  <!--    <circle fill="currentColor" cx="50" cy="50" r="50" />-->
-  <!--  </svg>-->
-  <!--  &lt;!&ndash; add svg for backdrop here &ndash;&gt;-->
-  <!--</section>-->
-
 </BaseLayout>
 
-
 <style>
+  .welcome {
+    margin-block-end: var(--space-2xl-4xl);
+  }
 
+  .who {
+    color: var(--color-primary-100);
+    margin-block-end: 0;
 
-  /* carousel */
+    > b {
+      color: var(--color-primary-200);
+    }
+  }
+
+  /* Featured section styling */
   .featured {
-    position: relative;
+    padding-block: var(--space-md) var(--space-xl-2xl);
+    margin-block-end: var(--space-2xl-4xl);
+    background-color: var(--color-primary-900);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .featured-headline {
+    border-radius: var(--border-radius-sm);
+    font-weight: var(--black);
+    color: var(--color-complement);
+  }
+
+  .featured-hr {
+    inline-size: 100%;
+    margin-block-end: var(--space-md);
+    border: thin solid var(--color-accent);
+  }
+
+  .featured-grid {
     display: grid;
-
-    //&::after {
-    //  content: "";
-    //  position: absolute;
-    //
-    //  z-index: -1;
-    //  inset: 0;
-    //  top: 50%;
-    //  height: 100%;
-    //  transform: skewY(-30deg) translateY(-50%);
-    //
-    //
-    //  background-image: linear-gradient(45deg, red, blue);
-    //}
-
-    outline: thin solid red;
+    gap: var(--space-md-lg);
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    justify-content: center;
+    align-content: center;
+    pointer-events: none;
   }
 
-  .carousel {
-    list-style-type: none;
+  /* Overlay for game cards */
+  .featured-grid:hover > .game-card > .game-cover::before {
+    opacity: 1;
   }
 
-  .slide-track {
-    outline: thin solid yellow;
+  .featured-grid:hover > .game-card > .game-title {
+    color: var(--color-neutral-300);
+  }
 
+  /* Game card styling */
+  .game-card {
+    white-space: nowrap;
+  }
 
+  .game-cover {
+    display: block;
     position: relative;
-    height: 100%;
+    aspect-ratio: 1 / 1;
+    pointer-events: auto;
   }
 
-  .slide {
-
-
+  /* Overlay */
+  .game-cover::before {
+    content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 25%);
+    opacity: 0;
   }
 
-  .slide-image > img {
-    width: 50%;
+  /* Undo overlay if it is the selected element */
+  .game-cover:hover,
+  .game-cover:focus {
+    transform: translateY(-4px);
   }
 
-  /* carousel controls */
-  .slide-controls {
-    outline: thin solid blue;
+  .game-cover:hover::before,
+  .game-cover:focus::before {
+    opacity: 0 !important;
   }
 
-  .slide-picker-controls {
+  .game-cover:hover + .game-title,
+  .game-cover:focus + .game-title {
+    color: var(--color-neutral-100) !important;
+  }
+
+  .game-title {
+    display: block;
+    margin-block-start: var(--space-2xs);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Progress board styling */
+  .projects {
+    margin-block-end: var(--space-2xl-4xl);
+  }
+
+  .project-board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: var(--space-md);
+    padding: var(--space-2xl) var(--space-xl);
+    border-radius: var(--border-radius-lg);
+    background-color: var(--color-neutral-950);
+    outline: 1px solid var(--color-neutral-500);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .project-board-header {
+    padding: var(--space-sm);
+    border-radius: var(--border-radius-sm);
+    font-weight: var(--bold);
+    color: var(--color-neutral-950);
+    background-color: var(--color-primary-400);
+  }
+
+  .project-pin {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: 1rem;
-  }
-
-  .slide-picker {
-    outline: 2px solid white;
-    inline-size: 1rem;
-    block-size: 1rem;
-    transform: rotate(45deg);
-    background-color: #171717;
-
-    &.chosen {
-      background-color: #ffffff;
-    }
-  }
-
-  .slide-button {
-    top: 50%;
-    transform: translatey(-50%);
-    block-size: 4rem;
-    inline-size: 4rem;
-    border-radius: 50%;
-    border: none;
-    background-color: rgb(0 0 0 / 25%);
-  }
-
-  #next {
-    transform: translate(5%, 5%);
-  }
-
-  #prev {
-    transform: translate(-5%, 5%);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-  .mission-statement {
+    flex-direction: column;
+    justify-content: space-between;
     position: relative;
-    overflow: clip;
-    background-color: var(--brand-dark);
-    margin: 4rem 0 8rem 0;
-    padding: 4rem 5vw 12rem 5vw;
-    display: flex;
-    align-items: center;
-    gap: 4rem;
+    min-inline-size: min(10rem, 100%);
+    max-inline-size: 15rem;
+    aspect-ratio: 1 / 1;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-neutral-950);
+    background-color: #f5d294;
+  }
 
-    block-size: 50rem;
+  .project-pin::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: var(--space-xs);
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--color-neutral-700);
+    transform: translateX(-50%);
+  }
 
+  .project-pin:nth-child(odd) {
+    background-color: #d9aa65;
+  }
 
-    > hgroup {
-      flex: 4;
+  .project-pin[data-pin-size="md"] {
+    flex: 2;
+  }
+
+  .project-pin[data-pin-size="lg"] {
+    flex: 4;
+  }
+
+  .project-pin:hover {
+    transform: rotate(-2deg);
+  }
+
+  .pin-content > h3 {
+    font-size: var(--font-size-md);
+    font-weight: var(--medium);
+  }
+
+  .pin-content > p {
+    margin-block: 0 var(--space-2xs);
+  }
+
+  .pin-progress {
+    padding: var(--space-3xs) var(--space-2xs);
+    border-radius: var(--border-radius-lg);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    color: var(--color-neutral-950);
+    background-color: rgb(255 255 255 / 50%);
+  }
+
+  .pin-updated {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--medium);
+    color: var(--color-neutral-700);
+  }
+
+  /* Blog section styling */
+  .blog-posts {
+    background-color: var(--color-neutral-900);
+    padding-block: var(--space-md-lg) var(--space-xl-2xl);
+  }
+
+  .blog-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: var(--space-lg);
+    margin-block-end: var(--space-md);
+    justify-content: center;
+    align-content: center;
+  }
+
+  @media only screen and (min-width: 54rem) {
+    .blog-content {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(calc(100% / 3 - var(--space-md)), 100%), 1fr)
+      );
+    }
+
+    .blog-content > :first-child {
+      grid-column: span 3;
     }
   }
 
-  .statement {
-    position: absolute;
-    z-index: 1;
-    top: 10%;
-    display: inline-block;
-    margin: 0 0 var(--space-sm) 0;
-    padding: var(--space-xs) var(--space-sm);
-    background-color: var(--brand-complementary);
-    font-size: 4rem;
-    font-weight: var(--black);
-    color: black;
+  .blog-archive {
+    text-align: center;
   }
 
-  .intent {
-    position: absolute;
-    z-index: 1;
-    top: 25%;
+  /* Animations for users who don't mind */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Welcome section transitions */
+    .who {
+      display: inline-block;
+      border-right: 0.15em solid var(--color-primary-400);
+      animation:
+        slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) forwards,
+        blink-caret 0.8s step-end infinite;
+    }
 
-    inline-size: 50%;
+    .what {
+      opacity: 0;
+      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.2s forwards;
+    }
 
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
+    /* Featured section transitions */
+    .featured-headline {
+      opacity: 0;
+      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.35s forwards;
+    }
+
+    .featured > *:not(.featured-headline) {
+      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+
+    .game-cover {
+      transition: transform var(--anim-length-short) ease-in-out;
+    }
+
+    .game-cover::before {
+      transition: opacity var(--anim-length-short) ease-in-out;
+    }
+
+    .game-title {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+
+    /* Project board transitions */
+    .project-pin {
+      transition: transform var(--anim-length-short) ease-in-out;
+    }
+
+    /* Keyframes */
+    @keyframes slide-in {
+      from {
+        margin-inline: -80px 80px;
+        opacity: 0;
+      }
+
+      to {
+        margin-inline: 0;
+        opacity: 1;
+      }
+    }
+
+    @keyframes blink-caret {
+      from,
+      to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: var(--color-primary-400);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
   }
-
-  .circle {
-    position: absolute;
-    left: 100%;
-    transform: translateX(-50%);
-    top: 0;
-    block-size: 500%;
-    color: var(--brand-primary);
-  }
-
-  .avatar {
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-
-  }
-
 </style>

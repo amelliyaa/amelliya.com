@@ -72,7 +72,7 @@ const menuId = "nav-menu";
   /* Add phantom element for grid layout,
    * hacky but prevents dropdown from pushing content */
   header::after {
-    content: "&nbsp;";
+    content: "\a0";
     display: block;
     margin: var(--space-sm);
     padding-block-end: 1px;
@@ -91,17 +91,15 @@ const menuId = "nav-menu";
     gap: 0;
 
     inline-size: 100%;
-    max-inline-size: var(--max-width);
-    margin-inline: auto;
     padding: var(--space-sm);
 
-    background: var(--color-neutral-900);
+    background-color: var(--color-neutral-900);
     border-block-end: 1px solid var(--color-neutral-700);
     box-shadow: var(--box-shadow-sm);
+  }
 
-    &:has(ul.show) {
-      gap: var(--space-md);
-    }
+  .header-content:has(ul.show) {
+    gap: var(--space-md);
   }
 
   .brand {
@@ -118,27 +116,24 @@ const menuId = "nav-menu";
     background-color: transparent;
     border: none;
     cursor: pointer;
-
     color: var(--color-neutral-100);
+  }
 
-    &:hover,
-    &:focus {
-      color: var(--color-neutral-200);
-    }
+  .menu-button:hover,
+  .menu-button:focus {
+    color: var(--color-neutral-200);
   }
 
   #menu-close {
     display: none;
   }
 
-  .menu-button[aria-expanded="true"] {
-    > #menu-open {
-      display: none;
-    }
+  .menu-button[aria-expanded="true"] > #menu-open {
+    display: none;
+  }
 
-    > #menu-close {
-      display: block;
-    }
+  .menu-button[aria-expanded="true"] > #menu-close {
+    display: block;
   }
 
   /* Navigation menu styling */
@@ -161,11 +156,11 @@ const menuId = "nav-menu";
   .show {
     /* Line-height * n + gap * (n - 1) + padding */
     max-block-size: calc(1.15rem * 3 + var(--space-md) * 2 + var(--space-md) + 0.5rem);
+  }
 
-    /* Needed to prevent overflow:hidden from hiding the underline */
-    &:last-child {
-      padding-block-end: 0.5rem;
-    }
+  /* Needed to prevent overflow:hidden from hiding the underline */
+  .show:last-child {
+    padding-block-end: 0.5rem;
   }
 
   .hover-underline-link {

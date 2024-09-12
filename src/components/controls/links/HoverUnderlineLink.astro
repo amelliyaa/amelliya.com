@@ -10,44 +10,44 @@ const { href, name, ...rest } = Astro.props;
   .hover-underline-link {
     position: relative;
     border-radius: var(--border-radius-sm);
+  }
 
-    /* https://codepen.io/michellebarker/pen/MWJajOb */
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -0.25rem;
-      left: 0;
-      width: 100%;
-      height: 0.125rem;
-      background-color: var(--color-complement);
-      opacity: 1;
-      transform: scale(0);
-      transform-origin: center;
-    }
+  /* https://codepen.io/michellebarker/pen/MWJajOb */
+  .hover-underline-link::after {
+    content: "";
+    position: absolute;
+    bottom: -0.25rem;
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    background-color: var(--color-complement);
+    opacity: 1;
+    transform: scale(0);
+  }
 
-    &:hover,
-    &:focus {
-      color: var(--color-primary-200);
+  .hover-underline-link:hover,
+  .hover-underline-link:focus {
+    color: var(--color-primary-200);
+  }
 
-      &::after {
-        transform: scale(1);
-      }
-    }
+  .hover-underline-link:hover::after,
+  .hover-underline-link:focus::after {
+    transform: scale(1);
+  }
 
-    &:active {
-      outline: 2px solid var(--color-complement);
-    }
+  .hover-underline-link:active {
+    outline: 2px solid var(--color-complement);
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .hover-underline-link {
       transition: color var(--anim-length-short) ease-in-out;
+    }
 
-      &::after {
-        transition:
-          opacity var(--anim-length-base),
-          transform var(--anim-length-base);
-      }
+    .hover-underline-link::after {
+      transition:
+        opacity var(--anim-length-base),
+        transform var(--anim-length-base);
     }
   }
 </style>

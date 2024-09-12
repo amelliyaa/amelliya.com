@@ -1,0 +1,147 @@
+---
+import { ImageMetadata } from "astro";
+import { Picture } from "astro:assets";
+import Button from "../controls/Button.astro";
+
+const { slug, frontmatter, ...rest } = Astro.props;
+const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/*.{jpeg,jpg,png,gif}",
+);
+if (!images[frontmatter.thumbnail.imagePath])
+  throw new Error(
+    `"${frontmatter.thumbnail.imagePath}" does not exist in glob: "src/assets/images/*.{jpeg,jpg,png,gif}"`,
+  );
+---
+
+<a href={slug} class="card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
+  <Picture
+    class="thumbnail"
+    src={images[frontmatter.thumbnail.imagePath]()}
+    alt={frontmatter.thumbnail.alt}
+  />
+  <div class="card-content">
+    <div class="tags">
+      {frontmatter.tags.map((tag: string) => <span class="metadata tag">{tag}</span>)}
+    </div>
+    <hgroup class="info">
+      <h3 class="title">{frontmatter.title}</h3>
+      <p class="desc">{frontmatter.description}</p>
+    </hgroup>
+    <div class="date">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="calendar"
+        viewBox="0 0 512 512"
+        aria-hidden="true"
+      >
+        <rect
+          fill="none"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="32"
+          x="48"
+          y="80"
+          width="416"
+          height="384"
+          rx="48"></rect><path
+          fill="none"
+          stroke="currentColor"
+          stroke-linejoin="round"
+          stroke-width="32"
+          stroke-linecap="round"
+          d="M128 48v32M384 48v32M464 160H48"
+        >
+        </path>
+      </svg>
+      <time class="metadata">{date}</time>
+    </div>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-md);
+    outline: 1px solid var(--color-neutral-700);
+    color: var(--color-neutral-100);
+    box-shadow: var(--box-shadow-md);
+  }
+
+  .card:hover,
+  .card:focus {
+    transform: translateY(-4px);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    object-fit: cover;
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--space-xs);
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    background-color: var(--color-neutral-800);
+  }
+
+  .info {
+    flex: 1;
+  }
+
+  .title {
+    margin-block-start: var(--space-2xs);
+    color: var(--color-primary-100);
+  }
+
+  .desc {
+    margin-block: 0 var(--space-xs);
+  }
+
+  .metadata {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  .tag {
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-neutral-950);
+    background-color: var(--color-primary-400);
+  }
+
+  .date {
+    color: var(--color-neutral-200);
+  }
+
+  .calendar {
+    transform: translateY(10%);
+    width: var(--space-xs);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card {
+      transition: transform var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

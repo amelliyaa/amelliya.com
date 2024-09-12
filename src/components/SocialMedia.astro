@@ -87,4 +87,16 @@ const github = "https://github.com/amelliyaa";
   .social-icon {
     inline-size: var(--font-size-2xl);
   }
+
+  .social-icon:hover,
+  .social-icon:focus {
+    transform: scale(105%);
+    filter: drop-shadow(var(--box-shadow-lg));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .social-icon {
+      transition: transform var(--anim-length-short) ease-in-out;
+    }
+  }
 </style>
