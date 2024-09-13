@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/cards/BlogCard.astro";
+import Pagination from "../../components/controls/Pagination.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const blogPages = (await getCollection("posts")).sort(
+    (a, b) => b.data.published - a.data.published,
+  );
+  return paginate(blogPages, { pageSize: 3 });
+}
+
+const { page } = Astro.props;
+const title =
+  page.currentPage === 1 ? "Blog | Jane Doe" : `Blog – Page ${page.currentPage} | Jane Doe`;
+const description = "Blog of Jane Doe";
+---
+
+<BaseLayout title={title} description={description}>
+  <h1>Blog Archives</h1>
+  <section class="archive" aria-label="Blog posts archive">
+    {page.data.map((post) => <BlogCard href={`/blog/${post.slug}`} frontmatter={post.data} />)}
+  </section>
+  {
+    page.lastPage > 1 && (
+      <Pagination
+        currentPage={page.currentPage}
+        lastPage={page.lastPage}
+        prevUrl={page.url.prev}
+        nextUrl={page.url.next}
+      />
+    )
+  }
+</BaseLayout>
+
+<style>
+  .archive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md-lg);
+    margin-block-end: var(--space-sm-md);
+  }
+
+  @media only screen and (min-width: 36rem) {
+    .archive {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media only screen and (min-width: 62rem) {
+    .archive {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>

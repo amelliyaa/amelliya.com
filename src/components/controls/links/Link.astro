@@ -1,0 +1,19 @@
+---
+const { href, name } = Astro.props;
+---
+
+<a href={href} class="link" aria-label=`Link to ${name}`>
+  <slot />
+</a>
+
+<style>
+  .link {
+    text-decoration: underline;
+    border-radius: var(--border-radius-sm);
+  }
+
+  .link:hover,
+  .link:focus {
+    color: var(--color-link-bright);
+  }
+</style>

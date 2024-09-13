@@ -2,9 +2,10 @@
 import Brand from "./Brand.astro";
 import HoverUnderlineLink from "./controls/links/HoverUnderlineLink.astro";
 
+const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 export const mainNavLinks = [
   {
-    path: "/blog",
+    path: "/blog/1",
     name: "Blog",
   },
   {
@@ -21,7 +22,7 @@ const menuId = "nav-menu";
 
 <script src="../scripts/menu.js"></script>
 <header>
-  <nav class="header-content">
+  <nav class="header-content" aria-label="Site navigation menu">
     <a href="/" aria-label="Home">
       <Brand />
     </a>
@@ -54,17 +55,21 @@ const menuId = "nav-menu";
       </svg>
     </button>
 
-    <ul class="nav-bar dropdown" id={menuId} role="menu" aria-label="Navigation">
+    <menu class="nav-bar dropdown" id={menuId} role="menu" aria-label="Navigation">
       {
         mainNavLinks.map((page) => (
-          <li role="menuitem">
-            <HoverUnderlineLink href={page.path} name={page.name}>
+          <li role="none">
+            <HoverUnderlineLink
+              href={page.path}
+              role="menuitem"
+              isActive={currentDir === page.name.toLowerCase()}
+            >
               {page.name}
             </HoverUnderlineLink>
           </li>
         ))
       }
-    </ul>
+    </menu>
   </nav>
 </header>
 
@@ -98,7 +103,7 @@ const menuId = "nav-menu";
     box-shadow: var(--box-shadow-sm);
   }
 
-  .header-content:has(ul.show) {
+  .header-content:has(menu.show) {
     gap: var(--space-md);
   }
 
@@ -119,8 +124,7 @@ const menuId = "nav-menu";
     color: var(--color-neutral-100);
   }
 
-  .menu-button:hover,
-  .menu-button:focus {
+  .menu-button:hover {
     color: var(--color-neutral-200);
   }
 
@@ -139,7 +143,7 @@ const menuId = "nav-menu";
   /* Navigation menu styling */
   .nav-bar {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-lg);
     text-align: center;
   }
 
@@ -155,12 +159,12 @@ const menuId = "nav-menu";
 
   .show {
     /* Line-height * n + gap * (n - 1) + padding */
-    max-block-size: calc(1.15rem * 3 + var(--space-md) * 2 + var(--space-md) + 0.5rem);
+    max-block-size: calc(1.15rem * 3 + var(--space-md) * 2 + var(--space-md) + 1.25rem);
   }
 
-  /* Needed to prevent overflow:hidden from hiding the underline */
+  /* Needed to prevent overflow:hidden from hiding outline/underline */
   .show:last-child {
-    padding-block-end: 0.5rem;
+    padding-block: 0.625rem;
   }
 
   .hover-underline-link {

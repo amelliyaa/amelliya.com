@@ -3,6 +3,10 @@
 :root {
   color-scheme: dark light;
 
+  /* Width caps */
+  --max-page-width: 1400px;
+  --max-article-width: 70ch;
+
   /* Colors */
   --color-neutral-100: #e8e6ed;
   --color-neutral-200: #b0a8bf;
@@ -21,6 +25,9 @@
   --color-link: #9ec8f5;
   --color-link-bright: #cbe2fa;
 
+  --color-pin: #f5d294;
+  --color-pin-dark: #f3c67a;
+
   --color-primary-100: #f0e2fc;
   --color-primary-200: #d3a9f6;
   --color-primary-400: #bb79f1;
@@ -35,11 +42,6 @@
   --anim-length-base: 0.3s;
   --anim-length-medium: 0.4s;
   --anim-length-long: 0.5s;
-
-  /* Width caps */
-  --max-width: 3840px;
-  --max-page-width: 1400px;
-  --max-article-width: 70ch;
 
   /* Typefaces */
   --typeface-logo: Philosopher, serif;
@@ -61,9 +63,14 @@
   --border-radius-lg: 0.6rem;
 
   /* Box Shadows */
-  --box-shadow-sm: 0px 0px 1px rgba(0, 0, 0, 0.017), 0px 1.2px 2.3px rgba(0, 0, 0, 0.02),
-    0px 3.5px 4.4px rgba(0, 0, 0, 0.021), 0px 7.1px 7.8px rgba(0, 0, 0, 0.021),
-    0px 12.7px 14.6px rgba(0, 0, 0, 0.024), 0px 25px 35px rgba(0, 0, 0, 0.04);
+  /* http://smoothshadows.com/#djEsMSw2LDAuMDYsMTIsMTIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
+  --box-shadow-sm: 0px 0px 0px rgba(3, 7, 18, 0.01),
+  0px 1px 1px rgba(3, 7, 18, 0.02),
+  0px 3px 3px rgba(3, 7, 18, 0.03),
+  0px 5px 5px rgba(3, 7, 18, 0.04),
+  0px 8px 8px rgba(3, 7, 18, 0.05),
+  0px 12px 12px rgba(3, 7, 18, 0.06);
+
   --box-shadow-md: 0px 0px 1.4px rgba(0, 0, 0, 0.026), 0px 1.4px 3.3px rgba(0, 0, 0, 0.03),
     0px 4.2px 6.3px rgba(0, 0, 0, 0.031), 0px 8.5px 11.2px rgba(0, 0, 0, 0.032),
     0px 15.2px 20.9px rgba(0, 0, 0, 0.036), 0px 30px 50px rgba(0, 0, 0, 0.06);
@@ -122,11 +129,8 @@ body {
   background-color: var(--color-neutral-800);
 }
 
-ul {
+menu {
   list-style: none;
-}
-
-nav > ul {
   padding: 0;
   margin: 0;
 }
@@ -164,6 +168,7 @@ h1 {
   margin-block: var(--space-md-lg) var(--space-sm-md);
   font-size: var(--font-size-xl);
   font-weight: var(--bold);
+  color: var(--color-primary-100);
 }
 
 h2 {
@@ -225,8 +230,33 @@ p {
     content: "";
     position: fixed;
     z-index: 100;
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     background-color: var(--color-overlay);
   }
+}
+
+/* Grid layout */
+
+.content-grid {
+  --_max-width: var(--max-page-width);
+
+  display: grid;
+  grid-template-columns:
+      [full-width-start] 1fr
+      [content-start] min(var(--_max-width), calc(100% - var(--space-sm) * 2)) [content-end]
+      1fr [full-width-end];
+  margin-block: var(--space-md-lg) var(--space-2xl-4xl);
+}
+
+.content-grid > :not(.full-width),
+.full-width > :not(.full-width) {
+  grid-column: content;
+}
+
+.content-grid > .full-width {
+  grid-column: full-width;
+
+  display: grid;
+  grid-template-columns: inherit;
 }

@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Link from "../components/controls/links/Link.astro";
+
+const title = "About | Jane Doe";
+const description = "About Page";
+---
+
+<BaseLayout title={title} description={description}>
+  <h1>About</h1>
+
+  <h2>Me</h2>
+  <p></p><h2>Why I started the blog</h2>
+  <p>
+    I like to write about whatever topic I'm interested in learning. The whole documenting my
+    process thing is kind of a byproduct.
+  </p>
+
+  <h2>This website</h2>
+  <p>
+    I built and designed it myself. It's written in (basically) vanilla HTML/CSS with a bit of JS
+    and
+    <Link href="https://astro.build/" name="Astro">Astro</Link>
+    as a static site generator. The blog posts themselves are simply <code>.mdx</code> files.
+  </p>
+  <p>
+    I have some interesting plans for what I want to do with it in the future, but right now it's
+    really just an over-glorified personal blog.
+  </p>
+</BaseLayout>
+
+<style>
+  :global(.content-grid) {
+    --_max-width: var(--max-article-width);
+  }
+</style>

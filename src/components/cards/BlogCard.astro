@@ -3,7 +3,7 @@ import { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
 import Button from "../controls/Button.astro";
 
-const { slug, frontmatter, ...rest } = Astro.props;
+const { href, frontmatter, ...rest } = Astro.props;
 const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
   year: "numeric",
   month: "short",
@@ -19,7 +19,7 @@ if (!images[frontmatter.thumbnail.imagePath])
   );
 ---
 
-<a href={slug} class="card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
+<a href={href} class="card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
   <Picture
     class="thumbnail"
     src={images[frontmatter.thumbnail.imagePath]()}
@@ -68,8 +68,8 @@ if (!images[frontmatter.thumbnail.imagePath])
   .card {
     display: flex;
     flex-direction: column;
-    border-radius: var(--border-radius-md);
-    outline: 1px solid var(--color-neutral-700);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--color-neutral-800);
     color: var(--color-neutral-100);
     box-shadow: var(--box-shadow-md);
   }
@@ -81,10 +81,10 @@ if (!images[frontmatter.thumbnail.imagePath])
   }
 
   .thumbnail {
-    width: 100%;
-    height: 100%;
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
+    aspect-ratio: 3 / 2;
+    inline-size: 100%;
+    block-size: 100%;
+    border-radius: var(--border-radius-lg);
     object-fit: cover;
     box-shadow: var(--box-shadow-lg);
   }
@@ -92,11 +92,8 @@ if (!images[frontmatter.thumbnail.imagePath])
   .card-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    block-size: 100%;
     padding: var(--space-xs);
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-    background-color: var(--color-neutral-800);
   }
 
   .info {
@@ -125,18 +122,20 @@ if (!images[frontmatter.thumbnail.imagePath])
 
   .tag {
     padding: var(--space-3xs) var(--space-xs);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
+    font-weight: var(--semibold);
     color: var(--color-neutral-950);
     background-color: var(--color-primary-400);
   }
 
-  .date {
+  .date > .metadata {
     color: var(--color-neutral-200);
   }
 
   .calendar {
-    transform: translateY(10%);
     width: var(--space-xs);
+    color: var(--color-accent);
+    transform: translateY(10%);
   }
 
   @media (prefers-reduced-motion: no-preference) {

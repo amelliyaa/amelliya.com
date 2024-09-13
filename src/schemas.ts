@@ -24,7 +24,7 @@ export const gameSchema = z.object({
 export const projectSchema = z.object({
   workingTitle: z.string(),
   description: z.string(),
-  progress: z.string(),
+  progress: z.number(),
   updated: z.date(),
-  pinSize: z.string(),
+  pinSize: z.string().optional(),
 });

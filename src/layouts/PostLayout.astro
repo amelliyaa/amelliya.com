@@ -11,9 +11,19 @@ const { title, description } = Astro.props;
   <Head title={title} description={description} />
   <body>
     <Header />
-    <main class="content-grid">
-      <slot />
+    <main>
+      <header class="article-header"></header>
+      <article class="content-grid">
+        <slot />
+      </article>
+      <footer class="article-footer"></footer>
     </main>
     <Footer />
   </body>
 </html>
+
+<style>
+  :global(.content-grid) {
+    --_max-width: var(--max-article-width);
+  }
+</style>

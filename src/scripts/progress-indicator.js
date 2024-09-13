@@ -1,1 +1,0 @@
-document.querySelectorAll(".progress-grid");

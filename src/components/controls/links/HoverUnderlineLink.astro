@@ -1,28 +1,51 @@
 ---
-const { href, name, ...rest } = Astro.props;
+const { href, isActive, ...rest } = Astro.props;
 ---
 
-<a href={href} class="hover-underline-link" aria-label={`Link to ${name}`} {...rest}>
+<a
+  href={href}
+  class:list={["hover-underline-link", isActive && "active"]}
+  aria-current={isActive && "page"}
+  {...rest}
+>
   <slot />
 </a>
 
 <style>
   .hover-underline-link {
+    display: inline-block;
     position: relative;
+    margin: 0;
     border-radius: var(--border-radius-sm);
   }
 
-  /* https://codepen.io/michellebarker/pen/MWJajOb */
   .hover-underline-link::after {
     content: "";
     position: absolute;
-    bottom: -0.25rem;
     left: 0;
-    width: 100%;
-    height: 0.125rem;
+    bottom: -0.25rem;
+    block-size: 2px;
+    inline-size: 100%;
     background-color: var(--color-complement);
-    opacity: 1;
+    transform-origin: left;
     transform: scale(0);
+  }
+
+  .active {
+    color: var(--color-primary-200) !important;
+  }
+
+  .active::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    inline-size: 125%;
+    block-size: 150%;
+    border-radius: var(--border-radius-sm);
+    outline: 2px solid var(--color-primary-400);
+    transform: translate(-50%, -50%);
   }
 
   .hover-underline-link:hover,
@@ -30,12 +53,12 @@ const { href, name, ...rest } = Astro.props;
     color: var(--color-primary-200);
   }
 
-  .hover-underline-link:hover::after,
-  .hover-underline-link:focus::after {
-    transform: scale(1);
+  :not(.active).hover-underline-link:hover::after,
+  :not(.active).hover-underline-link:focus::after {
+    transform: scale(100%);
   }
 
-  .hover-underline-link:active {
+  :not(.active).hover-underline-link:active {
     outline: 2px solid var(--color-complement);
   }
 

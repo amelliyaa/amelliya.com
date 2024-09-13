@@ -3,16 +3,13 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ImageCard from "../components/cards/ImageCard.astro";
 import BlogCard from "../components/cards/BlogCard.astro";
-import LinkButton from "../components/controls/links/LinkButton.astro";
 
 const recentPosts = (
   await getCollection("posts", ({ data }) => {
     return !data.draft;
   })
 )
-  .sort(function (a, b) {
-    return b.data.published - a.data.published;
-  })
+  .sort((a, b) => b.data.published - a.data.published)
   .slice(0, 4);
 const games = await getCollection("games");
 const projects = await getCollection("projects");
@@ -48,9 +45,9 @@ const description = "My site's homepage";
     </div>
   </section>
 
-  <section class="projects" aria-label="Projects I'm currently working on">
-    <h2 class="project-board-header">Jane's Project Board</h2>
-    <div class="project-board">
+  <section class="projects" aria-labelledby="projects-h2">
+    <h2 class="pin-board-header" id="projects-h2">Jane's Project Board</h2>
+    <div class="pin-board">
       {
         projects.map((project) => (
           <div class="project-pin" data-pin-size={project.data.pinSize}>
@@ -75,26 +72,27 @@ const description = "My site's homepage";
     </div>
   </section>
 
-  <section class="blog-posts full-width" aria-label="Latest blog posts">
-    <h2>Latest Posts</h2>
+  <section class="blog-posts full-width" aria-labelledby="blog-posts-h2">
+    <a class="blog-posts-header" href="/blog/1" aria-label="Link to blog">
+      <h2 id="blog-posts-h2">
+        Latest Posts
+        <span aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" class="blog-icon" viewBox="0 0 512 512">
+            <path
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="48"
+              d="M268 112l144 144-144 144M392 256H100"
+            >
+            </path>
+          </svg>
+        </span>
+      </h2>
+    </a>
     <div class="blog-content">
-      {
-        recentPosts.map((post) => (
-          <BlogCard
-            slug={post.slug}
-            frontmatter={post.data}
-            title={post.data.title}
-            description={post.data.description}
-            updated={post.data.updated}
-            src={post.data.thumbnail.imagePath}
-            alt={post.data.thumbnail.alt}
-            tags={post.data.tags}
-          />
-        ))
-      }
-    </div>
-    <div class="blog-archive">
-      <LinkButton href="/blog" aria-label="Go to the blog">Visit the blog</LinkButton>
+      {recentPosts.map((post) => <BlogCard href={post.slug} frontmatter={post.data} />)}
     </div>
   </section>
 </BaseLayout>
@@ -105,7 +103,6 @@ const description = "My site's homepage";
   }
 
   .who {
-    color: var(--color-primary-100);
     margin-block-end: 0;
 
     > b {
@@ -167,8 +164,8 @@ const description = "My site's homepage";
   .game-cover::before {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     background-color: rgb(0 0 0 / 25%);
     opacity: 0;
   }
@@ -203,7 +200,7 @@ const description = "My site's homepage";
     margin-block-end: var(--space-2xl-4xl);
   }
 
-  .project-board {
+  .pin-board {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -215,7 +212,7 @@ const description = "My site's homepage";
     box-shadow: var(--box-shadow-lg);
   }
 
-  .project-board-header {
+  .pin-board-header {
     padding: var(--space-sm);
     border-radius: var(--border-radius-sm);
     font-weight: var(--bold);
@@ -224,6 +221,8 @@ const description = "My site's homepage";
   }
 
   .project-pin {
+    --_pin-color: var(--color-neutral-950);
+
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -235,7 +234,7 @@ const description = "My site's homepage";
     padding: var(--space-sm) var(--space-md);
     border-radius: var(--border-radius-sm);
     color: var(--color-neutral-950);
-    background-color: #f5d294;
+    background-color: var(--color-pin);
   }
 
   .project-pin::before {
@@ -243,15 +242,15 @@ const description = "My site's homepage";
     position: absolute;
     left: 50%;
     top: 8px;
-    width: var(--space-xs);
+    inline-size: var(--space-xs);
     border-radius: 50%;
     aspect-ratio: 1 / 1;
-    background-color: var(--color-neutral-700);
+    background-color: var(--_pin-color);
     transform: translateX(-50%);
   }
 
   .project-pin:nth-child(odd) {
-    background-color: #d9aa65;
+    background-color: var(--color-pin-dark);
   }
 
   .project-pin[data-pin-size="md"] {
@@ -292,46 +291,60 @@ const description = "My site's homepage";
   }
 
   /* Blog section styling */
+  .blog-posts-header {
+    color: var(--color-neutral-100);
+  }
+
+  .blog-posts-header:hover,
+  .blog-posts-header:focus {
+    color: var(--color-primary-200);
+  }
+
+  .blog-posts-header:hover .blog-icon,
+  .blog-posts-header:focus .blog-icon {
+    color: var(--color-complement);
+    transform: translate(4px, 10%);
+  }
+
+  .blog-icon {
+    block-size: var(--font-size-lg);
+    transform: translate(-4px, 10%);
+  }
+
   .blog-posts {
     background-color: var(--color-neutral-900);
-    padding-block: var(--space-md-lg) var(--space-xl-2xl);
+    padding-block: var(--space-md-lg) var(--space-lg-xl);
   }
 
   .blog-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: var(--space-lg);
-    margin-block-end: var(--space-md);
-    justify-content: center;
-    align-content: center;
   }
 
-  @media only screen and (min-width: 54rem) {
-    .blog-content {
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(min(calc(100% / 3 - var(--space-md)), 100%), 1fr)
-      );
+  @media only screen and (min-width: 36rem) {
+    .blog-content > * {
+      flex-basis: calc(50% - calc(var(--space-lg) / 2));
     }
-
-    .blog-content > :first-child {
-      grid-column: span 3;
-    }
-  }
-
-  .blog-archive {
-    text-align: center;
   }
 
   /* Animations for users who don't mind */
   @media (prefers-reduced-motion: no-preference) {
     /* Welcome section transitions */
     .who {
+      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+
+    .who::after {
       display: inline-block;
-      border-right: 0.15em solid var(--color-primary-400);
-      animation:
-        slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) forwards,
-        blink-caret 0.8s step-end infinite;
+      content: "";
+      inline-size: 0.15em;
+      block-size: 1.25em;
+      margin-inline-start: 0.05em;
+      background-color: var(--color-primary-400);
+      transform: translateY(22%);
+      animation: blink-caret 0.8s step-end infinite;
     }
 
     .what {
@@ -362,8 +375,28 @@ const description = "My site's homepage";
     }
 
     /* Project board transitions */
+    .pin-board {
+      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+
+    .pin-board-header {
+      opacity: 0;
+      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.45s forwards;
+    }
+
     .project-pin {
       transition: transform var(--anim-length-short) ease-in-out;
+    }
+
+    /* Blog posts transitions */
+    .blog-posts-header {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+
+    .blog-icon {
+      transition:
+        transform var(--anim-length-base) ease-in-out,
+        color var(--anim-length-short) ease-in-out;
     }
 
     /* Keyframes */
@@ -382,10 +415,10 @@ const description = "My site's homepage";
     @keyframes blink-caret {
       from,
       to {
-        border-color: transparent;
+        background-color: transparent;
       }
       50% {
-        border-color: var(--color-primary-400);
+        background-color: var(--color-primary-400);
       }
     }
 

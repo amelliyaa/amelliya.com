@@ -41,18 +41,18 @@ const newsletterEndpoint = "api/subscribe";
       </form>
     </div>
 
-    <nav>
-      <ul class="site-map">
+    <nav aria-label="Site map">
+      <menu class="site-map">
         {
           sitemap.map((page) => (
-            <li class="site-map-item">
-              <HoverUnderlineLink href={page.path} name={page.name}>
+            <li class="site-map-item" role="none">
+              <HoverUnderlineLink href={page.path} role="menuitem">
                 {page.name}
               </HoverUnderlineLink>
             </li>
           ))
         }
-      </ul>
+      </menu>
     </nav>
 
     <div class="social-media-card">
@@ -60,7 +60,7 @@ const newsletterEndpoint = "api/subscribe";
     </div>
   </div>
 
-  <div class="copyright" aria-label="Copyright notice">
+  <div class="copyright">
     <hr />
     <span>Copyright © 2024 Jane Doe</span>
   </div>

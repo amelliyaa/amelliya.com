@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Field from "../components/controls/Field.astro";
+import Link from "../components/controls/links/Link.astro";
 
 const title = "Astro";
 const description = "My site's homepage";
@@ -13,40 +14,47 @@ const searchEndpoint = "/search";
     <h2 class="error-msg">Page Not Found <span aria-hidden="true">🥲</span></h2>
     <p class="hint">
       Sorry! But the page you're looking for doesn't seem to exist.
-      <a href="/" class="link" aria-label="Home">Go back home</a>
+      <Link href="/" name="Home">Go back home</Link>
       or try searching for it instead.
     </p>
 
-    <form action={searchEndpoint} method="get" class="search-form">
-      <Field
-        type="search"
-        name="query"
-        id="search-bar"
-        hideLabel="true"
-        placeholder="Search example.com"
-      >
-        Search example.com
-      </Field>
-      <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 512 512" aria-hidden="true">
-        <path
-          d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-          fill="none"
-          stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="32"
+    <search>
+      <form action={searchEndpoint} method="get" class="search-form">
+        <Field
+          type="search"
+          name="query"
+          id="search-bar"
+          hideLabel="true"
+          placeholder="Search example.com"
         >
-        </path>
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="32"
-          d="M338.29 338.29L448 448"
+          Search example.com
+        </Field>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon"
+          viewBox="0 0 512 512"
+          aria-hidden="true"
         >
-        </path>
-      </svg>
-    </form>
+          <path
+            d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+            fill="none"
+            stroke="currentColor"
+            stroke-miterlimit="10"
+            stroke-width="32"
+          >
+          </path>
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-miterlimit="10"
+            stroke-width="32"
+            d="M338.29 338.29L448 448"
+          >
+          </path>
+        </svg>
+      </form>
+    </search>
   </div>
 </BaseLayout>
 
@@ -70,23 +78,16 @@ const searchEndpoint = "/search";
     max-inline-size: var(--max-article-width);
   }
 
-  .link {
-    text-decoration: underline;
-    border-radius: var(--border-radius-sm);
-  }
-
-  .link:hover,
-  .link:focus {
-    color: var(--color-link-bright);
-  }
-
   .link:active {
     outline: 2px solid var(--color-primary-400);
   }
 
+  search {
+    inline-size: clamp(50%, 60ch, 100%);
+  }
+
   .search-form {
     position: relative;
-    inline-size: clamp(50%, 60ch, 100%);
   }
 
   .field {
