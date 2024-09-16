@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+
+import ImageCard from "../cards/ImageCard.astro";
+
+const games = await getCollection("games");
+---
+
+<section class="full-width" aria-label="Featured games">
+  <h2 class="featured-headline">EXPLORE THE [UNIVERSE]</h2>
+  <hr />
+  <div class="featured-grid">
+    {
+      games.map((game) => (
+        <div class="game-card">
+          <a
+            href={`/games/${game.data.route}`}
+            class="game-cover"
+            aria-label={`Link to ${game.data.title}`}
+          >
+            <ImageCard imagePath={game.data.keyArt.imagePath} alt="" />
+          </a>
+          <span class="game-title">{game.data.title}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  section {
+    padding-block: var(--space-md) var(--space-xl-2xl);
+    margin-block-end: var(--space-2xl-3xl);
+    background-color: var(--color-primary-900);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  hr {
+    inline-size: 100%;
+    margin-block-end: var(--space-md);
+    border: thin solid var(--color-accent);
+  }
+
+  .featured-headline {
+    border-radius: var(--border-radius-sm);
+    font-weight: var(--black);
+    color: var(--color-complement);
+  }
+
+  .featured-grid {
+    display: grid;
+    gap: var(--space-md-lg);
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    justify-content: center;
+    align-content: center;
+    pointer-events: none;
+  }
+
+  /* Overlay for game cards */
+  .featured-grid:hover > .game-card > .game-cover::before {
+    opacity: 1;
+  }
+
+  .featured-grid:hover > .game-card > .game-title {
+    color: var(--color-neutral-300);
+  }
+
+  /* Game card styling */
+  .game-card {
+    white-space: nowrap;
+  }
+
+  .game-cover {
+    display: block;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    pointer-events: auto;
+  }
+
+  /* Overlay */
+  .game-cover::before {
+    content: "";
+    position: absolute;
+    inline-size: 100%;
+    block-size: 100%;
+    background-color: rgb(0 0 0 / 25%);
+    opacity: 0;
+  }
+
+  /* Undo overlay if it is the selected element */
+  .game-cover:hover,
+  .game-cover:focus {
+    transform: translateY(-4px);
+  }
+
+  .game-cover:hover::before,
+  .game-cover:focus::before {
+    opacity: 0 !important;
+  }
+
+  .game-cover:hover + .game-title,
+  .game-cover:focus + .game-title {
+    color: var(--color-neutral-100) !important;
+  }
+
+  .game-title {
+    display: block;
+    margin-block-start: var(--space-2xs);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    section > *:not(.featured-headline) {
+      animation: fade-in 1s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+
+    .featured-headline {
+      opacity: 0;
+      animation: slide-in 0.8s cubic-bezier(0, 0.55, 0.45, 1) 0.2s forwards;
+    }
+
+    .game-cover {
+      transition: transform var(--anim-length-short) ease-in-out;
+    }
+
+    .game-cover::before {
+      transition: opacity var(--anim-length-short) ease-in-out;
+    }
+
+    .game-title {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

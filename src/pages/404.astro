@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Field from "../components/controls/Field.astro";
+import SearchBar from "../components/SearchBar.astro";
 import Link from "../components/controls/links/Link.astro";
 
-const title = "Astro";
+const title = "404 Not Found | Jane Doe";
 const description = "My site's homepage";
-const searchEndpoint = "/search";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -18,43 +17,7 @@ const searchEndpoint = "/search";
       or try searching for it instead.
     </p>
 
-    <search>
-      <form action={searchEndpoint} method="get" class="search-form">
-        <Field
-          type="search"
-          name="query"
-          id="search-bar"
-          hideLabel="true"
-          placeholder="Search example.com"
-        >
-          Search example.com
-        </Field>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon"
-          viewBox="0 0 512 512"
-          aria-hidden="true"
-        >
-          <path
-            d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
-            fill="none"
-            stroke="currentColor"
-            stroke-miterlimit="10"
-            stroke-width="32"
-          >
-          </path>
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-miterlimit="10"
-            stroke-width="32"
-            d="M338.29 338.29L448 448"
-          >
-          </path>
-        </svg>
-      </form>
-    </search>
+    <SearchBar />
   </div>
 </BaseLayout>
 
@@ -76,36 +39,5 @@ const searchEndpoint = "/search";
 
   .hint {
     max-inline-size: var(--max-article-width);
-  }
-
-  .link:active {
-    outline: 2px solid var(--color-primary-400);
-  }
-
-  search {
-    inline-size: clamp(50%, 60ch, 100%);
-  }
-
-  .search-form {
-    position: relative;
-  }
-
-  .field {
-    padding-inline-start: 3rem;
-  }
-
-  .icon {
-    color: var(--color-neutral-300);
-    position: absolute;
-    top: 50%;
-    left: 0.75rem;
-    block-size: 1.5rem;
-    transform: translateY(-50%);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .link {
-      transition: color var(--anim-length-short) ease-in-out;
-    }
   }
 </style>

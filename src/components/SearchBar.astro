@@ -1,0 +1,70 @@
+---
+import InputField from "./controls/InputField.astro";
+
+const searchEndpoint = "/api/search";
+---
+
+<search>
+  <form action={searchEndpoint} method="get" class="search-form">
+    <InputField
+      type="search"
+      name="query"
+      class="input"
+      id="search-bar"
+      hideLabel="true"
+      placeholder="Search example.com"
+    >
+      Search example.com
+    </InputField>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="ionicon"
+      viewBox="0 0 512 512"
+      width="44"
+      height="44"
+      aria-hidden="true"
+    >
+      <path
+        d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+        fill="none"
+        stroke="currentColor"
+        stroke-miterlimit="10"
+        stroke-width="32"
+      >
+      </path>
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-miterlimit="10"
+        stroke-width="32"
+        d="M338.29 338.29L448 448"
+      >
+      </path>
+    </svg>
+  </form>
+</search>
+
+<style>
+  search {
+    inline-size: clamp(50%, 60ch, 100%);
+  }
+
+  .search-form {
+    position: relative;
+  }
+
+  .input {
+    padding-inline-start: 3rem;
+  }
+
+  .ionicon {
+    color: var(--color-neutral-300);
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    transform: translateY(-50%);
+  }
+</style>

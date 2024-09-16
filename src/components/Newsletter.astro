@@ -1,0 +1,63 @@
+---
+import InputField from "./controls/InputField.astro";
+import Button from "./controls/Button.astro";
+
+const newsletterEndpoint = "api/subscribe";
+const { class: className, ...attrs } = Astro.props;
+---
+
+<div class:list={["newsletter", className]} {...attrs}>
+  <hgroup>
+    <h2 class="typography-title">Join my Newsletter</h2>
+    <p class="typography-subtitle">
+      and <strong>stay up-to-date</strong> on all my major game announcements.
+    </p>
+  </hgroup>
+
+  <form action={newsletterEndpoint} method="post" class="subscribe-form">
+    <div class="input">
+      <InputField
+        class="input"
+        id="email-newsletter"
+        type="email"
+        name="email"
+        autocomplete="email"
+        required
+      >
+        Email address
+      </InputField>
+    </div>
+    <Button class="button">Subscribe</Button>
+  </form>
+</div>
+
+<style>
+  .newsletter > * {
+    max-inline-size: 60ch;
+  }
+
+  .typography-title {
+    color: var(--color-primary-200);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-md);
+    font-weight: var(--normal);
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: var(--space-md);
+  }
+
+  .input {
+    flex: 3 0 fit-content;
+  }
+
+  .button {
+    flex: 1 0 fit-content;
+  }
+</style>

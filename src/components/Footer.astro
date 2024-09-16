@@ -1,59 +1,14 @@
 ---
 import SocialMedia from "./SocialMedia.astro";
-import HoverUnderlineLink from "./controls/links/HoverUnderlineLink.astro";
-import Field from "./controls/Field.astro";
-import Button from "./controls/Button.astro";
-
-import { mainNavLinks } from "./Header.astro";
-
-const sitemap = [
-  ...mainNavLinks,
-  {
-    path: "/about",
-    name: "About",
-  },
-  {
-    path: "/contact",
-    name: "Contact",
-  },
-];
-
-const newsletterEndpoint = "api/subscribe";
+import HoverUnderlineLink from "./controls/links/MenuLink.astro";
+import Newsletter from "./Newsletter.astro";
+import Sitemap from "./Sitemap.astro";
 ---
 
 <footer>
   <div class="footer-content">
-    <div class="newsletter">
-      <hgroup>
-        <h2 class="title">Join my Newsletter</h2>
-        <p class="typography-subtitle">
-          and <strong>stay up-to-date</strong> on all my major game announcements.
-        </p>
-      </hgroup>
-
-      <form action={newsletterEndpoint} method="post" class="subscribe-form">
-        <div class="input">
-          <Field id="email-newsletter" type="email" name="email" autocomplete="email" required>
-            Email address
-          </Field>
-        </div>
-        <Button>Subscribe</Button>
-      </form>
-    </div>
-
-    <nav aria-label="Site map">
-      <menu class="site-map">
-        {
-          sitemap.map((page) => (
-            <li class="site-map-item" role="none">
-              <HoverUnderlineLink href={page.path} role="menuitem">
-                {page.name}
-              </HoverUnderlineLink>
-            </li>
-          ))
-        }
-      </menu>
-    </nav>
+    <Newsletter class="newsletter" />
+    <Sitemap class="sitemap" />
 
     <div class="social-media-card">
       <SocialMedia />
@@ -67,7 +22,6 @@ const newsletterEndpoint = "api/subscribe";
 </footer>
 
 <style>
-  /* Base component styling */
   footer {
     inline-size: 100%;
     background-color: var(--color-neutral-900);
@@ -86,7 +40,15 @@ const newsletterEndpoint = "api/subscribe";
     padding-inline: var(--space-sm);
   }
 
-  /* Social media styling */
+  .sitemap {
+    flex: 1 0 auto;
+  }
+
+  .newsletter {
+    flex: 2 0 fit-content;
+  }
+
+  /* Social media card */
   .social-media-card {
     flex: 1 0 auto;
 
@@ -102,69 +64,7 @@ const newsletterEndpoint = "api/subscribe";
     box-shadow: var(--box-shadow-md);
   }
 
-  /* Site map styling */
-  nav {
-    flex: 1 0 auto;
-  }
-
-  .site-map {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-sm) var(--space-lg);
-  }
-
-  .site-map-item:nth-last-child(2) {
-    grid-column: 2 / 3;
-    grid-row: 1;
-  }
-
-  .site-map-item:last-child {
-    grid-column: 2 / 3;
-    grid-row: 2;
-  }
-
-  .hover-underline-link {
-    font-family: var(--typeface-workhorse);
-    font-size: var(--font-size-base);
-    font-weight: var(--light);
-    color: var(--color-neutral-100);
-  }
-
-  /* Newsletter styling */
-  .newsletter {
-    flex: 2 0 fit-content;
-  }
-
-  .newsletter > * {
-    max-inline-size: 60ch;
-  }
-
-  .title {
-    color: var(--color-primary-200);
-  }
-
-  .typography-subtitle {
-    font-size: var(--font-size-md);
-    font-weight: var(--normal);
-  }
-
-  .subscribe-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
-    gap: var(--space-md);
-  }
-
-  .input {
-    flex: 3 0 fit-content;
-  }
-
-  .button {
-    flex: 1 0 fit-content;
-  }
-
-  /* Copyright styling */
+  /* Copyright */
   .copyright {
     padding-inline: var(--space-sm);
     text-align: center;

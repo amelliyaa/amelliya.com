@@ -1,0 +1,115 @@
+---
+import { getCollection } from "astro:content";
+import BlogCard from "../cards/BlogCard.astro";
+
+const recentPosts = (
+  await getCollection("posts", ({ data }) => {
+    return !data.draft;
+  })
+)
+  .sort((a, b) => b.data.published - a.data.published)
+  .slice(0, 3);
+---
+
+<section class="full-width">
+  <a class="blog-posts-header" href="/blog/1" aria-label="Link to blog">
+    <h2>
+      Latest Posts
+      <span aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="ionicon"
+          viewBox="0 0 512 512"
+          width="44"
+          height="44"
+        >
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="48"
+            d="M268 112l144 144-144 144M392 256H100"
+          >
+          </path>
+        </svg>
+      </span>
+    </h2>
+  </a>
+  <div class="blog-content">
+    {
+      recentPosts.map((post) => (
+        <BlogCard href={post.slug} frontmatter={post.data} borderColor="var(--color-neutral-800)" />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  section {
+    background-color: var(--color-neutral-900);
+    padding-block: var(--space-md-lg) var(--space-lg-xl);
+  }
+
+  .blog-posts-header {
+    color: var(--color-neutral-100);
+  }
+
+  .blog-posts-header:hover,
+  .blog-posts-header:focus {
+    color: var(--color-primary-200);
+  }
+
+  .blog-posts-header:hover .ionicon,
+  .blog-posts-header:focus .ionicon {
+    color: var(--color-complement);
+    transform: translate(4px, 10%);
+  }
+
+  .ionicon {
+    block-size: var(--font-size-lg);
+    transform: translate(-4px, 10%);
+  }
+
+  .blog-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: var(--space-md-lg);
+    margin-block-end: var(--space-sm-md);
+  }
+
+  @media only screen and (min-width: 32rem) and (max-width: 54rem) {
+    .blog-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .blog-content > :first-child {
+      grid-column: span 2;
+    }
+  }
+
+  @media only screen and (min-width: 54rem) {
+    .blog-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    section > * {
+      animation: fade-in 1s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+
+    .blog-posts-header {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+
+    .ionicon {
+      transition:
+        transform var(--anim-length-base) ease-in-out,
+        color var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

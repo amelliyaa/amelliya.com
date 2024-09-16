@@ -1,339 +1,32 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ImageCard from "../components/cards/ImageCard.astro";
-import BlogCard from "../components/cards/BlogCard.astro";
-
-const recentPosts = (
-  await getCollection("posts", ({ data }) => {
-    return !data.draft;
-  })
-)
-  .sort((a, b) => b.data.published - a.data.published)
-  .slice(0, 4);
-const games = await getCollection("games");
-const projects = await getCollection("projects");
+import Featured from "../components/index/Featured.astro";
+import PinBoard from "../components/index/PinBoard.astro";
+import LatestPosts from "../components/index/LatestPosts.astro";
 
 const title = "Home | Jane Doe";
 const description = "My site's homepage";
 ---
 
 <BaseLayout title={title} description={description}>
-  <section class="welcome" aria-label="Website welcome note">
-    <h1 class="who">Hello, World! I'm <b>Jane</b></h1>
-    <h2 class="what">I make stuff sometimes</h2>
-  </section>
-
-  <section class="featured full-width" aria-label="Featured games">
-    <h2 class="featured-headline">EXPLORE THE [UNIVERSE]</h2>
-    <hr class="featured-hr" />
-    <div class="featured-grid">
-      {
-        games.map((game) => (
-          <div class="game-card">
-            <a
-              href={`/games/${game.data.route}`}
-              class="game-cover"
-              aria-label={`Link to ${game.data.title}`}
-            >
-              <ImageCard imagePath={game.data.keyArt.imagePath} alt="" />
-            </a>
-            <span class="game-title">{game.data.title}</span>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="projects" aria-labelledby="projects-h2">
-    <h2 class="pin-board-header" id="projects-h2">Jane's Project Board</h2>
-    <div class="pin-board">
-      {
-        projects.map((project) => (
-          <div class="project-pin" data-pin-size={project.data.pinSize}>
-            <div class="pin-content">
-              <h3>
-                {project.data.workingTitle}{" "}
-                <span class="pin-progress">{project.data.progress}%</span>
-              </h3>
-              <p>{project.data.description}</p>
-            </div>
-            <span class="pin-updated">
-              Last updated{" "}
-              {new Date(project.data.updated).toLocaleDateString(undefined, {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="blog-posts full-width" aria-labelledby="blog-posts-h2">
-    <a class="blog-posts-header" href="/blog/1" aria-label="Link to blog">
-      <h2 id="blog-posts-h2">
-        Latest Posts
-        <span aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" class="blog-icon" viewBox="0 0 512 512">
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="48"
-              d="M268 112l144 144-144 144M392 256H100"
-            >
-            </path>
-          </svg>
-        </span>
-      </h2>
-    </a>
-    <div class="blog-content">
-      {recentPosts.map((post) => <BlogCard href={post.slug} frontmatter={post.data} />)}
-    </div>
-  </section>
+  <h1 class="who">Hello, World! I'm <b>Jane</b></h1>
+  <Featured />
+  <PinBoard />
+  <LatestPosts />
 </BaseLayout>
 
 <style>
-  .welcome {
-    margin-block-end: var(--space-2xl-4xl);
-  }
-
   .who {
-    margin-block-end: 0;
+    margin-block-end: var(--space-3xl);
 
     > b {
       color: var(--color-primary-200);
     }
   }
 
-  /* Featured section styling */
-  .featured {
-    padding-block: var(--space-md) var(--space-xl-2xl);
-    margin-block-end: var(--space-2xl-4xl);
-    background-color: var(--color-primary-900);
-    box-shadow: var(--box-shadow-lg);
-  }
-
-  .featured-headline {
-    border-radius: var(--border-radius-sm);
-    font-weight: var(--black);
-    color: var(--color-complement);
-  }
-
-  .featured-hr {
-    inline-size: 100%;
-    margin-block-end: var(--space-md);
-    border: thin solid var(--color-accent);
-  }
-
-  .featured-grid {
-    display: grid;
-    gap: var(--space-md-lg);
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-    justify-content: center;
-    align-content: center;
-    pointer-events: none;
-  }
-
-  /* Overlay for game cards */
-  .featured-grid:hover > .game-card > .game-cover::before {
-    opacity: 1;
-  }
-
-  .featured-grid:hover > .game-card > .game-title {
-    color: var(--color-neutral-300);
-  }
-
-  /* Game card styling */
-  .game-card {
-    white-space: nowrap;
-  }
-
-  .game-cover {
-    display: block;
-    position: relative;
-    aspect-ratio: 1 / 1;
-    pointer-events: auto;
-  }
-
-  /* Overlay */
-  .game-cover::before {
-    content: "";
-    position: absolute;
-    inline-size: 100%;
-    block-size: 100%;
-    background-color: rgb(0 0 0 / 25%);
-    opacity: 0;
-  }
-
-  /* Undo overlay if it is the selected element */
-  .game-cover:hover,
-  .game-cover:focus {
-    transform: translateY(-4px);
-  }
-
-  .game-cover:hover::before,
-  .game-cover:focus::before {
-    opacity: 0 !important;
-  }
-
-  .game-cover:hover + .game-title,
-  .game-cover:focus + .game-title {
-    color: var(--color-neutral-100) !important;
-  }
-
-  .game-title {
-    display: block;
-    margin-block-start: var(--space-2xs);
-    font-family: var(--typeface-workhorse);
-    font-size: var(--font-size-base);
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Progress board styling */
-  .projects {
-    margin-block-end: var(--space-2xl-4xl);
-  }
-
-  .pin-board {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: var(--space-md);
-    padding: var(--space-2xl) var(--space-xl);
-    border-radius: var(--border-radius-lg);
-    background-color: var(--color-neutral-950);
-    outline: 1px solid var(--color-neutral-500);
-    box-shadow: var(--box-shadow-lg);
-  }
-
-  .pin-board-header {
-    padding: var(--space-sm);
-    border-radius: var(--border-radius-sm);
-    font-weight: var(--bold);
-    color: var(--color-neutral-950);
-    background-color: var(--color-primary-400);
-  }
-
-  .project-pin {
-    --_pin-color: var(--color-neutral-950);
-
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    min-inline-size: min(10rem, 100%);
-    max-inline-size: 15rem;
-    aspect-ratio: 1 / 1;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--border-radius-sm);
-    color: var(--color-neutral-950);
-    background-color: var(--color-pin);
-  }
-
-  .project-pin::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 8px;
-    inline-size: var(--space-xs);
-    border-radius: 50%;
-    aspect-ratio: 1 / 1;
-    background-color: var(--_pin-color);
-    transform: translateX(-50%);
-  }
-
-  .project-pin:nth-child(odd) {
-    background-color: var(--color-pin-dark);
-  }
-
-  .project-pin[data-pin-size="md"] {
-    flex: 2;
-  }
-
-  .project-pin[data-pin-size="lg"] {
-    flex: 4;
-  }
-
-  .project-pin:hover {
-    transform: rotate(-2deg);
-  }
-
-  .pin-content > h3 {
-    font-size: var(--font-size-md);
-    font-weight: var(--medium);
-  }
-
-  .pin-content > p {
-    margin-block: 0 var(--space-2xs);
-  }
-
-  .pin-progress {
-    padding: var(--space-3xs) var(--space-2xs);
-    border-radius: var(--border-radius-lg);
-    font-family: var(--typeface-workhorse);
-    font-size: var(--font-size-base);
-    color: var(--color-neutral-950);
-    background-color: rgb(255 255 255 / 50%);
-  }
-
-  .pin-updated {
-    font-family: var(--typeface-workhorse);
-    font-size: var(--font-size-sm);
-    font-weight: var(--medium);
-    color: var(--color-neutral-700);
-  }
-
-  /* Blog section styling */
-  .blog-posts-header {
-    color: var(--color-neutral-100);
-  }
-
-  .blog-posts-header:hover,
-  .blog-posts-header:focus {
-    color: var(--color-primary-200);
-  }
-
-  .blog-posts-header:hover .blog-icon,
-  .blog-posts-header:focus .blog-icon {
-    color: var(--color-complement);
-    transform: translate(4px, 10%);
-  }
-
-  .blog-icon {
-    block-size: var(--font-size-lg);
-    transform: translate(-4px, 10%);
-  }
-
-  .blog-posts {
-    background-color: var(--color-neutral-900);
-    padding-block: var(--space-md-lg) var(--space-lg-xl);
-  }
-
-  .blog-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-lg);
-  }
-
-  @media only screen and (min-width: 36rem) {
-    .blog-content > * {
-      flex-basis: calc(50% - calc(var(--space-lg) / 2));
-    }
-  }
-
-  /* Animations for users who don't mind */
   @media (prefers-reduced-motion: no-preference) {
-    /* Welcome section transitions */
     .who {
-      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+      animation: slide-in 1s cubic-bezier(0.33, 1, 0.68, 1) forwards;
     }
 
     .who::after {
@@ -347,59 +40,16 @@ const description = "My site's homepage";
       animation: blink-caret 0.8s step-end infinite;
     }
 
-    .what {
-      opacity: 0;
-      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.2s forwards;
+    @keyframes blink-caret {
+      from,
+      to {
+        background-color: transparent;
+      }
+      50% {
+        background-color: var(--color-primary-400);
+      }
     }
 
-    /* Featured section transitions */
-    .featured-headline {
-      opacity: 0;
-      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.35s forwards;
-    }
-
-    .featured > *:not(.featured-headline) {
-      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
-    }
-
-    .game-cover {
-      transition: transform var(--anim-length-short) ease-in-out;
-    }
-
-    .game-cover::before {
-      transition: opacity var(--anim-length-short) ease-in-out;
-    }
-
-    .game-title {
-      transition: color var(--anim-length-short) ease-in-out;
-    }
-
-    /* Project board transitions */
-    .pin-board {
-      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
-    }
-
-    .pin-board-header {
-      opacity: 0;
-      animation: slide-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.45s forwards;
-    }
-
-    .project-pin {
-      transition: transform var(--anim-length-short) ease-in-out;
-    }
-
-    /* Blog posts transitions */
-    .blog-posts-header {
-      transition: color var(--anim-length-short) ease-in-out;
-    }
-
-    .blog-icon {
-      transition:
-        transform var(--anim-length-base) ease-in-out,
-        color var(--anim-length-short) ease-in-out;
-    }
-
-    /* Keyframes */
     @keyframes slide-in {
       from {
         margin-inline: -80px 80px;
@@ -412,16 +62,7 @@ const description = "My site's homepage";
       }
     }
 
-    @keyframes blink-caret {
-      from,
-      to {
-        background-color: transparent;
-      }
-      50% {
-        background-color: var(--color-primary-400);
-      }
-    }
-
+    /* Used by components */
     @keyframes fade-in {
       from {
         opacity: 0;

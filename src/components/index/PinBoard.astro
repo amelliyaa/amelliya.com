@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import PinCard from "./PinCard.astro";
+
+const projects = await getCollection("projects");
+---
+
+<section>
+  <h2 class="pin-board-header">Jane's Project Board</h2>
+  <div class="pin-board">
+    {projects.map((project) => <PinCard project={project} />)}
+  </div>
+</section>
+
+<style>
+  section {
+    margin-block-end: var(--space-2xl-3xl);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .pin-board-header {
+    padding: var(--space-sm);
+    margin: 0;
+    font-weight: var(--bold);
+    color: var(--color-neutral-950);
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
+    text-align: center;
+    background-color: var(--color-primary-400);
+  }
+
+  .pin-board {
+    --_pin-board-bg: var(--color-neutral-700);
+
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: var(--space-md);
+    padding: var(--space-2xl) var(--space-xl);
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
+    background-color: var(--_pin-board-bg);
+  }
+
+  /* Add negative offset border while preserving rounded corners */
+  .pin-board::before {
+    --_outline-offset: 2em;
+
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    inline-size: calc(100% - var(--_outline-offset));
+    block-size: calc(100% - var(--_outline-offset));
+    border-radius: var(--border-radius-md);
+    border: 3px dashed var(--color-accent);
+    transform: translate(-50%, -50%);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    section {
+      animation: fade-in 1s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    }
+  }
+</style>

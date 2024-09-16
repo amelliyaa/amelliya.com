@@ -1,6 +1,6 @@
 ---
 import Brand from "./Brand.astro";
-import HoverUnderlineLink from "./controls/links/HoverUnderlineLink.astro";
+import MenuLink from "./controls/links/MenuLink.astro";
 
 const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 export const mainNavLinks = [
@@ -22,7 +22,7 @@ const menuId = "nav-menu";
 
 <script src="../scripts/menu.js"></script>
 <header>
-  <nav class="header-content" aria-label="Site navigation menu">
+  <nav class="navbar" aria-label="Site navigation menu">
     <a href="/" aria-label="Home">
       <Brand />
     </a>
@@ -55,17 +55,13 @@ const menuId = "nav-menu";
       </svg>
     </button>
 
-    <menu class="nav-bar dropdown" id={menuId} role="menu" aria-label="Navigation">
+    <menu class="dropdown" id={menuId} role="menu" aria-label="Navigation">
       {
         mainNavLinks.map((page) => (
           <li role="none">
-            <HoverUnderlineLink
-              href={page.path}
-              role="menuitem"
-              isActive={currentDir === page.name.toLowerCase()}
-            >
+            <MenuLink href={page.path} isActive={currentDir === page.name.toLowerCase()}>
               {page.name}
-            </HoverUnderlineLink>
+            </MenuLink>
           </li>
         ))
       }
@@ -85,7 +81,7 @@ const menuId = "nav-menu";
   }
 
   /* Header styling */
-  .header-content {
+  .navbar {
     z-index: 101;
     position: absolute;
 
@@ -103,12 +99,8 @@ const menuId = "nav-menu";
     box-shadow: var(--box-shadow-sm);
   }
 
-  .header-content:has(menu.show) {
+  .navbar:has(menu.show) {
     gap: var(--space-md);
-  }
-
-  .brand {
-    font-size: var(--font-size-lg);
   }
 
   /* Mobile menu button styling */
@@ -141,7 +133,7 @@ const menuId = "nav-menu";
   }
 
   /* Navigation menu styling */
-  .nav-bar {
+  menu {
     display: flex;
     gap: var(--space-lg);
     text-align: center;
@@ -167,15 +159,8 @@ const menuId = "nav-menu";
     padding-block: 0.625rem;
   }
 
-  .hover-underline-link {
-    font-family: var(--typeface-workhorse);
-    font-size: var(--font-size-base);
-    font-weight: var(--light);
-    color: var(--color-neutral-100);
-  }
-
   @media (prefers-reduced-motion: no-preference) {
-    .header-content {
+    .navbar {
       transition: gap var(--anim-length-long) ease-in-out;
     }
 
@@ -188,7 +173,7 @@ const menuId = "nav-menu";
     }
   }
 
-  /* On large enough displays use menu bar */
+  /* On large enough displays use nav bar */
   @media only screen and (min-width: 36rem) {
     .menu-button {
       display: none;

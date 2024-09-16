@@ -1,12 +1,16 @@
 ---
-const { id, hideLabel, ...rest } = Astro.props;
+const { class: className, id, hideLabel, placeholder, ...attrs } = Astro.props;
+
+if (hideLabel && !placeholder) {
+  throw new Error("Attribute 'placeholder' must be defined when using 'hideLabel'");
+}
 ---
 
 <label class:list={["label", hideLabel && "visually-hidden"]} for={id}><slot /></label>
-<input class="field" id={id} {...rest} />
+<input class:list={["input", className]} id={id} placeholder={placeholder} {...attrs} />
 
 <style>
-  .field {
+  .input {
     block-size: 3rem;
     inline-size: 100%;
     padding-inline: var(--space-sm);
@@ -20,12 +24,12 @@ const { id, hideLabel, ...rest } = Astro.props;
     outline: medium solid var(--color-primary-100);
   }
 
-  .field:hover {
+  .input:hover {
     outline: medium solid var(--color-primary-200);
   }
 
-  .field:focus,
-  .field:active {
+  .input:focus,
+  .input:active {
     border-radius: var(--border-radius-lg);
     outline: medium solid var(--color-input-active);
   }
@@ -39,7 +43,7 @@ const { id, hideLabel, ...rest } = Astro.props;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .field {
+    .input {
       transition:
         border-radius var(--anim-length-short) ease-in-out,
         outline var(--anim-length-short) ease-in-out;

@@ -1,25 +1,30 @@
 ---
-const { href, isActive, ...rest } = Astro.props;
+const { href, isActive } = Astro.props;
 ---
 
 <a
   href={href}
-  class:list={["hover-underline-link", isActive && "active"]}
+  class:list={["menu-link", isActive && "active"]}
+  role="menuitem"
   aria-current={isActive && "page"}
-  {...rest}
 >
   <slot />
 </a>
 
 <style>
-  .hover-underline-link {
+  .menu-link {
     display: inline-block;
     position: relative;
     margin: 0;
     border-radius: var(--border-radius-sm);
+
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--light);
+    color: var(--color-neutral-100);
   }
 
-  .hover-underline-link::after {
+  .menu-link::after {
     content: "";
     position: absolute;
     left: 0;
@@ -48,26 +53,26 @@ const { href, isActive, ...rest } = Astro.props;
     transform: translate(-50%, -50%);
   }
 
-  .hover-underline-link:hover,
-  .hover-underline-link:focus {
+  .menu-link:hover,
+  .menu-link:focus {
     color: var(--color-primary-200);
   }
 
-  :not(.active).hover-underline-link:hover::after,
-  :not(.active).hover-underline-link:focus::after {
+  :not(.active).menu-link:hover::after,
+  :not(.active).menu-link:focus::after {
     transform: scale(100%);
   }
 
-  :not(.active).hover-underline-link:active {
+  :not(.active).menu-link:active {
     outline: 2px solid var(--color-complement);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hover-underline-link {
+    .menu-link {
       transition: color var(--anim-length-short) ease-in-out;
     }
 
-    .hover-underline-link::after {
+    .menu-link::after {
       transition:
         opacity var(--anim-length-base),
         transform var(--anim-length-base);
