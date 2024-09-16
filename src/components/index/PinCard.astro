@@ -11,7 +11,7 @@ const { project } = Astro.props;
     <p>{project.data.description}</p>
   </div>
   <span class="pin-updated">
-    Last updated{" "}
+    Last updated
     {
       new Date(project.data.updated).toLocaleDateString(undefined, {
         year: "numeric",
@@ -29,8 +29,7 @@ const { project } = Astro.props;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    min-inline-size: min(10rem, 100%);
-    max-inline-size: 25rem;
+    min-inline-size: 150px;
     aspect-ratio: 1 / 1;
     padding: var(--space-md) var(--space-md) var(--space-sm) var(--space-sm);
     border-radius: var(--border-radius-sm);

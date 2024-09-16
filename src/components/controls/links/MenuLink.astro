@@ -1,12 +1,12 @@
 ---
-const { href, isActive } = Astro.props;
+const { href, isActive, ...attrs } = Astro.props;
 ---
 
 <a
   href={href}
   class:list={["menu-link", isActive && "active"]}
-  role="menuitem"
   aria-current={isActive && "page"}
+  {...attrs}
 >
   <slot />
 </a>
@@ -26,14 +26,15 @@ const { href, isActive } = Astro.props;
 
   .menu-link::after {
     content: "";
+    display: block;
     position: absolute;
     left: 0;
-    bottom: -0.25rem;
+    bottom: -4px;
     block-size: 2px;
     inline-size: 100%;
     background-color: var(--color-complement);
     transform-origin: left;
-    transform: scale(0);
+    transform: scaleX(0);
   }
 
   .active {
@@ -60,7 +61,7 @@ const { href, isActive } = Astro.props;
 
   :not(.active).menu-link:hover::after,
   :not(.active).menu-link:focus::after {
-    transform: scale(100%);
+    transform: scaleX(100%);
   }
 
   :not(.active).menu-link:active {
@@ -73,9 +74,7 @@ const { href, isActive } = Astro.props;
     }
 
     .menu-link::after {
-      transition:
-        opacity var(--anim-length-base),
-        transform var(--anim-length-base);
+      transition: transform var(--anim-length-medium) cubic-bezier(0.85, 0, 0.15, 1);
     }
   }
 </style>

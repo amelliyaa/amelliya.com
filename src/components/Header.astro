@@ -1,8 +1,6 @@
 ---
-import Brand from "./Brand.astro";
 import MenuLink from "./controls/links/MenuLink.astro";
 
-const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 export const mainNavLinks = [
   {
     path: "/blog/1",
@@ -17,24 +15,25 @@ export const mainNavLinks = [
     name: "Gallery",
   },
 ];
-const menuId = "nav-menu";
+
+const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 ---
 
 <script src="../scripts/menu.js"></script>
 <header>
-  <nav class="navbar" aria-label="Site navigation menu">
-    <a href="/" aria-label="Home">
-      <Brand />
-    </a>
+  <nav class="navbar" id="navigation" aria-label="Site navigation menu">
+    <a href="/" class="brand" aria-label="Home">Jane Doe</a>
 
-    <button
-      class="menu-button"
-      id="mobile-menu-button"
+    <input
+      type="checkbox"
+      role="button"
+      id="menu-button"
       aria-haspopup="menu"
+      aria-controls="menu"
       aria-expanded="false"
-      aria-controls={menuId}
       aria-label="Toggle menu"
-    >
+    />
+    <label for="menu-button" class="menu-label">
       <svg xmlns="http://www.w3.org/2000/svg" id="menu-open" viewBox="0 0 512 512">
         <path
           fill="none"
@@ -53,9 +52,9 @@ const menuId = "nav-menu";
           stroke-width="48"
           d="M428 428L84 84M428 84L84 428"></path>
       </svg>
-    </button>
+    </label>
 
-    <menu class="dropdown" id={menuId} role="menu" aria-label="Navigation">
+    <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">
       {
         mainNavLinks.map((page) => (
           <li role="none">
@@ -80,9 +79,13 @@ const menuId = "nav-menu";
     font-size: var(--font-size-lg);
   }
 
+  header {
+    position: relative;
+  }
+
   /* Header styling */
   .navbar {
-    z-index: 101;
+    z-index: 100;
     position: absolute;
 
     display: grid;
@@ -92,6 +95,7 @@ const menuId = "nav-menu";
     gap: 0;
 
     inline-size: 100%;
+    min-inline-size: fit-content;
     padding: var(--space-sm);
 
     background-color: var(--color-neutral-900);
@@ -99,24 +103,35 @@ const menuId = "nav-menu";
     box-shadow: var(--box-shadow-sm);
   }
 
-  .navbar:has(menu.show) {
-    gap: var(--space-md);
+  .brand {
+    font-family: var(--typeface-logo);
+    font-size: var(--font-size-lg);
+    font-weight: var(--bold);
+    color: var(--color-primary-400);
+    white-space: nowrap;
   }
 
   /* Mobile menu button styling */
-  .menu-button {
-    padding: 0;
+  #menu-button {
+    appearance: none;
+    position: absolute;
+    z-index: -1;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    pointer-events: none;
+  }
 
+  .menu-label {
     inline-size: 1.5rem;
     block-size: 1.5rem;
-
-    background-color: transparent;
-    border: none;
+    user-select: none;
     cursor: pointer;
     color: var(--color-neutral-100);
   }
 
-  .menu-button:hover {
+  .menu-label:hover {
     color: var(--color-neutral-200);
   }
 
@@ -124,58 +139,52 @@ const menuId = "nav-menu";
     display: none;
   }
 
-  .menu-button[aria-expanded="true"] > #menu-open {
+  #menu-button:checked + .menu-label > #menu-open {
     display: none;
   }
 
-  .menu-button[aria-expanded="true"] > #menu-close {
+  #menu-button:checked + .menu-label > #menu-close {
     display: block;
   }
 
   /* Navigation menu styling */
-  menu {
-    display: flex;
-    gap: var(--space-lg);
-    text-align: center;
-  }
-
   .dropdown {
     grid-column: span 2;
+    display: flex;
+    gap: var(--space-sm-md);
     flex-direction: column;
 
     inline-size: 100%;
     max-block-size: 0;
-
     overflow: hidden;
+    text-align: center;
+    opacity: 0;
   }
 
-  .show {
-    /* Line-height * n + gap * (n - 1) + padding */
-    max-block-size: calc(1.15rem * 3 + var(--space-md) * 2 + var(--space-md) + 1.25rem);
-  }
-
-  /* Needed to prevent overflow:hidden from hiding outline/underline */
-  .show:last-child {
-    padding-block: 0.625rem;
+  #menu-button:checked ~ .dropdown {
+    /* (line-height + gap) * n + padding */
+    max-block-size: calc((1.2rem + var(--space-sm-md)) * 3 + var(--space-sm) + var(--space-xs));
+    padding-block: var(--space-sm) var(--space-xs);
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .navbar {
-      transition: gap var(--anim-length-long) ease-in-out;
-    }
-
     .dropdown {
-      transition: max-height var(--anim-length-base) ease-in-out;
+      transition:
+        max-block-size var(--anim-length-base) ease-in-out,
+        padding-block var(--anim-length-long) ease-in-out,
+        opacity var(--anim-length-medium) ease-in-out;
     }
 
-    .menu-button {
+    .menu-label {
       transition: color var(--anim-length-base) ease-in-out;
     }
   }
 
   /* On large enough displays use nav bar */
   @media only screen and (min-width: 36rem) {
-    .menu-button {
+    #menu-button,
+    .menu-label {
       display: none;
     }
 
@@ -185,8 +194,8 @@ const menuId = "nav-menu";
 
       inline-size: auto;
       max-block-size: none;
-
       overflow: visible;
+      opacity: 1;
     }
   }
 </style>

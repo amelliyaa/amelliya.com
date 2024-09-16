@@ -119,8 +119,8 @@
 
 body {
   /* Push footer to bottom of page */
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   block-size: 100vh;
 
   font-family: var(--typeface-body);
@@ -129,7 +129,7 @@ body {
   background-color: var(--color-neutral-800);
 }
 
-menu {
+menu, ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -224,12 +224,12 @@ p {
 }
 
 .no-scroll {
-  overflow: hidden;
+  overflow-y: hidden;
 
   &::before {
     content: "";
     position: fixed;
-    z-index: 100;
+    z-index: 90;
     inline-size: 100%;
     block-size: 100%;
     background-color: var(--color-overlay);
@@ -239,14 +239,21 @@ p {
 /* Grid layout */
 
 .content-grid {
+  --_padding-inline: var(--space-sm);
   --_max-width: var(--max-page-width);
+  width: 100%;
 
   display: grid;
   grid-template-columns:
       [full-width-start] 1fr
-      [content-start] min(var(--_max-width), calc(100% - var(--space-sm) * 2)) [content-end]
+      [content-start] min(var(--_max-width), 100%) [content-end]
       1fr [full-width-end];
   margin-block: var(--space-md-lg) var(--space-2xl-4xl);
+  padding-inline: var(--_padding-inline);
+}
+
+.content-grid > * {
+  min-inline-size: fit-content;
 }
 
 .content-grid > :not(.full-width),
@@ -256,7 +263,30 @@ p {
 
 .content-grid > .full-width {
   grid-column: full-width;
-
   display: grid;
   grid-template-columns: inherit;
+  padding-inline: inherit;
+  margin-inline: calc(var(--_padding-inline) * -1);
+}
+
+/* Keyframes */
+@keyframes slide-in {
+  from {
+    margin-inline: -80px 80px;
+    opacity: 0;
+  }
+
+  to {
+    margin-inline: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

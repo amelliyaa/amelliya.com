@@ -29,15 +29,14 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
       </path>
     </svg>
   </a>
-  <menu>
+  <ul class="page-list">
     {
       paginatedList.map((page) =>
         page !== -1 ? (
-          <li role="none">
+          <li>
             <a
               href={`/blog/${page}`}
               class="page-button"
-              role="menuitem"
               aria-label={
                 page === 1 ? "First page" : page === lastPage ? "Last page" : `Page ${page}`
               }
@@ -54,7 +53,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
         ),
       )
     }
-  </menu>
+  </ul>
   <a href={nextUrl} class="chevron-button" aria-label="next page" aria-hidden={!nextUrl && "true"}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +87,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     font-weight: var(--bold);
   }
 
-  menu {
+  .page-list {
     display: flex;
     align-items: end;
     overflow-x: auto;

@@ -1,63 +1,58 @@
 document.addEventListener("astro:page-load", () => {
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const navMenu = document.getElementById("nav-menu");
-  const menuItems = navMenu.querySelectorAll("li > a");
+  const menu = document.getElementById("menu");
+  const menuButton = document.getElementById("menu-button");
+  const main = document.querySelector("main");
+  const footer = document.querySelector("footer");
   const breakpoint = window.matchMedia("(min-width: 36rem)");
 
-  const toggleDropdown = () => {
-    navMenu.classList.toggle("show");
+  const togglePageFocus = (focusable) => {
+    document.body.classList.toggle("no-scroll", focusable);
 
-    if (mobileMenuButton.getAttribute("aria-expanded") === "false") {
-      // dropdown was opened
-      mobileMenuButton.setAttribute("aria-expanded", "true");
-      setScrolling(true);
-      addToFocusOrder();
+    if (focusable) {
+      main.setAttribute("inert", "true");
+      footer.setAttribute("inert", "true");
     } else {
-      // dropdown was closed
-      mobileMenuButton.setAttribute("aria-expanded", "false");
-      setScrolling(false);
-      removeFromFocusOrder();
+      main.removeAttribute("inert");
+      footer.removeAttribute("inert");
     }
   };
 
-  const addToFocusOrder = () => {
-    menuItems.forEach((menuItem) => {
-      menuItem.removeAttribute("tabIndex");
-    });
-  };
-
-  const removeFromFocusOrder = () => {
-    menuItems.forEach((menuItem) => {
-      menuItem.tabIndex = -1;
-    });
-  };
-
-  const setScrolling = (bool) => {
-    document.body.classList.toggle("no-scroll", bool);
-  };
-
-  if (!breakpoint.matches) {
-    removeFromFocusOrder();
-  }
-
-  mobileMenuButton.addEventListener("click", toggleDropdown);
-
-  breakpoint.addEventListener("change", ({ matches: isWide }) => {
-    if (mobileMenuButton.getAttribute("aria-expanded") === "true") {
-      // dropdown was visible
-      if (isWide) {
-        setScrolling(false);
-        addToFocusOrder();
-      } else {
-        setScrolling(true);
-      }
+  const toggleMenuFocus = (focusable) => {
+    if (focusable) {
+      menu.removeAttribute("inert");
     } else {
-      // dropdown was not visible
-      if (isWide) {
-        addToFocusOrder();
-      } else {
-        removeFromFocusOrder();
-      }
+      menu.setAttribute("inert", "true");
+    }
+  };
+
+  const toggleDropdown = () => {
+    menuButton.setAttribute("aria-expanded", menuButton.checked);
+    togglePageFocus(menuButton.checked);
+    toggleMenuFocus(menuButton.checked);
+  };
+
+  menuButton.addEventListener("click", () => toggleDropdown());
+
+  // add enter functionality to checkbox
+  menuButton.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      menuButton.checked = !menuButton.checked;
+      toggleDropdown();
     }
   });
+
+  breakpoint.addEventListener("change", ({ matches: hasMenuBar }) => {
+    if (menuButton.getAttribute("aria-expanded") === "true") {
+      // dropdown was visible
+      togglePageFocus(!hasMenuBar);
+    } else {
+      // dropdown was not visible
+      toggleMenuFocus(hasMenuBar);
+    }
+  });
+
+  // inverse breakpoint so even if no js the user can still tab through the page
+  if (!breakpoint.matches) {
+    menu.setAttribute("inert", "true");
+  }
 });

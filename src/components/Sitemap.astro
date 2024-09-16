@@ -1,5 +1,5 @@
 ---
-import { mainNavLinks } from "./Navbar.astro";
+import { mainNavLinks } from "./Header.astro";
 import MenuLink from "./controls/links/MenuLink.astro";
 
 const sitemap = [
@@ -17,31 +17,29 @@ const sitemap = [
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<nav class:list={className} aria-label="Site map" {...attrs}>
-  <menu>
-    {
-      sitemap.map((page) => (
-        <li role="none">
-          <MenuLink href={page.path}>{page.name}</MenuLink>
-        </li>
-      ))
-    }
-  </menu>
-</nav>
+<ul class={className} id="sitemap" aria-label="Site map" {...attrs}>
+  {
+    sitemap.map((page) => (
+      <li>
+        <MenuLink href={page.path}>{page.name}</MenuLink>
+      </li>
+    ))
+  }
+</ul>
 
 <style>
-  menu {
+  ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-sm) var(--space-lg);
   }
 
-  menu:nth-last-child(2) {
+  ul:nth-last-child(2) {
     grid-column: 2 / 3;
     grid-row: 1;
   }
 
-  menu:last-child {
+  ul:last-child {
     grid-column: 2 / 3;
     grid-row: 2;
   }
