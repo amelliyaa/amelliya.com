@@ -21,7 +21,7 @@ const { href, isActive, ...attrs } = Astro.props;
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-base);
     font-weight: var(--light);
-    color: var(--color-neutral-100);
+    color: var(--color-text-light);
   }
 
   .menu-link::after {
@@ -32,13 +32,20 @@ const { href, isActive, ...attrs } = Astro.props;
     bottom: -4px;
     block-size: 2px;
     inline-size: 100%;
-    background-color: var(--color-complement);
+    background-color: var(--color-selected);
+    transform-origin: right;
+    transform: scaleX(0) scaleY(1.0001);
+  }
+
+  :not(.active).menu-link:hover::after,
+  :not(.active).menu-link:focus::after {
     transform-origin: left;
-    transform: scaleX(0);
+    /* scaleY prevents the height from jumping around causing annoying visual glitches */
+    transform: scaleX(1) scaleY(1.0001);
   }
 
   .active {
-    color: var(--color-primary-200) !important;
+    color: var(--color-selected) !important;
   }
 
   .active::before {
@@ -50,22 +57,17 @@ const { href, isActive, ...attrs } = Astro.props;
     inline-size: 125%;
     block-size: 150%;
     border-radius: var(--border-radius-sm);
-    outline: 2px solid var(--color-primary-400);
+    outline: 2px solid var(--color-selected);
     transform: translate(-50%, -50%);
+  }
+
+  :not(.active).menu-link:active {
+    outline: 2px solid var(--color-selected);
   }
 
   .menu-link:hover,
   .menu-link:focus {
-    color: var(--color-primary-200);
-  }
-
-  :not(.active).menu-link:hover::after,
-  :not(.active).menu-link:focus::after {
-    transform: scaleX(100%);
-  }
-
-  :not(.active).menu-link:active {
-    outline: 2px solid var(--color-complement);
+    color: var(--color-primary);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -74,7 +76,7 @@ const { href, isActive, ...attrs } = Astro.props;
     }
 
     .menu-link::after {
-      transition: transform var(--anim-length-medium) cubic-bezier(0.85, 0, 0.15, 1);
+      transition: transform var(--anim-length-base) cubic-bezier(0.85, 0, 0.15, 1);
     }
   }
 </style>

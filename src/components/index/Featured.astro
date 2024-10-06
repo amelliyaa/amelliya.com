@@ -6,7 +6,7 @@ import ImageCard from "../cards/ImageCard.astro";
 const games = await getCollection("games");
 ---
 
-<section class="full-width" aria-label="Featured games">
+<section aria-label="Featured games">
   <h2 class="featured-headline">EXPLORE THE [UNIVERSE]</h2>
   <hr />
   <div class="featured-grid">
@@ -31,8 +31,6 @@ const games = await getCollection("games");
   section {
     padding-block: var(--space-md) var(--space-xl-2xl);
     margin-block-end: var(--space-2xl-3xl);
-    background-color: var(--color-primary-900);
-    box-shadow: var(--box-shadow-lg);
   }
 
   hr {
@@ -44,7 +42,7 @@ const games = await getCollection("games");
   .featured-headline {
     border-radius: var(--border-radius-sm);
     font-weight: var(--black);
-    color: var(--color-complement);
+    color: var(--color-primary);
   }
 
   .featured-grid {
@@ -62,7 +60,7 @@ const games = await getCollection("games");
   }
 
   .featured-grid:hover > .game-card > .game-title {
-    color: var(--color-neutral-300);
+    color: var(--color-text-faint);
   }
 
   /* Game card styling */
@@ -83,7 +81,8 @@ const games = await getCollection("games");
     position: absolute;
     inline-size: 100%;
     block-size: 100%;
-    background-color: rgb(0 0 0 / 25%);
+    border-radius: var(--border-radius-lg);
+    background-color: var(--color-overlay);
     opacity: 0;
   }
 
@@ -91,6 +90,7 @@ const games = await getCollection("games");
   .game-cover:hover,
   .game-cover:focus {
     transform: translateY(-4px);
+    box-shadow: var(--box-shadow-lg);
   }
 
   .game-cover:hover::before,
@@ -100,7 +100,7 @@ const games = await getCollection("games");
 
   .game-cover:hover + .game-title,
   .game-cover:focus + .game-title {
-    color: var(--color-neutral-100) !important;
+    color: var(--color-text-light) !important;
   }
 
   .game-title {

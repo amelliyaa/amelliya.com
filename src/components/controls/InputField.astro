@@ -17,21 +17,17 @@ if (hideLabel && !placeholder) {
 
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-base);
-    background-color: var(--color-neutral-800);
+    background-color: var(--color-bg-bright);
 
     border: none;
     border-radius: var(--border-radius-md);
-    outline: medium solid var(--color-primary-100);
-  }
-
-  .input:hover {
-    outline: medium solid var(--color-primary-200);
+    outline: medium solid var(--color-primary);
   }
 
   .input:focus,
   .input:active {
     border-radius: var(--border-radius-lg);
-    outline: medium solid var(--color-input-active);
+    outline: medium solid var(--color-selected);
   }
 
   .label {
@@ -39,7 +35,7 @@ if (hideLabel && !placeholder) {
     margin-block-end: var(--space-2xs);
     font-family: var(--typeface-workhorse);
     font-weight: var(--light);
-    color: var(--color-neutral-200);
+    color: var(--color-text-faint);
   }
 
   @media (prefers-reduced-motion: no-preference) {

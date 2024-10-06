@@ -2,7 +2,7 @@
 import { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
 
-const { href, frontmatter, borderColor, ...rest } = Astro.props;
+const { href, frontmatter, ...rest } = Astro.props;
 const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
   year: "numeric",
   month: "short",
@@ -18,24 +18,24 @@ if (!images[frontmatter.thumbnail.imagePath])
   );
 ---
 
-<a href={href} class="card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
+<a href={href} class="blog-card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
   <Picture
-    class="thumbnail"
+    class="post-thumbnail"
     src={images[frontmatter.thumbnail.imagePath]()}
     alt={frontmatter.thumbnail.alt}
   />
-  <div class="card-content">
-    <div class="tags">
+  <div class="blog-card-content">
+    <div class="post-tags">
       {frontmatter.tags.map((tag: string) => <span class="metadata tag">{tag}</span>)}
     </div>
-    <hgroup class="info">
-      <h3 class="title">{frontmatter.title}</h3>
-      <p class="desc">{frontmatter.description}</p>
+    <hgroup class="post-info">
+      <h3 class="post-title">{frontmatter.title}</h3>
+      <p class="post-desc">{frontmatter.description}</p>
     </hgroup>
-    <div class="date">
+    <div class="post-date">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="calendar"
+        class="ionicon"
         viewBox="0 0 512 512"
         width="20"
         height="20"
@@ -50,7 +50,10 @@ if (!images[frontmatter.thumbnail.imagePath])
           y="80"
           width="416"
           height="384"
-          rx="48"></rect><path
+          rx="48"
+        >
+        </rect>
+        <path
           fill="none"
           stroke="currentColor"
           stroke-linejoin="round"
@@ -65,49 +68,56 @@ if (!images[frontmatter.thumbnail.imagePath])
   </div>
 </a>
 
-<style define:vars={{ borderColor }}>
-  .card {
+<style>
+  .blog-card {
+    position: relative;
     display: flex;
     flex-direction: column;
+    min-inline-size: 200px;
     border-radius: var(--border-radius-lg);
-    border: 2px solid var(--borderColor);
-    color: var(--color-neutral-100);
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-light);
+    background: var(--color-bg-bright);
     box-shadow: var(--box-shadow-md);
-    min-inline-size: 160px;
+    overflow: hidden;
   }
 
-  .card:hover,
-  .card:focus {
+  .blog-card:hover,
+  .blog-card:focus {
     transform: translateY(-4px);
     box-shadow: var(--box-shadow-lg);
   }
 
-  .thumbnail {
-    aspect-ratio: 3 / 2;
-    inline-size: 100%;
-    block-size: 100%;
-    border-radius: var(--border-radius-lg);
-    object-fit: cover;
-    box-shadow: var(--box-shadow-lg);
+  .blog-card:hover::after,
+  .blog-card:focus::after {
+    opacity: 1;
   }
 
-  .card-content {
+  .blog-card-content {
     display: flex;
     flex-direction: column;
     block-size: 100%;
     padding: var(--space-xs);
   }
 
-  .info {
+  .post-thumbnail {
+    aspect-ratio: 3 / 2;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .post-info {
     flex: 1;
   }
 
-  .title {
+  .post-title {
     margin-block-start: var(--space-2xs);
-    color: var(--color-primary-100);
+    color: var(--color-heading);
   }
 
-  .desc {
+  .post-desc {
     margin-block: 0 var(--space-xs);
   }
 
@@ -116,7 +126,7 @@ if (!images[frontmatter.thumbnail.imagePath])
     font-size: var(--font-size-sm);
   }
 
-  .tags {
+  .post-tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2xs);
@@ -126,23 +136,19 @@ if (!images[frontmatter.thumbnail.imagePath])
     padding: var(--space-3xs) var(--space-xs);
     border-radius: var(--border-radius-md);
     font-weight: var(--semibold);
-    color: var(--color-neutral-950);
-    background-color: var(--color-primary-400);
+    color: var(--color-text-dark);
+    background-color: var(--color-secondary);
   }
 
-  .date > .metadata {
-    color: var(--color-neutral-200);
-  }
-
-  .calendar {
+  .ionicon {
     inline-size: var(--space-xs);
     block-size: var(--space-xs);
-    color: var(--color-accent);
     transform: translateY(10%);
+    color: var(--color-secondary);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .card {
+    .blog-card {
       transition: transform var(--anim-length-short) ease-in-out;
     }
   }

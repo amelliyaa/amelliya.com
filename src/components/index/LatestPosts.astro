@@ -11,7 +11,7 @@ const recentPosts = (
   .slice(0, 3);
 ---
 
-<section class="full-width">
+<section>
   <a class="blog-posts-header" href="/blog/1" aria-label="Link to blog">
     <h2>
       Latest Posts
@@ -20,8 +20,8 @@ const recentPosts = (
           xmlns="http://www.w3.org/2000/svg"
           class="ionicon"
           viewBox="0 0 512 512"
-          width="44"
-          height="44"
+          width="20"
+          height="20"
         >
           <path
             fill="none"
@@ -47,7 +47,6 @@ const recentPosts = (
 
 <style>
   section {
-    background-color: var(--color-neutral-900);
     padding-block: var(--space-md-lg) var(--space-lg-xl);
   }
 
@@ -57,44 +56,32 @@ const recentPosts = (
 
   .blog-posts-header:hover,
   .blog-posts-header:focus {
-    color: var(--color-primary-200);
+    color: var(--color-primary);
   }
 
   .blog-posts-header:hover .ionicon,
   .blog-posts-header:focus .ionicon {
-    color: var(--color-complement);
+    color: var(--color-selected);
     transform: translate(4px, 10%);
   }
 
   .ionicon {
+    inline-size: var(--font-size-lg);
     block-size: var(--font-size-lg);
     transform: translate(-4px, 10%);
   }
 
   .blog-content {
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    justify-items: center;
     gap: var(--space-md-lg);
     margin-block-end: var(--space-sm-md);
   }
 
-  @media only screen and (min-width: 32rem) and (max-width: 54rem) {
-    .blog-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .blog-content > :first-child {
-      grid-column: span 2;
-    }
-  }
-
-  @media only screen and (min-width: 54rem) {
-    .blog-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-    }
+  .blog-content > * {
+    flex: 1;
   }
 
   @media (prefers-reduced-motion: no-preference) {

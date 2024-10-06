@@ -34,23 +34,23 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       aria-label="Toggle menu"
     />
     <label for="menu-button" class="menu-label">
-      <svg xmlns="http://www.w3.org/2000/svg" id="menu-open" viewBox="0 0 512 512">
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="48"
-          d="M84 116h400M84 256h400M84 396h400"></path>
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" id="menu-close" viewBox="0 0 512 512">
+      Menu
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="ionicon"
+        viewBox="0 0 512 512"
+        width="20"
+        height="20"
+      >
         <path
           fill="none"
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
-          stroke-width="48"
-          d="M428 428L84 84M428 84L84 428"></path>
+          stroke-width="36"
+          d="M112 184l144 144 144-144"
+        >
+        </path>
       </svg>
     </label>
 
@@ -98,16 +98,20 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     min-inline-size: fit-content;
     padding: var(--space-sm);
 
-    background-color: var(--color-neutral-900);
-    border-block-end: 1px solid var(--color-neutral-700);
+    background-color: var(--color-bg-dark);
+    border-block-end: 1px solid var(--color-bg-bright);
     box-shadow: var(--box-shadow-sm);
+  }
+
+  .navbar:has(#menu-button:checked) {
+    gap: 8px;
   }
 
   .brand {
     font-family: var(--typeface-logo);
     font-size: var(--font-size-lg);
     font-weight: var(--bold);
-    color: var(--color-primary-400);
+    color: var(--color-primary);
     white-space: nowrap;
   }
 
@@ -118,16 +122,21 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     z-index: -1;
     top: var(--space-sm);
     right: var(--space-sm);
-    inline-size: 1.75rem;
-    block-size: 1.75rem;
+    inline-size: 5.75rem;
+    block-size: 2rem;
     pointer-events: none;
   }
 
   .menu-label {
-    inline-size: 1.5rem;
-    block-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
     user-select: none;
     cursor: pointer;
+
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--light);
     color: var(--color-neutral-100);
   }
 
@@ -135,16 +144,13 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     color: var(--color-neutral-200);
   }
 
-  #menu-close {
-    display: none;
+  .ionicon {
+    block-size: var(--space-md);
+    inline-size: var(--space-md);
   }
 
-  #menu-button:checked + .menu-label > #menu-open {
-    display: none;
-  }
-
-  #menu-button:checked + .menu-label > #menu-close {
-    display: block;
+  #menu-button:checked + .menu-label > .ionicon {
+    transform: rotate(180deg);
   }
 
   /* Navigation menu styling */
@@ -178,6 +184,10 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 
     .menu-label {
       transition: color var(--anim-length-base) ease-in-out;
+    }
+
+    .ionicon {
+      transition: transform var(--anim-length-medium) ease-in-out;
     }
   }
 

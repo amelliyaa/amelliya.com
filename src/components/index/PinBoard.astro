@@ -16,30 +16,30 @@ const projects = await getCollection("projects");
   section {
     margin-block-end: var(--space-2xl-3xl);
     box-shadow: var(--box-shadow-lg);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
   }
 
   .pin-board-header {
     padding: var(--space-sm);
     margin: 0;
     font-weight: var(--bold);
-    color: var(--color-neutral-950);
-    border-top-left-radius: var(--border-radius-lg);
-    border-top-right-radius: var(--border-radius-lg);
+    color: var(--color-text-dark);
+    background-color: var(--color-primary);
     text-align: center;
-    background-color: var(--color-primary-400);
   }
 
   .pin-board {
-    --_pin-board-bg: var(--color-neutral-700);
+    --_pin-board-bg: var(--color-bg-dark);
+    --_dots-color: rgb(250 250 250 / 12.5%);
+
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     justify-content: space-evenly;
     gap: var(--space-md-lg);
     padding: var(--space-lg-xl);
-    border-bottom-left-radius: var(--border-radius-lg);
-    border-bottom-right-radius: var(--border-radius-lg);
-    background-color: var(--_pin-board-bg);
+    background-color: var(--color-bg-bright);
   }
 
   /* Add negative offset border while preserving rounded corners */
@@ -53,8 +53,14 @@ const projects = await getCollection("projects");
     display: block;
     inline-size: calc(100% - var(--_outline-offset));
     block-size: calc(100% - var(--_outline-offset));
+
+    background-color: var(--_pin-board-bg);
+    background-image: radial-gradient(circle at 10px 10px, var(--_dots-color) 1px, transparent 1px),
+      radial-gradient(circle at 30px 30px, var(--_dots-color) 1px, transparent 1px);
+    background-size: 35px 35px; /* Size of the pattern */
+
     border-radius: var(--border-radius-md);
-    border: 3px dashed var(--color-accent);
+    border: 3px dashed var(--color-secondary);
     transform: translate(-50%, -50%);
   }
 

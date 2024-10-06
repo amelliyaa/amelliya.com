@@ -1,6 +1,5 @@
 ---
 import SocialMedia from "./SocialMedia.astro";
-import HoverUnderlineLink from "./controls/links/MenuLink.astro";
 import Newsletter from "./Newsletter.astro";
 import Sitemap from "./Sitemap.astro";
 ---
@@ -26,8 +25,8 @@ import Sitemap from "./Sitemap.astro";
     inline-size: 100%;
     min-inline-size: fit-content;
     margin-top: auto;
-    background-color: var(--color-neutral-900);
-    border-block-start: 1px solid var(--color-neutral-700);
+    border-block-start: 1px solid var(--color-bg-bright);
+    background-color: var(--color-bg-dark);
   }
 
   .footer-content {
@@ -59,9 +58,9 @@ import Sitemap from "./Sitemap.astro";
     justify-content: center;
     gap: var(--space-md);
 
-    inline-size: 100%;
+    max-inline-size: 100%;
     padding: var(--space-xs) var(--space-md);
-    background-color: var(--color-primary-500);
+    background-color: var(--color-bg);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--box-shadow-md);
   }
@@ -73,7 +72,7 @@ import Sitemap from "./Sitemap.astro";
   }
 
   .copyright > hr {
-    border: thin solid var(--color-neutral-800);
+    border: thin solid var(--color-bg-bright);
   }
 
   .copyright > span {
@@ -82,6 +81,6 @@ import Sitemap from "./Sitemap.astro";
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-sm);
     font-weight: var(--light);
-    color: var(--color-neutral-200);
+    color: var(--color-text-faint);
   }
 </style>
