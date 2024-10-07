@@ -6,14 +6,14 @@ document.addEventListener("astro:page-load", () => {
   const breakpoint = window.matchMedia("(min-width: 36rem)");
 
   const togglePageFocus = (focusable) => {
-    document.body.classList.toggle("no-scroll", focusable);
+    document.body.classList.toggle("no-scroll", !focusable);
 
     if (focusable) {
-      main.setAttribute("inert", "true");
-      footer.setAttribute("inert", "true");
-    } else {
       main.removeAttribute("inert");
       footer.removeAttribute("inert");
+    } else {
+      main.setAttribute("inert", "true");
+      footer.setAttribute("inert", "true");
     }
   };
 
@@ -25,10 +25,10 @@ document.addEventListener("astro:page-load", () => {
     }
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (forceMenuFocus = false) => {
     menuButton.setAttribute("aria-expanded", menuButton.checked);
-    togglePageFocus(menuButton.checked);
-    toggleMenuFocus(menuButton.checked);
+    togglePageFocus(!menuButton.checked);
+    toggleMenuFocus(menuButton.checked | forceMenuFocus);
   };
 
   menuButton.addEventListener("click", () => toggleDropdown());
@@ -42,12 +42,13 @@ document.addEventListener("astro:page-load", () => {
   });
 
   breakpoint.addEventListener("change", ({ matches: hasMenuBar }) => {
-    if (menuButton.getAttribute("aria-expanded") === "true") {
-      // dropdown was visible
-      togglePageFocus(!hasMenuBar);
-    } else {
+    if (menuButton.getAttribute("aria-expanded") === "false") {
       // dropdown was not visible
       toggleMenuFocus(hasMenuBar);
+    } else if (hasMenuBar) {
+      // dropdown was visible
+      menuButton.checked = false;
+      toggleDropdown(true);
     }
   });
 

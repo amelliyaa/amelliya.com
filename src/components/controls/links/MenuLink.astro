@@ -1,10 +1,11 @@
 ---
-const { href, isActive, ...attrs } = Astro.props;
+const { href, role, isActive, ...attrs } = Astro.props;
 ---
 
 <a
   href={href}
-  class:list={["menu-link", isActive && "active"]}
+  role={role}
+  class:list={["_menu-link", isActive && "active"]}
   aria-current={isActive && "page"}
   {...attrs}
 >
@@ -12,19 +13,18 @@ const { href, isActive, ...attrs } = Astro.props;
 </a>
 
 <style>
-  .menu-link {
+  ._menu-link {
     display: inline-block;
     position: relative;
     margin: 0;
     border-radius: var(--border-radius-sm);
-
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-base);
     font-weight: var(--light);
     color: var(--color-text-light);
   }
 
-  .menu-link::after {
+  ._menu-link::after {
     content: "";
     display: block;
     position: absolute;
@@ -34,20 +34,31 @@ const { href, isActive, ...attrs } = Astro.props;
     inline-size: 100%;
     background-color: var(--color-selected);
     transform-origin: right;
-    transform: scaleX(0) scaleY(1.0001);
+
+    /* setting scaleY prevents the height from jumping around causing annoying visual glitches */
+    transform: scale(0, 1.0001);
   }
 
-  :not(.active).menu-link:hover::after,
-  :not(.active).menu-link:focus::after {
+  :not(.active)._menu-link:hover::after,
+  :not(.active)._menu-link:focus::after {
     transform-origin: left;
-    /* scaleY prevents the height from jumping around causing annoying visual glitches */
-    transform: scaleX(1) scaleY(1.0001);
+    transform: scale(1, 1.0001);
+  }
+
+  :not(.active)._menu-link:active {
+    outline: 2px solid var(--color-selected);
+  }
+
+  :not(.active)._menu-link:hover,
+  :not(.active)._menu-link:focus {
+    color: var(--color-primary);
   }
 
   .active {
-    color: var(--color-selected) !important;
+    color: var(--color-primary);
   }
 
+  /* Outline the pseudo-element to preserve consistent border-radius */
   .active::before {
     content: "";
     position: absolute;
@@ -57,25 +68,21 @@ const { href, isActive, ...attrs } = Astro.props;
     inline-size: 125%;
     block-size: 150%;
     border-radius: var(--border-radius-sm);
-    outline: 2px solid var(--color-selected);
+    outline: 2px solid var(--color-primary);
     transform: translate(-50%, -50%);
   }
 
-  :not(.active).menu-link:active {
-    outline: 2px solid var(--color-selected);
-  }
-
-  .menu-link:hover,
-  .menu-link:focus {
-    color: var(--color-primary);
+  /* Remove highlight outline on tab focus */
+  .active:focus::before {
+    outline: none;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .menu-link {
+    ._menu-link {
       transition: color var(--anim-length-short) ease-in-out;
     }
 
-    .menu-link::after {
+    ._menu-link::after {
       transition: transform var(--anim-length-base) cubic-bezier(0.85, 0, 0.15, 1);
     }
   }

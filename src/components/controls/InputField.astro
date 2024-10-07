@@ -7,10 +7,10 @@ if (hideLabel && !placeholder) {
 ---
 
 <label class:list={["label", hideLabel && "visually-hidden"]} for={id}><slot /></label>
-<input class:list={["input", className]} id={id} placeholder={placeholder} {...attrs} />
+<input class:list={["_input", className]} id={id} placeholder={placeholder} {...attrs} />
 
 <style>
-  .input {
+  ._input {
     block-size: 3rem;
     inline-size: 100%;
     padding-inline: var(--space-sm);
@@ -24,8 +24,8 @@ if (hideLabel && !placeholder) {
     outline: medium solid var(--color-primary);
   }
 
-  .input:focus,
-  .input:active {
+  ._input:focus,
+  ._input:active {
     border-radius: var(--border-radius-lg);
     outline: medium solid var(--color-selected);
   }

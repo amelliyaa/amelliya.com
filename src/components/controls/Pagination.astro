@@ -14,7 +14,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
+      class="chevron"
       viewBox="0 0 512 512"
       height="20"
       width="20"
@@ -59,7 +59,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
   <a href={nextUrl} class="chevron-button" aria-label="next page" aria-hidden={!nextUrl && "true"}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="ionicon"
+      class="chevron"
       viewBox="0 0 512 512"
       height="20"
       width="20"
@@ -109,7 +109,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     border-radius: var(--border-radius-md);
     text-align: center;
     line-height: var(--_height);
-    color: var(--color-neutral-100);
+    color: var(--color-text-light);
   }
 
   .page-button:hover,
@@ -143,7 +143,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     background-color: rgb(20 20 20 / 35%);
   }
 
-  .ionicon {
+  .chevron {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -152,7 +152,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
   }
 
   .ellipses {
-    color: var(--color-neutral-300);
+    color: var(--color-text-faint);
     margin: 0 var(--space-2xs-xs) var(--space-xs) var(--space-2xs-xs);
   }
 

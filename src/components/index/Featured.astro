@@ -6,8 +6,8 @@ import ImageCard from "../cards/ImageCard.astro";
 const games = await getCollection("games");
 ---
 
-<section aria-label="Featured games">
-  <h2 class="featured-headline">EXPLORE THE [UNIVERSE]</h2>
+<section class="featured" aria-label="Featured games">
+  <h2 class="featured-heading">EXPLORE THE [UNIVERSE]</h2>
   <hr />
   <div class="featured-grid">
     {
@@ -28,18 +28,18 @@ const games = await getCollection("games");
 </section>
 
 <style>
-  section {
+  .featured {
     padding-block: var(--space-md) var(--space-xl-2xl);
     margin-block-end: var(--space-2xl-3xl);
   }
 
-  hr {
+  .featured > hr {
     inline-size: 100%;
     margin-block-end: var(--space-md);
     border: thin solid var(--color-accent);
   }
 
-  .featured-headline {
+  .featured-heading {
     border-radius: var(--border-radius-sm);
     font-weight: var(--black);
     color: var(--color-primary);
@@ -113,13 +113,15 @@ const games = await getCollection("games");
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    section > *:not(.featured-headline) {
-      animation: fade-in 1s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    .featured > *:not(.featured-heading) {
+      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
     }
 
-    .featured-headline {
+    .featured-heading {
       opacity: 0;
-      animation: slide-in 0.8s cubic-bezier(0, 0.55, 0.45, 1) 0.2s forwards;
+      animation:
+        slide-in 0.85s cubic-bezier(0, 0.55, 0.45, 1) 0.15s forwards,
+        fade-in 0.6s cubic-bezier(0.12, 0, 0.39, 0) 0.15s forwards;
     }
 
     .game-cover {

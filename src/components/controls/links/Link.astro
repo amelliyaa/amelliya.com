@@ -2,27 +2,27 @@
 const { href, name } = Astro.props;
 ---
 
-<a href={href} class="link" aria-label=`Link to ${name}`>
+<a href={href} class="_link" aria-label=`Link to ${name}`>
   <slot />
 </a>
 
 <style>
-  .link {
+  ._link {
     text-decoration: underline;
     border-radius: var(--border-radius-sm);
   }
 
-  .link:hover,
-  .link:focus {
+  ._link:hover,
+  ._link:focus {
     color: var(--color-primary);
   }
 
-  .link:active {
+  ._link:active {
     outline: 2px solid var(--color-selected);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .link {
+    ._link {
       transition: color var(--anim-length-short) ease-in-out;
     }
   }

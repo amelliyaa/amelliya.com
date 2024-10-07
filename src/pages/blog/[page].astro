@@ -20,15 +20,7 @@ const description = "Blog of Jane Doe";
 <BaseLayout title={title} description={description}>
   <h1>Blog Archives</h1>
   <div class="archive">
-    {
-      page.data.map((post) => (
-        <BlogCard
-          href={`/blog/${post.slug}`}
-          frontmatter={post.data}
-          borderColor="var(--color-neutral-700)"
-        />
-      ))
-    }
+    {page.data.map((post) => <BlogCard href={`/blog/${post.slug}`} frontmatter={post.data} />)}
   </div>
   {
     page.lastPage > 1 && (
@@ -52,14 +44,12 @@ const description = "Blog of Jane Doe";
 
   @media only screen and (min-width: 36rem) {
     .archive {
-      display: grid;
       grid-template-columns: 1fr 1fr;
     }
   }
 
   @media only screen and (min-width: 62rem) {
     .archive {
-      display: grid;
       grid-template-columns: 1fr 1fr 1fr;
     }
   }

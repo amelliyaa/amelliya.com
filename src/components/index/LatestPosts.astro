@@ -11,89 +11,104 @@ const recentPosts = (
   .slice(0, 3);
 ---
 
-<section>
-  <a class="blog-posts-header" href="/blog/1" aria-label="Link to blog">
-    <h2>
-      Latest Posts
-      <span aria-hidden="true">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="ionicon"
-          viewBox="0 0 512 512"
-          width="20"
-          height="20"
-        >
-          <path
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="48"
-            d="M268 112l144 144-144 144M392 256H100"
-          >
-          </path>
-        </svg>
-      </span>
-    </h2>
+<section class="blog-posts">
+  <a class="blog-posts-heading" href="/blog/1" aria-label="Link to blog">
+    <h2>Latest Posts</h2>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="arrow"
+      viewBox="0 0 512 512"
+      width="20"
+      height="20"
+      aria-hidden="true"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="48"
+        d="M268 112l144 144-144 144M392 256H100"
+      >
+      </path>
+    </svg>
   </a>
-  <div class="blog-content">
-    {
-      recentPosts.map((post) => (
-        <BlogCard href={post.slug} frontmatter={post.data} borderColor="var(--color-neutral-800)" />
-      ))
-    }
+  <div class="blog-posts-grid">
+    {recentPosts.map((post) => <BlogCard href={post.slug} frontmatter={post.data} />)}
   </div>
 </section>
 
 <style>
-  section {
+  .blog-posts {
     padding-block: var(--space-md-lg) var(--space-lg-xl);
   }
 
-  .blog-posts-header {
-    color: var(--color-neutral-100);
+  .blog-posts-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-text-light);
   }
 
-  .blog-posts-header:hover,
-  .blog-posts-header:focus {
+  .blog-posts-heading > h2 {
+    margin-block: 0;
+  }
+
+  .arrow {
+    inline-size: var(--font-size-lg);
+    block-size: var(--font-size-lg);
+  }
+
+  .blog-posts-heading:hover,
+  .blog-posts-heading:focus {
     color: var(--color-primary);
   }
 
-  .blog-posts-header:hover .ionicon,
-  .blog-posts-header:focus .ionicon {
+  .blog-posts-heading:hover > .arrow,
+  .blog-posts-heading:focus > .arrow {
     color: var(--color-selected);
-    transform: translate(4px, 10%);
+    transform: translateX(10px);
   }
 
-  .ionicon {
-    inline-size: var(--font-size-lg);
-    block-size: var(--font-size-lg);
-    transform: translate(-4px, 10%);
-  }
-
-  .blog-content {
-    display: flex;
-    flex-wrap: wrap-reverse;
+  .blog-posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: center;
     justify-items: center;
     gap: var(--space-md-lg);
-    margin-block-end: var(--space-sm-md);
+    margin-block-start: var(--space-md);
   }
 
-  .blog-content > * {
+  @media only screen and (min-width: 36rem) and (max-width: 62rem) {
+    .blog-posts-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .blog-posts-grid > :first-child {
+      grid-column: span 2;
+    }
+  }
+
+  @media only screen and (min-width: 62rem) {
+    .blog-posts-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .blog-posts-grid > * {
     flex: 1;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    section > * {
-      animation: fade-in 1s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+    .blog-posts > * {
+      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
     }
 
-    .blog-posts-header {
+    .blog-posts-heading {
       transition: color var(--anim-length-short) ease-in-out;
     }
 
-    .ionicon {
+    .arrow {
       transition:
         transform var(--anim-length-base) ease-in-out,
         color var(--anim-length-short) ease-in-out;

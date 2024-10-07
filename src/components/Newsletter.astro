@@ -6,9 +6,9 @@ const newsletterEndpoint = "api/subscribe";
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<div class:list={["newsletter", className]} {...attrs}>
+<div class:list={["_newsletter", className]} {...attrs}>
   <hgroup>
-    <h2 class="typography-title">Join my Newsletter</h2>
+    <h2 class="newsletter-heading">Join my Newsletter</h2>
     <p class="typography-subtitle">
       and <strong>stay up-to-date</strong> on all my major game announcements.
     </p>
@@ -32,11 +32,11 @@ const { class: className, ...attrs } = Astro.props;
 </div>
 
 <style>
-  .newsletter > * {
+  ._newsletter > * {
     max-inline-size: 60ch;
   }
 
-  .typography-title {
+  .newsletter-heading {
     color: var(--color-primary);
   }
 

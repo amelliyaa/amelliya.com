@@ -20,7 +20,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 ---
 
 <script src="../scripts/menu.js"></script>
-<header>
+<header class="site-header">
   <nav class="navbar" id="navigation" aria-label="Site navigation menu">
     <a href="/" class="brand" aria-label="Home">Jane Doe</a>
 
@@ -37,7 +37,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       Menu
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ionicon"
+        class="chevron"
         viewBox="0 0 512 512"
         width="20"
         height="20"
@@ -58,7 +58,11 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       {
         mainNavLinks.map((page) => (
           <li role="none">
-            <MenuLink href={page.path} isActive={currentDir === page.name.toLowerCase()}>
+            <MenuLink
+              href={page.path}
+              role="menuitem"
+              isActive={currentDir === page.name.toLowerCase()}
+            >
               {page.name}
             </MenuLink>
           </li>
@@ -69,18 +73,18 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 </header>
 
 <style>
+  .site-header {
+    position: relative;
+  }
+
   /* Add phantom element for grid layout,
    * hacky but prevents dropdown from pushing content */
-  header::after {
+  .site-header::after {
     content: "\a0";
     display: block;
     margin: var(--space-sm);
     padding-block-end: 1px;
     font-size: var(--font-size-lg);
-  }
-
-  header {
-    position: relative;
   }
 
   /* Header styling */
@@ -137,19 +141,18 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-base);
     font-weight: var(--light);
-    color: var(--color-neutral-100);
   }
 
   .menu-label:hover {
-    color: var(--color-neutral-200);
+    color: var(--color-primary);
   }
 
-  .ionicon {
+  .chevron {
     block-size: var(--space-md);
     inline-size: var(--space-md);
   }
 
-  #menu-button:checked + .menu-label > .ionicon {
+  #menu-button:checked + .menu-label > .chevron {
     transform: rotate(180deg);
   }
 
@@ -159,12 +162,12 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     display: flex;
     gap: var(--space-sm-md);
     flex-direction: column;
+    text-align: center;
 
     inline-size: 100%;
     max-block-size: 0;
-    overflow: hidden;
-    text-align: center;
     opacity: 0;
+    overflow: hidden;
   }
 
   #menu-button:checked ~ .dropdown {
@@ -186,7 +189,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       transition: color var(--anim-length-base) ease-in-out;
     }
 
-    .ionicon {
+    .chevron {
       transition: transform var(--anim-length-medium) ease-in-out;
     }
   }
@@ -203,9 +206,13 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       flex-direction: row;
 
       inline-size: auto;
-      max-block-size: none;
-      overflow: visible;
       opacity: 1;
+      overflow: visible;
+      transition: none;
+
+      /* Override '#menu-button:checked ~ .dropdown' selector when no js */
+      max-block-size: none !important;
+      padding-block: 0 !important;
     }
   }
 </style>

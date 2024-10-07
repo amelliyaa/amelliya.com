@@ -2,7 +2,7 @@
 import { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
 
-const { href, frontmatter, ...rest } = Astro.props;
+const { href, frontmatter } = Astro.props;
 const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
   year: "numeric",
   month: "short",
@@ -18,7 +18,7 @@ if (!images[frontmatter.thumbnail.imagePath])
   );
 ---
 
-<a href={href} class="blog-card" aria-label=`Link to article: ${frontmatter.title}` {...rest}>
+<a href={href} class="blog-card" aria-label=`Link to article: ${frontmatter.title}`>
   <Picture
     class="post-thumbnail"
     src={images[frontmatter.thumbnail.imagePath]()}
@@ -26,16 +26,16 @@ if (!images[frontmatter.thumbnail.imagePath])
   />
   <div class="blog-card-content">
     <div class="post-tags">
-      {frontmatter.tags.map((tag: string) => <span class="metadata tag">{tag}</span>)}
+      {frontmatter.tags.map((tag: string) => <span class="post-metadata post-tag">{tag}</span>)}
     </div>
-    <hgroup class="post-info">
-      <h3 class="post-title">{frontmatter.title}</h3>
+    <hgroup>
+      <h3 class="post-heading">{frontmatter.title}</h3>
       <p class="post-desc">{frontmatter.description}</p>
     </hgroup>
     <div class="post-date">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="ionicon"
+        class="calendar"
         viewBox="0 0 512 512"
         width="20"
         height="20"
@@ -63,7 +63,7 @@ if (!images[frontmatter.thumbnail.imagePath])
         >
         </path>
       </svg>
-      <time class="metadata" datetime={frontmatter.updated}>{date}</time>
+      <time class="post-metadata" datetime={frontmatter.updated}>{date}</time>
     </div>
   </div>
 </a>
@@ -71,11 +71,13 @@ if (!images[frontmatter.thumbnail.imagePath])
 <style>
   .blog-card {
     position: relative;
+    z-index: 10; /* prevent z-fighting with border & thumbnail */
     display: flex;
     flex-direction: column;
     min-inline-size: 200px;
+
     border-radius: var(--border-radius-lg);
-    border: 1px solid var(--color-accent);
+    outline: 1px solid var(--color-accent);
     color: var(--color-text-light);
     background: var(--color-bg-bright);
     box-shadow: var(--box-shadow-md);
@@ -86,6 +88,11 @@ if (!images[frontmatter.thumbnail.imagePath])
   .blog-card:focus {
     transform: translateY(-4px);
     box-shadow: var(--box-shadow-lg);
+  }
+
+  .blog-card:focus {
+    outline-color: var(--color-selected);
+    outline-width: 2px;
   }
 
   .blog-card:hover::after,
@@ -108,11 +115,7 @@ if (!images[frontmatter.thumbnail.imagePath])
     box-shadow: var(--box-shadow-lg);
   }
 
-  .post-info {
-    flex: 1;
-  }
-
-  .post-title {
+  .post-heading {
     margin-block-start: var(--space-2xs);
     color: var(--color-heading);
   }
@@ -121,7 +124,7 @@ if (!images[frontmatter.thumbnail.imagePath])
     margin-block: 0 var(--space-xs);
   }
 
-  .metadata {
+  .post-metadata {
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-sm);
   }
@@ -132,7 +135,7 @@ if (!images[frontmatter.thumbnail.imagePath])
     gap: var(--space-2xs);
   }
 
-  .tag {
+  .post-tag {
     padding: var(--space-3xs) var(--space-xs);
     border-radius: var(--border-radius-md);
     font-weight: var(--semibold);
@@ -140,7 +143,7 @@ if (!images[frontmatter.thumbnail.imagePath])
     background-color: var(--color-secondary);
   }
 
-  .ionicon {
+  .calendar {
     inline-size: var(--space-xs);
     block-size: var(--space-xs);
     transform: translateY(10%);

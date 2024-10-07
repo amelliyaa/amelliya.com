@@ -2,12 +2,12 @@
 const { class: className, ...attrs } = Astro.props;
 ---
 
-<button class:list={["button", className]} {...attrs}>
+<button class:list={["_button", className]} {...attrs}>
   <slot />
 </button>
 
 <style>
-  .button {
+  ._button {
     padding: var(--space-xs) var(--space-md);
     border: none;
     border-radius: 100vmax;
@@ -23,14 +23,14 @@ const { class: className, ...attrs } = Astro.props;
     font-size: var(--font-size-base);
   }
 
-  .button:hover,
-  .button:focus {
+  ._button:hover,
+  ._button:focus {
     outline-style: solid;
     outline-width: medium;
     box-shadow: 0 0 100px 100px rgb(255 255 255 / 20%) inset;
   }
 
-  .button:active {
+  ._button:active {
     box-shadow: 0 0 100px 100px rgb(0 0 0 / 10%) inset;
   }
 </style>
