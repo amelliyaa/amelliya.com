@@ -1,0 +1,65 @@
+h1,
+h2 {
+  font-family: var(--typeface-display);
+  line-height: 1.15;
+}
+
+h3,
+h4,
+h5,
+h6,
+.typography-subtitle {
+  margin-block: var(--space-xs);
+  font-family: var(--typeface-workhorse);
+  line-height: 1.3;
+}
+
+h1 {
+  margin-block: var(--space-sm-md) var(--space-md-lg);
+  font-size: var(--font-size-xl);
+  font-weight: var(--bold);
+  color: var(--color-heading);
+}
+
+h2 {
+  margin-block: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-lg);
+  font-weight: var(--semibold);
+}
+
+@media only screen and (min-width: 36rem) {
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media only screen and (min-width: 62rem) {
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--normal);
+}
+
+p {
+  margin-block: var(--space-md-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--normal);
+  line-height: 1.8;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-size: var(--font-size-base);
+  line-height: 1.2;
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}

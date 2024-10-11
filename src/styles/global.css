@@ -1,127 +1,17 @@
-@import "modern-normalize/modern-normalize.css";
+@import "./reset.css";
+@import "./theme.css";
+@import "./typography.css";
 
-:root {
-  color-scheme: dark light;
-
-  /* Width caps */
-  --max-page-width: 1400px;
-  --max-article-width: 80ch;
-
-  /* Colors */
-  --color-overlay: rgb(13 10 17 / 50%);
-
-  --color-bg-dark: #241d30;
-  --color-bg: #2e243c;
-  --color-bg-bright: #3d2f4f;
-
-  --color-text-dark: #0d0a11;
-  --color-text-faint: #b9afcb;
-  --color-text-light: #e4e4e4;
-  --color-heading: #f8e8dc;
-
-  --color-selected: #a9aff3;
-  --color-primary: #cfa3ef;
-  --color-secondary: #f8b8d6;
-  --color-accent: #f8cb82;
-  --color-accent-dark: #f7c067;
-
-  /* UI animation lengths */
-  --anim-length-short: 0.15s;
-  --anim-length-base: 0.3s;
-  --anim-length-medium: 0.4s;
-  --anim-length-long: 0.5s;
-
-  /* Typefaces */
-  --typeface-logo: Philosopher, serif;
-  --typeface-display: Poppins, sans-serif;
-  --typeface-body: Merriweather, serif;
-  --typeface-workhorse: Inter, sans-serif;
-
-  /* Font weights */
-  --light: 200;
-  --normal: 300;
-  --medium: 400;
-  --semibold: 500;
-  --bold: 600;
-  --black: 900;
-
-  /* Border radius */
-  --border-radius-sm: 0.2rem;
-  --border-radius-md: 0.4rem;
-  --border-radius-lg: 0.6rem;
-
-  /* Box Shadows */
-  /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMTYsNiwwLCMwMzA3MTIsI2YzZjRmNiwjZmZmZmZmLDI%3D */
-  --box-shadow-sm: 0px 0px 0px rgba(3, 7, 18, 0.01), 0px 1px 2px rgba(3, 7, 18, 0.01),
-    0px 2px 4px rgba(3, 7, 18, 0.02), 0px 3px 7px rgba(3, 7, 18, 0.03),
-    0px 4px 11px rgba(3, 7, 18, 0.03), 0px 6px 16px rgba(3, 7, 18, 0.04);
-
-  /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMjQsMTIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-  --box-shadow-md: 0px 0px 1px rgba(3, 7, 18, 0.01), 0px 1px 3px rgba(3, 7, 18, 0.01),
-    0px 3px 6px rgba(3, 7, 18, 0.02), 0px 5px 11px rgba(3, 7, 18, 0.03),
-    0px 8px 17px rgba(3, 7, 18, 0.03), 0px 12px 24px rgba(3, 7, 18, 0.04);
-
-  /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMzIsMTgsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-  --box-shadow-lg: 0px 1px 1px rgba(3, 7, 18, 0.01), 0px 2px 4px rgba(3, 7, 18, 0.01),
-    0px 5px 8px rgba(3, 7, 18, 0.02), 0px 8px 14px rgba(3, 7, 18, 0.03),
-    0px 13px 22px rgba(3, 7, 18, 0.03), 0px 18px 32px rgba(3, 7, 18, 0.04);
-
-  /* @link https://utopia.fyi/type/calculator?c=320,18,1.2,1280,21,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
-
-  /* Font sizes */
-  --font-size-xs: clamp(0.7035rem, 0.8072rem + -0.1296vw, 0.7813rem);
-  --font-size-sm: clamp(0.9375rem, 0.9374rem + 0.0004vw, 0.9377rem);
-  --font-size-base: clamp(1.125rem, 1.0833rem + 0.2083vw, 1.25rem);
-  --font-size-md: clamp(1.35rem, 1.2446rem + 0.5271vw, 1.6663rem);
-  --font-size-lg: clamp(1.62rem, 1.4196rem + 1.0019vw, 2.2211rem);
-  --font-size-xl: clamp(1.944rem, 1.6051rem + 1.6946vw, 2.9607rem);
-  --font-size-2xl: clamp(2.3328rem, 1.7948rem + 2.6898vw, 3.9467rem);
-  --font-size-3xl: clamp(2.7994rem, 1.9788rem + 4.1026vw, 5.2609rem);
-
-  /* Spacing */
-  --space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem);
-  --space-2xs: clamp(0.5625rem, 0.5417rem + 0.1042vw, 0.625rem);
-  --space-xs: clamp(0.875rem, 0.8542rem + 0.1042vw, 0.9375rem);
-  --space-sm: clamp(1.125rem, 1.0833rem + 0.2083vw, 1.25rem);
-  --space-md: clamp(1.6875rem, 1.625rem + 0.3125vw, 1.875rem);
-  --space-lg: clamp(2.25rem, 2.1667rem + 0.4167vw, 2.5rem);
-  --space-xl: clamp(3.375rem, 3.25rem + 0.625vw, 3.75rem);
-  --space-2xl: clamp(4.5rem, 4.3333rem + 0.8333vw, 5rem);
-  --space-3xl: clamp(6.75rem, 6.5rem + 1.25vw, 7.5rem);
-
-  /* One-up pairs */
-  --space-3xs-2xs: clamp(0.3125rem, 0.2083rem + 0.5208vw, 0.625rem);
-  --space-2xs-xs: clamp(0.5625rem, 0.4375rem + 0.625vw, 0.9375rem);
-  --space-xs-sm: clamp(0.875rem, 0.75rem + 0.625vw, 1.25rem);
-  --space-sm-md: clamp(1.125rem, 0.875rem + 1.25vw, 1.875rem);
-  --space-md-lg: clamp(1.6875rem, 1.4167rem + 1.3542vw, 2.5rem);
-  --space-lg-xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
-  --space-xl-2xl: clamp(3.375rem, 2.8333rem + 2.7083vw, 5rem);
-  --space-2xl-3xl: clamp(4.5rem, 3.5rem + 5vw, 7.5rem);
-
-  /* Custom pairs */
-  --space-2xl-4xl: clamp(5rem, 2.3182rem + 13.4091vw, 12.375rem);
-}
-
-/* Base styles */
+/* Default styles */
 
 body {
   /* Push footer to bottom of page */
   display: flex;
   flex-direction: column;
-  min-block-size: 100vh;
 
   font-family: var(--typeface-body);
-  line-height: 1.2;
   color: var(--color-text-light);
   background-color: var(--color-bg);
-}
-
-menu,
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -129,77 +19,12 @@ a {
   color: var(--color-selected);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
 :focus-visible {
   border-radius: var(--border-radius-sm);
   outline: 2px solid var(--color-selected);
 }
 
-/* Typography */
-
-h1,
-h2 {
-  font-family: var(--typeface-display);
-  line-height: 1.15;
-}
-
-h3,
-h4,
-h5,
-h6,
-.typography-subtitle {
-  margin-block: var(--space-xs);
-  font-family: var(--typeface-workhorse);
-  line-height: 1.3;
-}
-
-h1 {
-  margin-block: var(--space-sm-md) var(--space-md-lg);
-  font-size: var(--font-size-xl);
-  font-weight: var(--bold);
-  color: var(--color-heading);
-}
-
-h2 {
-  margin-block: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-lg);
-  font-weight: var(--semibold);
-}
-
-h3 {
-  font-size: var(--font-size-lg);
-  font-weight: var(--normal);
-}
-
-p {
-  margin-block: var(--space-md-lg);
-  font-size: var(--font-size-base);
-  font-weight: var(--normal);
-  line-height: 1.8;
-}
-
-@media only screen and (min-width: 36rem) {
-  h1 {
-    font-size: var(--font-size-2xl);
-  }
-
-  h2 {
-    font-size: var(--font-size-xl);
-  }
-}
-
-@media only screen and (min-width: 62rem) {
-  h1 {
-    font-size: var(--font-size-3xl);
-  }
-}
-
-/* Utility classes */
+/* Global classes */
 
 /* https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html#hiding-content-visually */
 .visually-hidden:not(:focus):not(:active) {
@@ -225,8 +50,6 @@ p {
   }
 }
 
-/* Grid layout */
-
 .content-grid {
   --_max-width: var(--max-page-width);
   inline-size: min(100%, var(--_max-width));
@@ -239,6 +62,7 @@ p {
 }
 
 /* Keyframes */
+
 @keyframes slide-in {
   from {
     transform: translateX(-90px);

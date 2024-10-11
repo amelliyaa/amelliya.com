@@ -1,0 +1,113 @@
+/* Make all elements use box-sizing: border-box */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+ * Prevent adjustments of font size after orientation changes in iOS
+ * Use a more readable tab size
+ */
+html {
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+/* Use smooth scrolling for users with no reduced motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * Remove body margins
+ * Make body height take entire viewport height by default
+ */
+body {
+  min-block-size: 100vh;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Remove default list styling */
+menu,
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent 'sub' and 'sup' elements from affecting the line height in all browsers. */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Add the correct font weight in Edge and Safari */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+ * Inherit fonts for inputs and buttons
+ * Remove the margin in Firefox and Safari
+ */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+/* Correct the inability to style clickable types in iOS and Safari */
+button,
+input:where([type="button"]),
+input:where([type="reset"]),
+input:where([type="submit"]) {
+  -webkit-appearance: button;
+}
+
+/* Make button elements use a sensible cursor */
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+:disabled {
+  cursor: default;
+}
+
+/* Make media elements use `display: block` by default */
+img,
+video,
+audio,
+iframe {
+  display: block;
+}
+
+/* Make img and video elements more responsive */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
