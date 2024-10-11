@@ -1,10 +1,10 @@
 ---
-const { href, name } = Astro.props;
+const { href } = Astro.props;
 
 // HTML must be a single line to prevent a trailing space from being generated
 ---
 
-<a href={href} class="_link" aria-label=`Link to ${name}`><slot /></a><style>
+<a href={href} class="_link"><slot /></a><style>
   ._link {
     text-decoration: underline;
     border-radius: var(--border-radius-sm);
