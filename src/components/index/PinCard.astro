@@ -30,7 +30,9 @@ const { project } = Astro.props;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+
     min-inline-size: 140px;
+    max-inline-size: 36ch;
     aspect-ratio: 1 / 1;
     padding: var(--space-md) var(--space-md) var(--space-sm) var(--space-sm);
     border-radius: var(--border-radius-sm);
@@ -44,10 +46,11 @@ const { project } = Astro.props;
   }
 
   .pin-icon {
+    display: block;
     position: absolute;
     left: 50%;
     top: 12px;
-    inline-size: var(--space-2xs-xs);
+    inline-size: var(--space-xs);
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     background-color: var(--_pin-board-bg);
@@ -56,11 +59,12 @@ const { project } = Astro.props;
   }
 
   .pin-icon::after {
+    display: block;
     content: "📌";
     position: absolute;
-    left: 2px;
-    top: -22px;
-    inline-size: var(--space-2xs-xs);
+    left: -5%;
+    top: 125%;
+    transform: translate(5%, -125%);
     font-size: var(--font-size-md);
     filter: drop-shadow(0 -2px 8px rgb(14 13 17 / 40%));
   }
