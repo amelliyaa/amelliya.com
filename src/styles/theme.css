@@ -8,6 +8,7 @@
   /* Colors */
   --color-overlay: rgb(13 10 17 / 50%);
 
+  --color-bg-inline-code: #1F1F1F;
   --color-bg-dark: #241d30;
   --color-bg: #2e243c;
   --color-bg-bright: #3d2f4f;
@@ -30,10 +31,10 @@
   --anim-length-long: 0.5s;
 
   /* Typefaces */
-  --typeface-logo: Philosopher, serif;
-  --typeface-display: Poppins, sans-serif;
-  --typeface-body: Merriweather, serif;
-  --typeface-workhorse: Inter, sans-serif;
+  --typeface-logo: "Philosopher", serif;
+  --typeface-display: "Merriweather Sans", sans-serif;
+  --typeface-body: "Merriweather", serif;
+  --typeface-workhorse: "Inter", sans-serif;
 
   /* Font weights */
   --light: 200;
