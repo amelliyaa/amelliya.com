@@ -37,6 +37,7 @@ const description = "My site's homepage";
       inline-size: 0.15em;
       block-size: 1.25em;
       margin-inline-start: 0.05em;
+      background-color: var(--color-primary);
       transform: translateY(22%);
       animation: blink-caret 0.8s step-end infinite;
     }
@@ -44,10 +45,10 @@ const description = "My site's homepage";
     @keyframes blink-caret {
       from,
       to {
-        background-color: transparent;
+        opacity: 1;
       }
       50% {
-        background-color: var(--color-primary);
+        opacity: 0;
       }
     }
   }
