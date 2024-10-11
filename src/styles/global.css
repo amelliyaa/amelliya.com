@@ -19,6 +19,11 @@ a {
   color: var(--color-selected);
 }
 
+code {
+  padding: 2px 6px 2px 6px;
+  background: var(--color-bg-inline-code);
+}
+
 :focus-visible {
   border-radius: var(--border-radius-sm);
   outline: 2px solid var(--color-selected);

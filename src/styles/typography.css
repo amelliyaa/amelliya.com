@@ -23,14 +23,14 @@ h6,
 }
 
 h1 {
-  margin-block: var(--space-sm-md) var(--space-md-lg);
+  margin-block: var(--space-md-lg) var(--space-sm-md);
   font-size: var(--font-size-xl);
   font-weight: var(--bold);
   color: var(--color-heading);
 }
 
 h2 {
-  margin-block: var(--space-sm) var(--space-md);
+  margin-block: var(--space-md) var(--space-sm);
   font-size: var(--font-size-lg);
   font-weight: var(--semibold);
 }
@@ -56,11 +56,25 @@ h3 {
   font-weight: var(--normal);
 }
 
-p {
-  margin-block: var(--space-md-lg);
+h4 {
+  font-size: var(--font-size-md);
+  font-weight: var(--normal);
+}
+
+p,
+.lead-in {
   font-size: var(--font-size-base);
   font-weight: var(--normal);
-  line-height: 1.8;
+  line-height: 2;
+}
+
+p {
+  margin-block: 0 var(--space-md-lg);
+}
+
+.lead-in {
+  display: block;
+  margin-block-end: var(--space-sm);
 }
 
 code,
@@ -70,4 +84,22 @@ pre {
   font-size: var(--font-size-base);
   line-height: 1.2;
   font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: minmax(min-content, max-content) auto;
+  gap: var(--space-xs) var(--space-md);
+
+  font-size: var(--font-size-base);
+  font-weight: var(--normal);
+  margin-block: 0 var(--space-md-lg);
+}
+
+dt {
+  font-weight: var(--bold);
+}
+
+dd {
+  margin: 0;
 }
