@@ -1,5 +1,5 @@
 {
-  "name": "example.com",
+  "name": "amelliya.com",
   "author": "",
   "description": "",
   "type": "module",
@@ -12,13 +12,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/mdx": "^3.1.5",
-    "@astrojs/sitemap": "^3.2.0",
-    "astro": "^4.16.0"
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.6",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.1.7"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1"
   }
 }
