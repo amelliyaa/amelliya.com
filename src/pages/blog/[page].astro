@@ -20,7 +20,7 @@ const description = "Blog of amelliya";
 <BaseLayout title={title} description={description}>
   <h1>Blog Archives</h1>
   <div class="archive">
-    {page.data.map((post) => <BlogCard href={`/blog/${post.slug}`} frontmatter={post.data} />)}
+    {page.data.map((post) => <BlogCard href={`/blog/${post.id}`} frontmatter={post.data} />)}
   </div>
   {
     page.lastPage > 1 && (

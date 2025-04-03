@@ -10,6 +10,7 @@ export const postSchema = z.object({
     alt: z.string(),
   }),
   tags: z.array(z.string()),
+  draft: z.boolean().optional(),
 });
 
 export const gameSchema = z.object({
@@ -25,6 +26,6 @@ export const projectSchema = z.object({
   workingTitle: z.string(),
   description: z.string(),
   progress: z.number(),
-  updated: z.date(),
+  updated: z.coerce.date(),
   pinSize: z.string().optional(),
 });

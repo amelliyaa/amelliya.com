@@ -34,7 +34,7 @@ const recentPosts = (
     </svg>
   </a>
   <div class="blog-posts-grid">
-    {recentPosts.map((post) => <BlogCard href={post.slug} frontmatter={post.data} />)}
+    {recentPosts.map((post) => <BlogCard href=`blog/${post.id}` frontmatter={post.data} />)}
   </div>
 </section>
 
