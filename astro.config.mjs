@@ -11,7 +11,11 @@ export default defineConfig({
   markdown: {
     shikiConfig: { theme: "dracula" },
   },
+  image: {
+    experimentalLayout: "responsive",
+  },
   experimental: {
     svg: true,
+    responsiveImages: true,
   },
 });
