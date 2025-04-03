@@ -1,5 +1,6 @@
 ---
 import MenuLink from "./controls/links/MenuLink.astro";
+import ChevronDown from "../assets/svg/icons/chevron-down-outline.svg";
 
 export const mainNavLinks = [
   {
@@ -35,23 +36,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     />
     <label for="menu-button" class="menu-label">
       Menu
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="chevron"
-        viewBox="0 0 512 512"
-        width="20"
-        height="20"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="36"
-          d="M112 184l144 144 144-144"
-        >
-        </path>
-      </svg>
+      <ChevronDown class="chevron" />
     </label>
 
     <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">

@@ -1,6 +1,8 @@
 ---
 import { getPaginatedList } from "../../scripts/paginator";
 const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
+import ChevronForward from "../../assets/svg/icons/chevron-forward-outline.svg";
+import ChevronBack from "../../assets/svg/icons/chevron-back-outline.svg";
 
 const paginatedList = getPaginatedList(currentPage, lastPage, 1);
 ---
@@ -12,24 +14,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     aria-label="previous page"
     aria-hidden={!prevUrl && "true"}
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="chevron"
-      viewBox="0 0 512 512"
-      height="20"
-      width="20"
-      aria-hidden="true"
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="48"
-        d="M328 112L184 256l144 144"
-      >
-      </path>
-    </svg>
+    <ChevronBack class="chevron" aria-hidden={true} />
   </a>
   <ul class="page-list">
     {
@@ -57,24 +42,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     }
   </ul>
   <a href={nextUrl} class="chevron-button" aria-label="next page" aria-hidden={!nextUrl && "true"}>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="chevron"
-      viewBox="0 0 512 512"
-      height="20"
-      width="20"
-      aria-hidden="true"
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="48"
-        d="M184 112l144 144-144 144"
-      >
-      </path>
-    </svg>
+    <ChevronForward class="chevron" aria-hidden={true} />
   </a>
 </nav>
 

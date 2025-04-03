@@ -1,6 +1,7 @@
 ---
 import { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
+import CalendarIcon from "../../assets/svg/icons/calendar-clear-outline.svg";
 
 const { href, frontmatter, ...rest } = Astro.props;
 const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
@@ -33,36 +34,7 @@ if (!images[frontmatter.thumbnail.imagePath])
       <p class="post-desc">{frontmatter.description}</p>
     </hgroup>
     <div class="post-date">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="calendar"
-        viewBox="0 0 512 512"
-        width="20"
-        height="20"
-        aria-hidden="true"
-      >
-        <rect
-          fill="none"
-          stroke="currentColor"
-          stroke-linejoin="round"
-          stroke-width="32"
-          x="48"
-          y="80"
-          width="416"
-          height="384"
-          rx="48"
-        >
-        </rect>
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linejoin="round"
-          stroke-width="32"
-          stroke-linecap="round"
-          d="M128 48v32M384 48v32M464 160H48"
-        >
-        </path>
-      </svg>
+      <CalendarIcon class="calendar" aria-hidden={true} />
       <time class="post-metadata" datetime={frontmatter.updated}>{date}</time>
     </div>
   </div>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BlogCard from "../cards/BlogCard.astro";
+import ArrowForward from "../../assets/svg/icons/arrow-forward-outline.svg";
 
 const recentPosts = (
   await getCollection("posts", ({ data }) => {
@@ -14,24 +15,7 @@ const recentPosts = (
 <section class="blog-posts">
   <a class="blog-posts-heading" href="/blog/1" aria-label="Link to blog">
     <h2>Latest Posts</h2>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="arrow"
-      viewBox="0 0 512 512"
-      width="20"
-      height="20"
-      aria-hidden="true"
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="48"
-        d="M268 112l144 144-144 144M392 256H100"
-      >
-      </path>
-    </svg>
+    <ArrowForward class="arrow" aria-hidden={true} />
   </a>
   <div class="blog-posts-grid">
     {recentPosts.map((post) => <BlogCard href=`blog/${post.id}` frontmatter={post.data} />)}
