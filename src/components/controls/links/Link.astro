@@ -1,10 +1,12 @@
 ---
-const { href } = Astro.props;
+import OpenIcon from "../../../assets/svg/icons/open-outline.svg";
+const { href, external } = Astro.props;
 
 // HTML must be a single line to prevent a trailing space from being generated
 ---
 
-<a href={href} class="_link"><slot /></a><style>
+<a href={href} class="_link"><slot />{external && <OpenIcon class="_open" aria-hidden={true} />}</a
+><style>
   ._link {
     text-decoration: underline;
     border-radius: var(--border-radius-sm);
@@ -17,6 +19,13 @@ const { href } = Astro.props;
 
   ._link:active {
     outline: 2px solid var(--color-selected);
+  }
+
+  ._open {
+    inline-size: var(--space-xs);
+    block-size: var(--space-xs);
+    margin-inline-start: 3px;
+    transform: translateY(10%);
   }
 
   @media (prefers-reduced-motion: no-preference) {
