@@ -1,0 +1,20 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@scripts/*": ["src/scripts/*"],
+      "@styles/*": ["src/styles/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@components/*": ["src/components/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@icons/*": ["src/assets/svg/icons/*"],
+      "@logos/*": ["src/assets/svg/logos/*"]
+    },
+    "allowJs": true,
+    "noImplicitAny": false,
+    "verbatimModuleSyntax": false
+  },
+}

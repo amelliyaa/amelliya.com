@@ -1,8 +1,8 @@
 ---
-import { getPaginatedList } from "../../scripts/paginator";
+import { getPaginatedList } from "@scripts/paginator";
 const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
-import ChevronForward from "../../assets/svg/icons/chevron-forward-outline.svg";
-import ChevronBack from "../../assets/svg/icons/chevron-back-outline.svg";
+import ChevronForward from "@icons/chevron-forward-outline.svg";
+import ChevronBack from "@icons/chevron-back-outline.svg";
 
 const paginatedList = getPaginatedList(currentPage, lastPage, 1);
 ---

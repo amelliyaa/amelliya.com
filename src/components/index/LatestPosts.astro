@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import BlogCard from "../cards/BlogCard.astro";
-import ArrowForward from "../../assets/svg/icons/arrow-forward-outline.svg";
+import BlogCard from "@components/cards/BlogCard.astro";
+import ArrowForward from "@icons/arrow-forward-outline.svg";
 
 const recentPosts = (
   await getCollection("posts", ({ data }) => {

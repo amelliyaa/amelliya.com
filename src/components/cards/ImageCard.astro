@@ -3,13 +3,9 @@ import { ImageMetadata } from "astro";
 import { Picture } from "astro:assets";
 
 const { imagePath, alt } = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/*.{jpeg,jpg,png,gif}",
-);
+const images = import.meta.glob<{ default: ImageMetadata }>("@images/*.{jpeg,jpg,png,gif}");
 if (!images[imagePath])
-  throw new Error(
-    `"${imagePath}" does not exist in glob: "src/assets/images/*.{jpeg,jpg,png,gif}"`,
-  );
+  throw new Error(`"${imagePath}" does not exist in glob: "@images/*.{jpeg,jpg,png,gif}"`);
 ---
 
 <Picture src={images[imagePath]()} alt={alt} class="image-card" />
