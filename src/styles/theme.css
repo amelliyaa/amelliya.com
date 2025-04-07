@@ -34,7 +34,7 @@
   --typeface-logo: "Philosopher", serif;
   --typeface-display: "Merriweather Sans", sans-serif;
   --typeface-body: "Merriweather", serif;
-  --typeface-workhorse: "Inter", sans-serif;
+  --typeface-workhorse: "Inter", system-ui, sans-serif;
 
   /* Font weights */
   --light: 200;
@@ -101,4 +101,36 @@
 
   /* Custom pairs */
   --space-2xl-4xl: clamp(5rem, 2.3182rem + 13.4091vw, 12.375rem);
+}
+
+@font-face {
+  font-family: "Philosopher";
+  src: url("../assets/fonts/Philosopher-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather Sans";
+  src: url("../assets/fonts/MerriweatherSans-VariableFont_wght.woff2") format("woff2-variations");
+  font-weight: 500 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("../assets/fonts/Merriweather-VariableFont_opsz,wdth,wght.woff2") format("woff2-variations");
+  font-weight: 200 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-VariableFont_opsz,wght.woff2") format("woff2-variations");
+  font-weight: 200 600;
+  font-style: normal;
+  font-display: swap;
 }
