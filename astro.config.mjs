@@ -12,10 +12,9 @@ export default defineConfig({
     shikiConfig: { theme: "dracula" },
   },
   image: {
-    experimentalLayout: "responsive",
+    experimentalLayout: "constrained",
   },
   experimental: {
-    svg: true,
     responsiveImages: true,
   },
 });

@@ -3,8 +3,8 @@ import { z } from "astro:content";
 export const postSchema = z.object({
   title: z.string(),
   description: z.string(),
-  updated: z.date(),
-  published: z.date(),
+  updated: z.coerce.date(),
+  published: z.coerce.date(),
   thumbnail: z.object({
     imagePath: z.string(),
     alt: z.string(),
