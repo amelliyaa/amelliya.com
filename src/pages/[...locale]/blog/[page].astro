@@ -1,26 +1,35 @@
 ---
 import { getCollection } from "astro:content";
+import { GetStaticPaths } from "astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlogCard from "@components/cards/BlogCard.astro";
 import Pagination from "@components/controls/Pagination.astro";
+import { i18n } from "astro:config/client";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
-export async function getStaticPaths({ paginate }) {
-  const blogPages = (await getCollection("posts")).sort(
-    (a, b) => b.data.published - a.data.published,
-  );
-  return paginate(blogPages, { pageSize: 6 });
-}
+export const getStaticPaths = (async ({ paginate }) => {
+  const allPosts = await getCollection("posts");
+
+  return i18n!.locales.flatMap((lang) => {
+    const posts = allPosts
+      .filter((post) => post.data.locale === lang)
+      .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+    const locale = lang === i18n?.defaultLocale ? undefined : lang as string;
+    return paginate(posts, { pageSize: 6, params: { locale } });
+  });
+}) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 const title =
   page.currentPage === 1 ? "Blog | amelliya" : `Blog – Page ${page.currentPage} | amelliya`;
 const description = "Blog of amelliya";
+const locale = Astro.currentLocale as string;
 ---
 
 <BaseLayout title={title} description={description}>
   <h1>Blog Archives</h1>
   <div class="archive">
-    {page.data.map((post) => <BlogCard href={`/blog/${post.id}`} frontmatter={post.data} />)}
+    {page.data.map((post) => <BlogCard href={getRelativeLocaleUrl(locale, `blog/${post.data.translationId}`)} frontmatter={post.data} />)}
   </div>
   {
     page.lastPage > 1 && (

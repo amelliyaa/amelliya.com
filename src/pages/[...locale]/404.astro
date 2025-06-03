@@ -1,7 +1,10 @@
 ---
+import { makeI18nStaticPathsGenerator } from "@i18n/utils";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import SearchBar from "@components/SearchBar.astro";
 import Link from "@components/controls/Link.astro";
+
+export const getStaticPaths = makeI18nStaticPathsGenerator();
 
 const title = "404 Not Found | amelliya";
 const description = "My site's homepage";

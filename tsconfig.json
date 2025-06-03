@@ -11,7 +11,8 @@
       "@components/*": ["src/components/*"],
       "@images/*": ["src/assets/images/*"],
       "@icons/*": ["src/assets/svg/icons/*"],
-      "@logos/*": ["src/assets/svg/logos/*"]
+      "@logos/*": ["src/assets/svg/logos/*"],
+      "@i18n/*": ["src/i18n/*"],
     },
     "allowJs": true,
     "noImplicitAny": false,
