@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 
 import ImageCard from "@components/cards/ImageCard.astro";
 
-const games = await getCollection("games");
+const games = await getCollection("games", ({id}) => id.startsWith(Astro.currentLocale ?? "en"));
 ---
 
 <section class="featured" aria-label="Featured games">

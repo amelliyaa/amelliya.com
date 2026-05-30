@@ -1,5 +1,5 @@
 ---
-import { makeI18nStaticPathsGenerator } from "@i18n/utils";
+import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import SearchBar from "@components/SearchBar.astro";
 import Link from "@components/controls/Link.astro";
@@ -8,38 +8,41 @@ export const getStaticPaths = makeI18nStaticPathsGenerator();
 
 const title = "404 Not Found | amelliya";
 const description = "My site's homepage";
+
+const t = useTranslations(Astro.currentLocale as string);
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="not-found">
     <h1 class="error-code">404</h1>
-    <h2 class="error-msg">Page Not Found <span aria-hidden="true">🥲</span></h2>
+    <h2 class="error-msg">
+      {t("404.title")}
+      <span aria-hidden="true">🥲</span>
+    </h2>
     <p class="hint">
-      Sorry! But the page you're looking for doesn't seem to exist.
-      <Link href="/" name="Home">Go back home</Link>
-      or try searching for it instead.
+      {t("404.content")}
+      <Link href="/" name="Home">{t("404.linkText")} </Link>
+      <SearchBar />
     </p>
-
-    <SearchBar />
   </div>
+
+  <style>
+    .not-found {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      block-size: 100%;
+      text-align: center;
+    }
+
+    .error-code {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--black);
+    }
+
+    .hint {
+      max-inline-size: var(--max-article-width);
+    }
+  </style>
 </BaseLayout>
-
-<style>
-  .not-found {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    block-size: 100%;
-    text-align: center;
-  }
-
-  .error-code {
-    font-size: var(--font-size-3xl);
-    font-weight: var(--black);
-  }
-
-  .hint {
-    max-inline-size: var(--max-article-width);
-  }
-</style>

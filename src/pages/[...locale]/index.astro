@@ -1,5 +1,5 @@
 ---
-import { makeI18nStaticPathsGenerator } from "@i18n/utils";
+import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Featured from "@components/index/Featured.astro";
 import PinBoard from "@components/index/PinBoard.astro";
@@ -9,13 +9,16 @@ export const getStaticPaths = makeI18nStaticPathsGenerator();
 
 const title = "Home | amelliya";
 const description = "My site's homepage";
+
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
 ---
 
 <BaseLayout title={title} description={description}>
-  <h1 class="who">Hello, World! I'm <b>Liya</b></h1>
+  <h1 class="who" set:html={t("homepage.greeting")} />
   <Featured />
   <PinBoard />
-  <LatestPosts locale={Astro.currentLocale} />
+  <LatestPosts />
 </BaseLayout>
 
 <style>

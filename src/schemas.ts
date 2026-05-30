@@ -5,6 +5,13 @@ const i18nSchema = z.object({
   locale: z.string(),
 });
 
+export const pageSchema = i18nSchema.merge(
+  z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+);
+
 export const postSchema = i18nSchema.merge(
   z.object({
     title: z.string(),

@@ -1,14 +1,16 @@
 ---
 import { getCollection } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import BlogCard from "@components/cards/BlogCard.astro";
 import ArrowForward from "@icons/arrow-forward-outline.svg";
 
+const locale = Astro.currentLocale as string;
 const recentPosts = (
-  await getCollection("posts", ({ data }) => {
-    return !data.draft;
+  await getCollection("posts", ({ id, data }) => {
+    return !data.draft && id.startsWith(`${locale}/`);
   })
 )
-  .sort((a, b) => b.data.published - a.data.published)
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
   .slice(0, 3);
 ---
 
@@ -18,7 +20,14 @@ const recentPosts = (
     <ArrowForward class="arrow" aria-hidden={true} />
   </a>
   <div class="blog-posts-grid">
-    {recentPosts.map((post) => <BlogCard href=`blog/${post.id}` frontmatter={post.data} />)}
+    {
+      recentPosts.map((post) => (
+        <BlogCard
+          href={getRelativeLocaleUrl(locale, `blog/${post.data.translationId}`)}
+          frontmatter={post.data}
+        />
+      ))
+    }
   </div>
 </section>
 

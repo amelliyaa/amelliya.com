@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob, Loader, LoaderContext } from "astro/loaders";
 import path from "path";
-import { gameSchema, postSchema, projectSchema } from "./schemas.js";
+import { gameSchema, pageSchema, postSchema, projectSchema } from "./schemas.js";
 
 type GlobOptions = Parameters<typeof glob>[0];
 
@@ -31,6 +31,13 @@ const i18nLoader = (options: GlobOptions): Loader => {
   };
 };
 
+const pages = defineCollection({
+  loader: i18nLoader({
+    pattern: "**/*.mdx",
+    base: "./src/content/pages",
+  }),
+  schema: pageSchema,
+});
 const posts = defineCollection({
   loader: i18nLoader({
     pattern: "**/*.mdx",
@@ -53,4 +60,4 @@ const projects = defineCollection({
   schema: projectSchema,
 });
 
-export const collections = { posts, games, projects };
+export const collections = { pages, posts, games, projects };

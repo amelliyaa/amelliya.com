@@ -11,7 +11,7 @@ const bluesky = "https://bsky.app/profile/amelliya.bsky.social";
 const reddit = "https://www.reddit.com/user/liya_amelliya";
 const github = "https://github.com/amelliyaa";
 
-export const getLinkText = (platform, isPersonal = false) =>
+export const getLinkText = (platform: string, isPersonal = false) =>
   `Link to ${isPersonal ? "liya" : "amelliya"}'s ${platform}`;
 ---
 

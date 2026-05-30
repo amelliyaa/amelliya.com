@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 const languages = {
   defaultLocale: "en",
-  locales: ["en", "es"],
+  locales: ["en"],
 };
 
 // https://astro.build/config
@@ -13,12 +13,6 @@ export default defineConfig({
   site: "https://amelliya.com",
   i18n: {
     ...languages,
-    // fallback: {
-    //   fr: "es",
-    // },
-    // routing: {
-    //   prefixDefaultLocale: false,
-    // },
   },
   integrations: [mdx(), sitemap({ i18n: languages })],
   markdown: {

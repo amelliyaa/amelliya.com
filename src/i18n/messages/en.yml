@@ -1,2 +1,8 @@
 # site settings
 site.title: "amelliya"
+# Homepage
+homepage.greeting: "Hello, World! I'm <b>Liya</b>"
+# 404 page
+404.title: "Page Not Found"
+404.content: "Sorry! But the page you're looking for doesn't seem to exist."
+404.linkText: "Take me home."
