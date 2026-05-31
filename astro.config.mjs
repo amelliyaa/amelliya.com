@@ -1,22 +1,32 @@
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 const languages = {
   defaultLocale: "en",
-  locales: ["en"],
+  locales: {
+    en: "en",
+  },
 };
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://amelliya.com",
+  adapter: cloudflare({
+    experimentalStaticHeaders: true,
+  }),
+  security: {
+    csp: true,
+  },
   i18n: {
-    ...languages,
+    defaultLocale: languages.defaultLocale,
+    locales: Object.values(languages.locales),
   },
   integrations: [mdx(), sitemap({ i18n: languages })],
   markdown: {
-    shikiConfig: { theme: "dracula" },
+    syntaxHighlight: "prism",
   },
   image: {
     layout: "constrained",
