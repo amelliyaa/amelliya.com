@@ -51,17 +51,20 @@
 
   /* Box Shadows */
   /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMTYsNiwwLCMwMzA3MTIsI2YzZjRmNiwjZmZmZmZmLDI%3D */
-  --box-shadow-sm: 0px 0px 0px rgba(3, 7, 18, 0.01), 0px 1px 2px rgba(3, 7, 18, 0.01),
+  --box-shadow-sm:
+    0px 0px 0px rgba(3, 7, 18, 0.01), 0px 1px 2px rgba(3, 7, 18, 0.01),
     0px 2px 4px rgba(3, 7, 18, 0.02), 0px 3px 7px rgba(3, 7, 18, 0.03),
     0px 4px 11px rgba(3, 7, 18, 0.03), 0px 6px 16px rgba(3, 7, 18, 0.04);
 
   /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMjQsMTIsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-  --box-shadow-md: 0px 0px 1px rgba(3, 7, 18, 0.01), 0px 1px 3px rgba(3, 7, 18, 0.01),
+  --box-shadow-md:
+    0px 0px 1px rgba(3, 7, 18, 0.01), 0px 1px 3px rgba(3, 7, 18, 0.01),
     0px 3px 6px rgba(3, 7, 18, 0.02), 0px 5px 11px rgba(3, 7, 18, 0.03),
     0px 8px 17px rgba(3, 7, 18, 0.03), 0px 12px 24px rgba(3, 7, 18, 0.04);
 
   /* https://smoothshadows.com/#djEsMSw2LDAuMDQsMzIsMTgsMCwjMDMwNzEyLCNmM2Y0ZjYsI2ZmZmZmZiwy */
-  --box-shadow-lg: 0px 1px 1px rgba(3, 7, 18, 0.01), 0px 2px 4px rgba(3, 7, 18, 0.01),
+  --box-shadow-lg:
+    0px 1px 1px rgba(3, 7, 18, 0.01), 0px 2px 4px rgba(3, 7, 18, 0.01),
     0px 5px 8px rgba(3, 7, 18, 0.02), 0px 8px 14px rgba(3, 7, 18, 0.03),
     0px 13px 22px rgba(3, 7, 18, 0.03), 0px 18px 32px rgba(3, 7, 18, 0.04);
 
@@ -101,36 +104,4 @@
 
   /* Custom pairs */
   --space-2xl-4xl: clamp(5rem, 2.3182rem + 13.4091vw, 12.375rem);
-}
-
-@font-face {
-  font-family: "Philosopher";
-  src: url("../assets/fonts/Philosopher-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Merriweather Sans";
-  src: url("../assets/fonts/MerriweatherSans-VariableFont_wght.woff2") format("woff2-variations");
-  font-weight: 500 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Merriweather";
-  src: url("../assets/fonts/Merriweather-VariableFont_opsz,wdth,wght.woff2") format("woff2-variations");
-  font-weight: 200 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("../assets/fonts/Inter-VariableFont_opsz,wght.woff2") format("woff2-variations");
-  font-weight: 200 600;
-  font-style: normal;
-  font-display: swap;
 }
