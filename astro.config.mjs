@@ -19,9 +19,7 @@ export default defineConfig({
     shikiConfig: { theme: "dracula" },
   },
   image: {
-    experimentalLayout: "constrained",
+    layout: "constrained",
   },
-  experimental: {
-    responsiveImages: true,
-  },
+  experimental: {},
 });
