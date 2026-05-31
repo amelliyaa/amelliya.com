@@ -9,52 +9,17 @@ export const getStaticPaths = makeI18nStaticPathsGenerator();
 const title = "About | amelliya";
 const description = "About Page";
 
-const palette = ["#CFA3EF", "#F8B8D6", "#F8CB82", "#A9AFF3", "#2E243C"];
-
 const page = await getEntry("pages", `${Astro.currentLocale}/about`);
 if (!page) throw new Error("Could not find about page");
 const { Content } = await render(page);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
-  <Content />
+  <Content components={{ a: Link }} />
 </BaseLayout>
 
 <style>
   :global(.content-grid) {
     --_max-width: var(--max-article-width);
-  }
-
-  .palette {
-    display: grid;
-    margin-block-end: var(--space-md-lg);
-    border-radius: var(--border-radius-md);
-    outline: 2px solid var(--color-text-light);
-    color: var(--color-text-dark);
-    background-color: var(--color-text-light);
-    box-shadow: var(--box-shadow-md);
-    overflow: clip;
-  }
-
-  .swatch {
-    padding-block: var(--space-xs);
-    text-align: center;
-    font-size: var(--font-size-base);
-    font-family: var(--typeface-workhorse);
-    font-weight: var(--medium);
-  }
-
-  .swatch:last-child {
-    color: var(--color-text-light);
-  }
-
-  @media only screen and (min-width: 38rem) {
-    .palette {
-      grid-auto-flow: column;
-    }
-
-    .swatch {
-      padding-block: var(--space-xl);
-    }
   }
 </style>

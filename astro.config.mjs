@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, svgoOptimizer } from "astro/config";
 
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -21,5 +21,8 @@ export default defineConfig({
   image: {
     layout: "constrained",
   },
-  experimental: {},
+
+  experimental: {
+    svgOptimizer: svgoOptimizer(),
+  },
 });

@@ -4,6 +4,7 @@ description: "About Page"
 ---
 
 import Link from "@components/controls/Link.astro";
+import Palette from "@components/about/Palette.astro"
 
 # About
 
@@ -15,4 +16,31 @@ Was designed and built by me as a place to document my journey in the world of g
 
 ### Technologies
 
-<Link href="https://astro.build/" external={true}>Astro</Link> is my static site generator of choice. The <abbr title="HyperText Markup Language">HTML</abbr> is housed within <code>.astro</code> component files and styled with scoped <abbr title="Cascading Style Sheets">CSS</abbr>. A minimal amount of JavaScript is used to provide <Link href="https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement" external={true}>progressive enhancement</Link>. The pretty syntax highlighting on code blocks is thanks to the <Link href="https://github.com/shikijs/shiki" external={true}>Shiki</Link> library (using the Dracula theme). Blog posts are written in <Link href="https://github.com/mdx-js/mdx" external={true}>MDX</Link>.
+<Link href="https://astro.build/">Astro</Link> is my static site generator of choice. The <abbr title="HyperText Markup Language">HTML</abbr> is housed within <code>.astro</code> component files and styled with scoped <abbr title="Cascading Style Sheets">CSS</abbr>. A minimal amount of JavaScript is used to provide <Link href="https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement">progressive enhancement</Link>. The pretty syntax highlighting on code blocks is thanks to the <Link href="https://github.com/shikijs/shiki">Shiki</Link> library (using the Dracula theme). Blog posts are written in <Link href="https://github.com/mdx-js/mdx">MDX</Link>.
+
+### Colors
+
+This is the site's main color palette. You can see all the colors I use with the inspect element tool in your browser. They'll be listed under the <code>:root</code> selector in the styles pane.
+
+<Palette/>
+
+### Typography
+
+<span className="lead-in">I'm using the following typefaces:</span>
+<dl>
+    <dt><Link href="https://fonts.google.com/specimen/Philosopher">Philosopher</Link>:</dt>
+    <dd>for my logo</dd>
+    <dt><Link href="https://fonts.google.com/specimen/Merriweather+Sans">Merriweather Sans</Link>:</dt>
+    <dd>for headings</dd>
+    <dt><Link href="https://fonts.google.com/specimen/Merriweather">Merriweather</Link>:</dt>
+    <dd>for body copy</dd>
+    <dt><Link href="https://fonts.google.com/specimen/Inter">Inter</Link>:</dt>
+    <dd>for UI elements</dd>
+</dl>
+
+I'm also using a <Link href="https://utopia.fyi/type/calculator?c=320,18,1.2,1280,21,1.333,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12">fluid type and space scale</Link> from <Link href="https://utopia.fyi/" name="Utopia.fyi">Utopia</Link>. It makes font size and element spacing scale nicely with your device's screen width.
+
+### Hosting
+
+The domain name was purchased on <Link href="https://www.cloudflare.com/products/registrar/">Cloudflare Registrar</Link>. The site itself is hosted on <Link href="https://pages.cloudflare">Cloudflare Pages</Link>.
+

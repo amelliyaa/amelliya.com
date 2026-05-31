@@ -5,7 +5,8 @@ const { href, external } = Astro.props;
 // HTML must be a single line to prevent a trailing space from being generated
 ---
 
-<a href={href} class="_link"><slot />{external && <OpenIcon class="_open" aria-hidden={true} />}</a
+<a href={href} class="_link"
+  ><slot />{!href.includes("amelliya") && <OpenIcon class="_open" aria-hidden={true} />}</a
 ><style>
   ._link {
     text-decoration: underline;
