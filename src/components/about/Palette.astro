@@ -3,13 +3,7 @@ const palette = ["#CFA3EF", "#F8B8D6", "#F8CB82", "#A9AFF3", "#2E243C"];
 ---
 
 <ul class="palette">
-  {
-    palette.map((swatch) => (
-      <li class="swatch" style={`background-color: ${swatch}`}>
-        {swatch}
-      </li>
-    ))
-  }
+  {palette.map((swatch, index) => <li class={`swatch swatch-${index}`}>{swatch}</li>)}
 </ul>
 
 <style>
@@ -32,7 +26,24 @@ const palette = ["#CFA3EF", "#F8B8D6", "#F8CB82", "#A9AFF3", "#2E243C"];
     font-weight: var(--medium);
   }
 
-  .swatch:last-child {
+  .swatch-0 {
+    background-color: var(--color-primary);
+  }
+
+  .swatch-1 {
+    background-color: var(--color-secondary);
+  }
+
+  .swatch-2 {
+    background-color: var(--color-accent);
+  }
+
+  .swatch-3 {
+    background-color: var(--color-selected);
+  }
+
+  .swatch-4 {
+    background-color: var(--color-bg);
     color: var(--color-text-light);
   }
 
