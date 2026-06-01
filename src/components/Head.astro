@@ -16,6 +16,9 @@ const { title, description, hasCode } = Astro.props;
   <meta name="keywords" content="" />
   <meta name="author" content="" />
 
+  <meta name="theme-color" content="#cfa3ef" />
+  <meta name="color-scheme" content="light dark" />
+
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -24,6 +27,6 @@ const { title, description, hasCode } = Astro.props;
   <Font cssVariable="--typeface-body" preload />
   <Font cssVariable="--typeface-workhorse" preload />
 
-  <link rel="expect" blocking="render" href="#page-root" />
-  {hasCode && <link href="/prism-dracula.css" rel="stylesheet" />}
+  {hasCode && <link rel="stylesheet" href="/prism-dracula.css" />}
+  <link rel="expect" blocking="render" href="#the-unexpected" />
 </head>

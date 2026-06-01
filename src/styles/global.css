@@ -6,6 +6,8 @@
 /* Default styles */
 html {
   background-color: var(--color-bg);
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-primary) var(--color-bg-dark);
 }
 
 body {
