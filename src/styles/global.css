@@ -1,8 +1,12 @@
 @import "./reset.css";
 @import "./theme.css";
 @import "./typography.css";
+@import "./view-transition.css";
 
 /* Default styles */
+html {
+  background-color: var(--color-bg);
+}
 
 body {
   /* Push footer to bottom of page */
@@ -11,7 +15,6 @@ body {
 
   font-family: var(--typeface-body);
   color: var(--color-text-light);
-  background-color: var(--color-bg);
 }
 
 a {

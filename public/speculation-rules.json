@@ -1,0 +1,28 @@
+{
+  "prefetch": [
+    {
+      "source": "document",
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/*\\?*" } },
+          { "not": { "selector_matches": "[rel~=\"nofollow\"]" } }
+        ]
+      },
+      "eagerness": "eager"
+    }
+  ],
+  "prerender": [
+    {
+      "source": "document",
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": "/*\\?*" } },
+          { "not": { "selector_matches": "[rel~=\"nofollow\"]" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }
+  ]
+}

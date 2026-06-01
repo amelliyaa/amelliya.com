@@ -20,20 +20,12 @@ export const mainNavLinks = [
 const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 ---
 
-<script src="../scripts/menu.js"></script>
+<script src="@scripts/menu.js"></script>
 <header class="site-header">
   <nav class="navbar" id="navigation" aria-label="Site navigation menu">
     <a href="/" class="brand" aria-label="Home">amelliya</a>
 
-    <input
-      type="checkbox"
-      role="button"
-      id="menu-button"
-      aria-haspopup="menu"
-      aria-controls="menu"
-      aria-expanded="false"
-      aria-label="Toggle menu"
-    />
+    <input type="checkbox" id="menu-button" aria-label="Toggle menu" />
     <label for="menu-button" class="menu-label">
       Menu
       <ChevronDown class="chevron" />

@@ -30,12 +30,6 @@
   --anim-length-medium: 0.4s;
   --anim-length-long: 0.5s;
 
-  /* Typefaces */
-  --typeface-logo: "Philosopher", serif;
-  --typeface-display: "Merriweather Sans", sans-serif;
-  --typeface-body: "Merriweather", serif;
-  --typeface-workhorse: "Inter", system-ui, sans-serif;
-
   /* Font weights */
   --light: 200;
   --normal: 300;

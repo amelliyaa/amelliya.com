@@ -16,9 +16,16 @@ export default defineConfig({
   site: "https://amelliya.com",
   adapter: cloudflare({
     experimentalStaticHeaders: true,
+    imageService: "compile",
   }),
   security: {
-    csp: true,
+    csp: {
+      directives: ["object-src 'none'", "base-uri 'none'"],
+      scriptDirective: {
+        resources: ["'self'", "'unsafe-inline'", "'inline-speculation-rules'"],
+        strictDynamic: true,
+      },
+    },
   },
   i18n: {
     defaultLocale: languages.defaultLocale,
@@ -69,7 +76,7 @@ export default defineConfig({
       options: {
         variants: [
           {
-            weight: "200 600",
+            weight: "300 600",
             style: "normal",
             src: ["./src/assets/fonts/Merriweather-VariableFont_opsz,wdth,wght.woff2"],
             fallback: ["serif"],
