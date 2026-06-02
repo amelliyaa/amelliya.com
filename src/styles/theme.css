@@ -4,6 +4,7 @@
   /* Width caps */
   --max-page-width: 1400px;
   --max-article-width: 80ch;
+  --scrollbar-width: 0px; /* Fallback value if no JS */
 
   /* Colors */
   --color-overlay: rgb(13 10 17 / 50%);

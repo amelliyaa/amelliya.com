@@ -6,7 +6,6 @@
 /* Default styles */
 html {
   background-color: var(--color-bg);
-  scrollbar-gutter: stable;
   scrollbar-color: var(--color-primary) var(--color-bg-dark);
 }
 
@@ -65,6 +64,10 @@ code {
   inline-size: min(100%, var(--_max-width));
   margin: var(--space-lg) auto var(--space-3xl) auto;
   padding-inline: var(--space-lg);
+}
+
+body.no-scroll .content-grid {
+  padding-inline: var(--space-lg) calc(var(--space-lg) + var(--scrollbar-width));
 }
 
 .content-grid > * {

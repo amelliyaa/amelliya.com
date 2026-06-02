@@ -3,6 +3,7 @@ const menuButton = document.getElementById("menu-button");
 const main = document.querySelector("main");
 const footer = document.querySelector("footer");
 const breakpoint = window.matchMedia("(min-width: 36rem)");
+const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
 const isMenuOpen = () => menuButton.getAttribute("aria-expanded") === "true";
 
@@ -45,6 +46,7 @@ breakpoint.addEventListener("change", ({ matches: hasMenuBar }) => {
   }
 });
 
+document.documentElement.style.setProperty("--scrollbar-width", `${scrollbarWidth}px`);
 menuButton.setAttribute("role", "button");
 menuButton.setAttribute("aria-haspopup", "menu");
 menuButton.setAttribute("aria-controls", "menu");

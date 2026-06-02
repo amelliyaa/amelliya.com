@@ -84,6 +84,10 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     box-shadow: var(--box-shadow-sm);
   }
 
+  body.no-scroll .navbar {
+    padding-inline-end: calc(var(--scrollbar-width) + var(--space-sm));
+  }
+
   .navbar:has(#menu-button:checked) {
     gap: 8px;
   }

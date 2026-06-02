@@ -41,6 +41,10 @@ import Sitemap from "@components/Sitemap.astro";
     padding-inline: var(--space-sm);
   }
 
+  body.no-scroll .footer-content {
+    padding-inline-end: calc(var(--scrollbar-width) + var(--space-sm));
+  }
+
   .sitemap {
     flex: 1 0 auto;
   }
