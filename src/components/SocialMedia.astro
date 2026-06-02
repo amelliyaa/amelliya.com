@@ -1,14 +1,16 @@
 ---
 import TikTokLogo from "@logos/tiktok.svg";
 import YouTubeLogo from "@logos/youtube.svg";
-import BlueskyLogo from "@logos/bluesky.svg";
+import TwitchLogo from "@logos/twitch.svg";
+import PinterestLogo from "@logos/pinterest.svg";
 import RedditLogo from "@logos/reddit.svg";
 import GitHubLogo from "@logos/github.svg";
 
-const tiktok = "https://www.tiktok.com/@liya_amelliya";
-const youtube = "https://www.youtube.com/@liya_amelliya";
-const bluesky = "https://bsky.app/profile/amelliya.bsky.social";
-const reddit = "https://www.reddit.com/user/liya_amelliya";
+const tiktok = "https://www.tiktok.com/@__amelliya";
+const youtube = "https://www.youtube.com/@aamelliya";
+const twitch = "https://www.twitch.tv/amelliya_";
+const pinterest = "https://www.pinterest.com/amelliyacore/";
+const reddit = "https://www.reddit.com/user/amelliya";
 const github = "https://github.com/amelliyaa";
 
 export const getLinkText = (platform: string, isPersonal = false) =>
@@ -17,20 +19,8 @@ export const getLinkText = (platform: string, isPersonal = false) =>
 
 <ul class="social-media">
   <li>
-    <a rel="me" href={tiktok} class="social-link" aria-label={getLinkText("TikTok")}>
-      <TikTokLogo class="social-icon" aria-hidden={true} />
-    </a>
-  </li>
-
-  <li>
-    <a rel="me" href={youtube} class="social-link" aria-label={getLinkText("YouTube")}>
-      <YouTubeLogo class="social-icon" aria-hidden={true} />
-    </a>
-  </li>
-
-  <li>
-    <a rel="me" href={bluesky} class="social-link" aria-label={getLinkText("Bluesky", true)}>
-      <BlueskyLogo class="social-icon" aria-hidden={true} />
+    <a rel="me" href={pinterest} class="social-link" aria-label={getLinkText("Pinterest")}>
+      <PinterestLogo class="social-icon" aria-hidden={true} />
     </a>
   </li>
 
@@ -40,11 +30,11 @@ export const getLinkText = (platform: string, isPersonal = false) =>
     </a>
   </li>
 
-  <!--<li>-->
-  <!--  <a rel="me" href={github} class="social-link" aria-label={getLinkText("GitHub")}>-->
-  <!--    <GitHubLogo class="social-icon" aria-hidden={true} />-->
-  <!--  </a>-->
-  <!--</li>-->
+  <li>
+    <a rel="me" href={github} class="social-link" aria-label={getLinkText("GitHub")}>
+      <GitHubLogo class="social-icon" aria-hidden={true} />
+    </a>
+  </li>
 </ul>
 
 <style>
