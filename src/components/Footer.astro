@@ -1,17 +1,20 @@
 ---
-import SocialMedia from "@components/SocialMedia.astro";
-import Newsletter from "@components/Newsletter.astro";
-import Sitemap from "@components/Sitemap.astro";
+import SocialMedia from "@components/footer/SocialMedia.astro";
+import Newsletter from "@components/footer/Newsletter.astro";
+import Contact from "@components/footer/Contact.astro";
+import Sitemap from "@components/footer/Sitemap.astro";
 ---
 
 <footer class="site-footer">
   <div class="footer-content">
-    <Newsletter class="newsletter" />
-    <Sitemap class="sitemap" />
-
-    <div class="social-card">
-      <SocialMedia />
+    <div class="follow">
+      <Contact class="contact" />
+      <div class="social-card">
+        <SocialMedia />
+      </div>
     </div>
+
+    <Sitemap class="sitemap" />
   </div>
 
   <div class="copyright">
@@ -49,24 +52,16 @@ import Sitemap from "@components/Sitemap.astro";
     flex: 1 0 auto;
   }
 
-  .newsletter {
+  .follow {
     flex: 2 0 fit-content;
+    display: grid;
+    gap: var(--space-xs);
   }
 
   /* Social card */
   .social-card {
-    flex: 1 0 auto;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
     gap: var(--space-md);
-
-    max-inline-size: 100%;
-    padding: var(--space-xs) var(--space-md);
-    background-color: var(--color-bg);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--box-shadow-md);
   }
 
   /* Copyright */

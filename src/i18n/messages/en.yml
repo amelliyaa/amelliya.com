@@ -6,3 +6,6 @@ homepage.greeting: "Hello, World! I'm <b>Liya</b>"
 404.title: "Page Not Found"
 404.content: "Sorry! But the page you're looking for doesn't seem to exist."
 404.linkText: "Take me home."
+# contact page
+contact.heading: "Want to get in touch?"
+contact.text: "Send me an email at"

@@ -1,0 +1,37 @@
+---
+import InputField from "@components/controls/InputField.astro";
+import Button from "@components/controls/Button.astro";
+import Link from "@components/controls/Link.astro";
+import { useTranslations } from "@i18n/utils.ts";
+
+const newsletterEndpoint = "api/subscribe";
+const { class: className, ...attrs } = Astro.props;
+const t = useTranslations(Astro.currentLocale as string);
+---
+
+<div class:list={["_contact", className]} {...attrs}>
+  <hgroup>
+    <h2 class="contact-heading">{t("contact.heading")}</h2>
+    <p class="typography-subtitle">
+      {t("contact.text")}
+      <strong>
+        <Link href="mailto:hello@amelliya.com">hello@amelliya.com</Link>!
+      </strong>
+    </p>
+  </hgroup>
+</div>
+
+<style>
+  ._contact > * {
+    max-inline-size: 60ch;
+  }
+
+  .contact-heading {
+    color: var(--color-primary);
+  }
+
+  .typography-subtitle {
+    font-size: var(--font-size-md);
+    font-weight: var(--normal);
+  }
+</style>

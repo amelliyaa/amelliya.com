@@ -42,12 +42,15 @@ export const getLinkText = (platform: string, isPersonal = false) =>
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--space-md);
+    gap: var(--space-xs);
   }
 
   .social-link {
-    display: inline-block;
+    display: grid;
+    place-items: center;
     color: var(--color-text-light);
+    inline-size: var(--font-size-2xl);
+    block-size: var(--font-size-2xl);
   }
 
   .social-link:hover,
@@ -56,8 +59,8 @@ export const getLinkText = (platform: string, isPersonal = false) =>
   }
 
   .social-icon {
-    inline-size: var(--font-size-2xl);
-    block-size: var(--font-size-2xl);
+    inline-size: 75%;
+    block-size: 75%;
   }
 
   .social-icon:hover,

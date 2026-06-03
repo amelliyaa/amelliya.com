@@ -1,12 +1,12 @@
 ---
 import OpenIcon from "@icons/open-outline.svg";
-const { href, external } = Astro.props;
+const { href } = Astro.props;
 
 // HTML must be a single line to prevent a trailing space from being generated
 ---
 
 <a href={href} class="_link"
-  ><slot />{!href.includes("amelliya") && <OpenIcon class="_open" aria-hidden={true} />}</a
+  ><slot />{href.startsWith("https") && <OpenIcon class="_open" aria-hidden={true} />}</a
 ><style>
   ._link {
     text-decoration: underline;
