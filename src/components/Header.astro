@@ -1,5 +1,6 @@
 ---
 import MenuLink from "@components/controls/MenuLink.astro";
+import Amelliya from "@logos/amelliya.svg";
 import ChevronDown from "@icons/chevron-down-outline.svg";
 
 export const mainNavLinks = [
@@ -23,7 +24,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 <script src="@scripts/menu.js"></script>
 <header class="site-header">
   <nav class="navbar" id="navigation" aria-label="Site navigation menu">
-    <a href="/" class="brand" aria-label="Home">amelliya</a>
+    <a href="/" class="brand" aria-label="Home"><Amelliya /></a>
 
     <input type="checkbox" id="menu-button" aria-label="Toggle menu" />
     <label for="menu-button" class="menu-label">
@@ -90,6 +91,11 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 
   .navbar:has(#menu-button:checked) {
     gap: 8px;
+  }
+
+  .brand {
+    display: grid;
+    place-items: center;
   }
 
   /* Mobile menu button styling */

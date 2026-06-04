@@ -22,10 +22,9 @@ const { title, description, hasCode } = Astro.props;
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <Font cssVariable="--typeface-logo" preload />
-  <Font cssVariable="--typeface-display" preload />
-  <Font cssVariable="--typeface-body" preload />
-  <Font cssVariable="--typeface-workhorse" preload />
+  <Font cssVariable="--typeface-display" />
+  <Font cssVariable="--typeface-body" />
+  <Font cssVariable="--typeface-workhorse" />
 
   {hasCode && <link rel="stylesheet" href="/prism-dracula.css" />}
   <link rel="expect" blocking="render" href="#the-unexpected" />
