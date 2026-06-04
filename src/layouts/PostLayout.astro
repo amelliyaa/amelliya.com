@@ -9,11 +9,7 @@ const locale = Astro.currentLocale;
 ---
 
 <html lang={locale}>
-  <Head
-    title={frontmatter.title}
-    description={frontmatter.description}
-    hasCode={frontmatter.hasCode}
-  />
+  <Head title={frontmatter.title} description={frontmatter.description} />
   <body>
     <Header />
     <main>

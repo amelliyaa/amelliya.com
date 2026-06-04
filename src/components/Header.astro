@@ -32,21 +32,26 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
       <ChevronDown class="chevron" />
     </label>
 
-    <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">
-      {
-        mainNavLinks.map((page) => (
-          <li role="none">
-            <MenuLink
-              href={page.path}
-              role="menuitem"
-              isActive={currentDir === page.name.toLowerCase()}
-            >
-              {page.name}
-            </MenuLink>
-          </li>
-        ))
-      }
-    </menu>
+    <div class="dropdown-wrapper">
+      <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">
+        {
+          mainNavLinks.map((page) => (
+            <li role="none">
+              <MenuLink
+                href={page.path}
+                role="menuitem"
+                isActive={currentDir === page.name.toLowerCase()}
+              >
+                {page.name}
+              </MenuLink>
+            </li>
+          ))
+        }
+        <pagefind-modal-trigger class="search-trigger" hide-shortcut></pagefind-modal-trigger>
+      </menu>
+    </div>
+
+    <pagefind-modal></pagefind-modal>
   </nav>
 </header>
 
@@ -71,10 +76,9 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     position: absolute;
 
     display: grid;
-    grid-template-columns: auto 1fr;
-    justify-items: end;
+    grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 0;
+    gap: 0 var(--space-sm);
 
     inline-size: 100%;
     min-inline-size: fit-content;
@@ -94,6 +98,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
   }
 
   .brand {
+    justify-self: start;
     display: grid;
     place-items: center;
   }
@@ -111,6 +116,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
   }
 
   .menu-label {
+    justify-self: end;
     display: flex;
     align-items: center;
     gap: var(--space-3xs);
@@ -136,31 +142,47 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
   }
 
   /* Navigation menu styling */
-  .dropdown {
-    grid-column: span 2;
-    display: flex;
-    gap: var(--space-sm-md);
-    flex-direction: column;
-    text-align: center;
-
-    inline-size: 100%;
-    max-block-size: 0;
-    opacity: 0;
-    overflow: hidden;
+  .dropdown-wrapper {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-rows: 0fr;
   }
 
-  #menu-button:checked ~ .dropdown {
-    /* (line-height + gap) * n + padding */
-    max-block-size: calc((1.2rem + var(--space-sm-md)) * 3 + var(--space-sm) + var(--space-xs));
-    padding-block: var(--space-sm) var(--space-xs);
+  #menu-button:checked ~ .dropdown-wrapper {
+    grid-template-rows: 1fr;
+  }
+
+  .dropdown {
+    min-block-size: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm-md);
+
+    padding-block: 0;
+    opacity: 0;
+  }
+
+  #menu-button:checked ~ .dropdown-wrapper .dropdown {
+    padding-block: var(--space-xs);
     opacity: 1;
   }
 
+  .search-trigger {
+    inline-size: 100%;
+    order: -1;
+  }
+
   @media (prefers-reduced-motion: no-preference) {
+    .dropdown-wrapper {
+      transition: grid-template-rows var(--anim-length-base) ease-in-out;
+    }
+
     .dropdown {
       transition:
-        max-block-size var(--anim-length-base) ease-in-out,
-        padding-block var(--anim-length-long) ease-in-out,
+        padding-block var(--anim-length-base) ease-in-out,
         opacity var(--anim-length-medium) ease-in-out;
     }
 
@@ -175,23 +197,34 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
 
   /* On large enough displays use nav bar */
   @media only screen and (min-width: 36rem) {
+    .navbar {
+      grid-template-columns: auto 1fr;
+    }
+
     #menu-button,
     .menu-label {
       display: none;
     }
 
-    .dropdown {
-      grid-column: auto;
-      flex-direction: row;
+    .dropdown-wrapper {
+      grid-row: 1;
+      grid-column: 2;
+      display: block;
+    }
 
-      inline-size: auto;
+    .dropdown {
+      flex-direction: row;
+      justify-content: flex-end;
       opacity: 1;
       overflow: visible;
-      transition: none;
-
-      /* Override '#menu-button:checked ~ .dropdown' selector when no js */
-      max-block-size: none !important;
       padding-block: 0 !important;
+
+      transition: none;
+    }
+
+    .search-trigger {
+      inline-size: auto;
+      order: 0;
     }
   }
 </style>

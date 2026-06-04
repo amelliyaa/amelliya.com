@@ -99,4 +99,56 @@
 
   /* Custom pairs */
   --space-2xl-4xl: clamp(5rem, 2.3182rem + 13.4091vw, 12.375rem);
+
+  /* pagefind configuration */
+  /* Colors */
+  --pf-text: var(--color-text-light);
+  --pf-text-secondary: var(--color-text-faint);
+  --pf-text-muted: var(--color-text-faint);
+
+  --pf-background: var(--color-bg);
+  --pf-border: var(--color-primary);
+  --pf-border-focus: var(--color-selected);
+  --pf-skeleton: var(--color-bg-dark);
+  --pf-skeleton-shine: var(--color-bg-bright);
+  --pf-hover: var(--color-bg-bright);
+  --pf-mark: var(--color-accent);
+
+  --pf-scroll-shadow: var(--color-overlay);
+
+  /* Shadows */
+  --pf-shadow-sm: var(--box-shadow-sm);
+  --pf-shadow-md: var(--box-shadow-md);
+  --pf-shadow-lg: var(--box-shadow-lg);
+
+  /* Error states */
+  --pf-error-bg: #3d1c20;
+  --pf-error-border: #8b2c36;
+  --pf-error-text: #ff8a8a;
+  --pf-error-text-secondary: #c96868;
+
+  /* Focus ring */
+  --pf-outline-focus: var(--color-selected);
+
+  /* Typography */
+  --pf-font: inherit;
+
+  /* Sizing */
+  --pf-input-font-size: var(--font-size-base);
+  --pf-summary-font-size: var(--font-size-xs);
+  --pf-result-title-font-size: var(--font-size-base);
+  --pf-result-excerpt-font-size: var(--font-size-sm);
+
+  /* Results layout */
+  --pf-results-gap: var(--space-xs);
+  --pf-border-radius: var(--border-radius-md);
+  --pf-image-width: 64px;
+  --pf-image-height: 48px;
+
+  /* Modal */
+  --pf-modal-backdrop: var(--color-overlay); /* Swapped static rgba for your overlay variable */
+}
+
+.pf-modal-body {
+  scrollbar-color: var(--color-primary) var(--color-bg-dark) !important;
 }

@@ -2,7 +2,7 @@
 import "@styles/global.css";
 import { Font } from "astro:assets";
 
-const { title, description, hasCode } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <head>
@@ -22,10 +22,19 @@ const { title, description, hasCode } = Astro.props;
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+  <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "f1a057855418414d9a6b9ff70f2e24ea"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+
   <Font cssVariable="--typeface-display" />
   <Font cssVariable="--typeface-body" />
   <Font cssVariable="--typeface-workhorse" />
 
-  {hasCode && <link rel="stylesheet" href="/prism-dracula.css" />}
   <link rel="expect" blocking="render" href="#the-unexpected" />
 </head>

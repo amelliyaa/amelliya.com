@@ -53,22 +53,13 @@ export default defineConfig({
     experimentalStaticHeaders: true,
     imageService: "compile",
   }),
-  security: {
-    csp: {
-      directives: ["object-src 'none'", "base-uri 'none'"],
-      scriptDirective: {
-        resources: ["'self'", "'unsafe-inline'", "'inline-speculation-rules'"],
-        strictDynamic: true,
-      },
-    },
-  },
   i18n: {
     defaultLocale: languages.defaultLocale,
     locales: Object.values(languages.locales),
   },
   integrations: [mdx(), sitemap({ i18n: languages })],
   markdown: {
-    syntaxHighlight: "prism",
+    shikiConfig: { theme: "dracula" },
   },
   image: {
     layout: "constrained",
