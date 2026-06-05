@@ -4,6 +4,7 @@ const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
 import ChevronForward from "@icons/chevron-forward-outline.svg";
 import ChevronBack from "@icons/chevron-back-outline.svg";
 
+const { tag } = Astro.props;
 const paginatedList = getPaginatedList(currentPage, lastPage, 1);
 ---
 
@@ -22,7 +23,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
         page !== -1 ? (
           <li>
             <a
-              href={`/blog/${page}`}
+              href={tag ? `/blog/${tag}/${page}` : `/blog/${page}`}
               class="page-button"
               aria-label={
                 page === 1 ? "First page" : page === lastPage ? "Last page" : `Page ${page}`

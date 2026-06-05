@@ -1,0 +1,130 @@
+---
+import { getCollection } from "astro:content";
+
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { i18n } from "astro:config/client";
+
+import Pagination from "@components/controls/Pagination.astro";
+import BlogCard from "@components/cards/BlogCard.astro";
+
+const { page, currentTag } = Astro.props;
+const locale = Astro.currentLocale as string;
+
+const allPosts = await getCollection("posts");
+const localePosts = allPosts.filter((post) => post.data.locale === locale);
+const tags = [...new Set(localePosts.flatMap((post) => post.data.tags))];
+---
+
+<h1>Blog Archives</h1>
+<div class="filters">
+  <a
+    href={getRelativeLocaleUrl(locale, "blog/1")}
+    class:list={["tag", { "current-tag": !currentTag }]}
+  >
+    all
+  </a>
+  {
+    tags.map((tag) => (
+      <a
+        href={getRelativeLocaleUrl(locale, tag === currentTag ? "blog/1" : `blog/${tag}/1`)}
+        class:list={["tag", { "current-tag": currentTag === tag }]}
+      >
+        {tag}
+      </a>
+    ))
+  }
+</div>
+
+<div class="archive">
+  {
+    page.data.map((post) => (
+      <BlogCard
+        href={getRelativeLocaleUrl(locale, `blog/${post.data.translationId}`)}
+        frontmatter={post.data}
+      />
+    ))
+  }
+</div>
+{
+  page.lastPage > 1 && (
+    <Pagination
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+      prevUrl={page.url.prev}
+      nextUrl={page.url.next}
+      tag={currentTag}
+    />
+  )
+}
+
+<style>
+  .archive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md-lg);
+    margin-block-end: var(--space-sm-md);
+  }
+
+  @media only screen and (min-width: 36rem) {
+    .archive {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media only screen and (min-width: 62rem) {
+    .archive {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-block: var(--space-xs-sm) var(--space-md-lg);
+  }
+
+  .tag {
+    padding: var(--space-3xs-2xs) var(--space-xs-sm);
+    border-radius: var(--border-radius-md);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--semibold);
+
+    color: var(--color-text-faint);
+    background-color: var(--color-bg-bright);
+  }
+
+  .tag:not(.current-tag):hover,
+  .tag:not(.current-tag):focus {
+    color: var(--color-text-light);
+    outline: 1px solid var(--color-secondary);
+    box-shadow: var(--box-shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .current-tag {
+    font-weight: var(--bold);
+    color: var(--color-text-dark);
+    background-color: var(--color-accent);
+  }
+
+  .current-tag:hover,
+  .current-tag:focus {
+    opacity: 0.75;
+    box-shadow: var(--box-shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tag {
+      transition:
+        color var(--anim-length-base) ease-in-out,
+        transform var(--anim-length-short) ease-in-out;
+    }
+
+    .current-tag {
+      transition: opacity var(--anim-length-base) ease-in-out;
+    }
+  }
+</style>

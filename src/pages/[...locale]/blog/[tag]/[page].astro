@@ -12,18 +12,28 @@ export const getStaticPaths = (async ({ paginate }) => {
     const posts = allPosts
       .filter((post) => post.data.locale === lang && post.data.draft !== true)
       .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+
     const locale = lang === i18n?.defaultLocale ? undefined : (lang as string);
-    return paginate(posts, { pageSize: 6, params: { locale } });
+    const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+    return tags.flatMap((tag) => {
+      const taggedPosts = posts.filter((post) => post.data.tags.includes(tag));
+
+      return paginate(taggedPosts, {
+        pageSize: 6,
+        params: { locale, tag },
+        props: { tag },
+      });
+    });
   });
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
+const { page, tag } = Astro.props;
 const title =
   page.currentPage === 1 ? "Blog | amelliya" : `Blog – Page ${page.currentPage} | amelliya`;
 const description = "Blog of amelliya";
-const locale = Astro.currentLocale as string;
 ---
 
-<BaseLayout title={title} description={description}>
-  <BlogArchive page={page} />
+<BaseLayout title={title + tag} description={description + tag}>
+  <BlogArchive page={page} currentTag={tag} />
 </BaseLayout>

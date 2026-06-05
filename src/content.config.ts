@@ -21,7 +21,7 @@ const i18nLoader = (options: GlobOptions): Loader => {
         if (!props.filePath) return parseData(props);
 
         const { name: translationId, dir } = path.parse(props.filePath);
-        const locale = dir.split(path.sep).pop();
+        const locale = dir.split(/[\\/]/).pop();
 
         return parseData({ ...props, data: { ...props.data, translationId, locale } });
       };
@@ -32,31 +32,22 @@ const i18nLoader = (options: GlobOptions): Loader => {
 };
 
 const pages = defineCollection({
-  loader: i18nLoader({
-    pattern: "**/*.mdx",
-    base: "./src/content/pages",
-  }),
+  loader: i18nLoader({ pattern: "**/*.mdx", base: "./src/content/pages" }),
   schema: pageSchema,
 });
+
 const posts = defineCollection({
-  loader: i18nLoader({
-    pattern: "**/*.mdx",
-    base: "./src/content/posts",
-  }),
+  loader: i18nLoader({ pattern: "**/*.mdx", base: "./src/content/posts" }),
   schema: postSchema,
 });
+
 const games = defineCollection({
-  loader: i18nLoader({
-    pattern: "**/*.json",
-    base: "./src/content/games",
-  }),
+  loader: i18nLoader({ pattern: "**/*.json", base: "./src/content/games" }),
   schema: gameSchema,
 });
+
 const projects = defineCollection({
-  loader: i18nLoader({
-    pattern: "**/*.json",
-    base: "./src/content/projects",
-  }),
+  loader: i18nLoader({ pattern: "**/*.json", base: "./src/content/projects" }),
   schema: projectSchema,
 });
 
