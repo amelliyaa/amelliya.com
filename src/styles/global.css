@@ -73,24 +73,3 @@ body.no-scroll .content-grid {
 .content-grid > * {
   min-inline-size: fit-content;
 }
-
-/* Keyframes */
-
-@keyframes slide-in {
-  from {
-    transform: translateX(-90px);
-  }
-
-  to {
-    transform: translateX(0px);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}

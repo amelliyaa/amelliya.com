@@ -63,6 +63,11 @@ const recentPosts = (
     transform: translateX(10px);
   }
 
+  [dir="rtl"] .blog-posts-heading:hover > .arrow,
+  [dir="rtl"] .blog-posts-heading:focus > .arrow {
+    transform: translateX(-10px);
+  }
+
   .blog-posts-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -89,10 +94,6 @@ const recentPosts = (
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .blog-posts > * {
-      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
-    }
-
     .blog-posts-heading {
       transition: color var(--anim-length-short) ease-in-out;
     }

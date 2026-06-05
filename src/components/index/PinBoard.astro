@@ -48,25 +48,15 @@ const projects = await getCollection("projects");
 
     content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    inline-size: calc(100% - var(--_outline-offset));
-    block-size: calc(100% - var(--_outline-offset));
+    inset: var(--_outline-offset);
 
     background-color: var(--_pin-board-bg);
-    background-image: radial-gradient(circle at 10px 10px, var(--_dots-color) 1px, transparent 1px),
+    background-image:
+      radial-gradient(circle at 10px 10px, var(--_dots-color) 1px, transparent 1px),
       radial-gradient(circle at 30px 30px, var(--_dots-color) 1px, transparent 1px);
-    background-size: 35px 35px; /* Size of the pattern */
+    background-size: 35px 35px;
 
     border-radius: var(--border-radius-md);
     outline: 3px dashed var(--color-secondary);
-    transform: translate(-50%, -50%);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .current-projects {
-      animation: fade-in 0.8s cubic-bezier(0.12, 0, 0.39, 0) forwards;
-    }
   }
 </style>

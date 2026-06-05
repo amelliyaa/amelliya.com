@@ -28,8 +28,8 @@ const { href, role, isActive, ...attrs } = Astro.props;
     content: "";
     display: block;
     position: absolute;
-    left: 0;
-    bottom: -4px;
+    inset-inline-start: 0;
+    inset-block-end: -4px;
     block-size: 2px;
     inline-size: 100%;
     background-color: var(--color-selected);
@@ -39,9 +39,19 @@ const { href, role, isActive, ...attrs } = Astro.props;
     transform: scale(0, 1.0001);
   }
 
+  [dir="rtl"] ._menu-link::after {
+    transform-origin: left;
+  }
+
   :not(.active)._menu-link:hover::after,
   :not(.active)._menu-link:focus::after {
     transform-origin: left;
+    transform: scale(1, 1.0001);
+  }
+
+  [dir="rtl"] :not(.active)._menu-link:hover::after,
+  [dir="rtl"] :not(.active)._menu-link:focus::after {
+    transform-origin: right;
     transform: scale(1, 1.0001);
   }
 
@@ -63,13 +73,10 @@ const { href, role, isActive, ...attrs } = Astro.props;
     content: "";
     position: absolute;
     z-index: -1;
-    top: 50%;
-    left: 50%;
-    inline-size: 125%;
-    block-size: 150%;
+    inset-block: -25%;
+    inset-inline: -12.5%;
     border-radius: var(--border-radius-sm);
     outline: 2px solid var(--color-primary);
-    transform: translate(-50%, -50%);
   }
 
   /* Remove highlight outline on tab focus */
