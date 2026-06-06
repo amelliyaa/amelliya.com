@@ -1,19 +1,21 @@
 ---
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { mainNavLinks } from "@components/Header.astro";
 import MenuLink from "@components/controls/MenuLink.astro";
 
 const sitemap = [
   ...mainNavLinks,
   {
-    path: "/about",
+    path: "about",
     name: "About",
   },
   {
-    path: "/privacy",
+    path: "privacy",
     name: "Privacy",
   },
 ];
 
+const locale = Astro.currentLocale as string;
 const { class: className, ...attrs } = Astro.props;
 ---
 
@@ -21,7 +23,7 @@ const { class: className, ...attrs } = Astro.props;
   {
     sitemap.map((page) => (
       <li>
-        <MenuLink href={page.path}>{page.name}</MenuLink>
+        <MenuLink href={getRelativeLocaleUrl(locale, page.path)}>{page.name}</MenuLink>
       </li>
     ))
   }

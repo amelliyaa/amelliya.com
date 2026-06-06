@@ -15,7 +15,11 @@ const recentPosts = (
 ---
 
 <section class="blog-posts">
-  <a class="blog-posts-heading" href="/blog/1" aria-label="Link to blog">
+  <a
+    class="blog-posts-heading"
+    href={getRelativeLocaleUrl(locale, "blog/1")}
+    aria-label="Link to blog"
+  >
     <h2>Latest Posts</h2>
     <ArrowForward class="arrow" aria-hidden={true} />
   </a>

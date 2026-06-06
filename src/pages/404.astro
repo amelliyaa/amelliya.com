@@ -1,48 +1,46 @@
 ---
-import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
+import { useTranslations } from "@i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import SearchBar from "@components/SearchBar.astro";
 import Link from "@components/controls/Link.astro";
-
-export const getStaticPaths = makeI18nStaticPathsGenerator();
 
 const title = "404 Not Found | amelliya";
 const description = "My site's homepage";
 
-const t = useTranslations(Astro.currentLocale as string);
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="not-found">
     <h1 class="error-code">404</h1>
-    <h2 class="error-msg">
+    <h2>
       {t("404.title")}
       <span aria-hidden="true">🥲</span>
     </h2>
     <p class="hint">
       {t("404.content")}
-      <Link href="/" name="Home">{t("404.linkText")} </Link>
-      <SearchBar />
+      <Link href={getRelativeLocaleUrl(locale)}>{t("404.linkText")} </Link>
     </p>
   </div>
-
-  <style>
-    .not-found {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      block-size: 100%;
-      text-align: center;
-    }
-
-    .error-code {
-      font-size: var(--font-size-3xl);
-      font-weight: var(--black);
-    }
-
-    .hint {
-      max-inline-size: var(--max-article-width);
-    }
-  </style>
 </BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    block-size: 100%;
+    text-align: center;
+  }
+
+  .error-code {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--black);
+  }
+
+  .hint {
+    max-inline-size: var(--max-article-width);
+  }
+</style>

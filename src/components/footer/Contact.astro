@@ -1,10 +1,7 @@
 ---
-import InputField from "@components/controls/InputField.astro";
-import Button from "@components/controls/Button.astro";
 import Link from "@components/controls/Link.astro";
 import { useTranslations } from "@i18n/utils.ts";
 
-const newsletterEndpoint = "api/subscribe";
 const { class: className, ...attrs } = Astro.props;
 const t = useTranslations(Astro.currentLocale as string);
 ---
@@ -14,9 +11,7 @@ const t = useTranslations(Astro.currentLocale as string);
     <h2 class="contact-heading">{t("contact.heading")}</h2>
     <p class="typography-subtitle">
       {t("contact.text")}
-      <strong>
-        <Link href="mailto:hello@amelliya.com">hello@amelliya.com</Link>!
-      </strong>
+      <Link href="mailto:hello@amelliya.com">hello@amelliya.com</Link>!
     </p>
   </hgroup>
 </div>

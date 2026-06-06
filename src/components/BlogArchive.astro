@@ -1,15 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { i18n } from "astro:config/client";
-
 import Pagination from "@components/controls/Pagination.astro";
 import BlogCard from "@components/cards/BlogCard.astro";
 
 const { page, currentTag } = Astro.props;
 const locale = Astro.currentLocale as string;
-
 const allPosts = await getCollection("posts");
 const localePosts = allPosts.filter((post) => post.data.locale === locale);
 const tags = [...new Set(localePosts.flatMap((post) => post.data.tags))];
