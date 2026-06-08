@@ -12,7 +12,6 @@ const languages = {
 };
 
 const sansFallbackStack = [
-  "Merriweather Sans",
   "system-ui",
   "-apple-system",
   "BlinkMacSystemFont",
@@ -52,6 +51,7 @@ export default defineConfig({
   adapter: cloudflare({
     experimentalStaticHeaders: true,
     imageService: "compile",
+    prerenderEnvironment: "node",
   }),
   i18n: {
     defaultLocale: languages.defaultLocale,

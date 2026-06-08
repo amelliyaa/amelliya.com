@@ -1,7 +1,11 @@
 ---
-import { getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import { i18n } from "astro:config/client";
 import PostLayout from "@layouts/PostLayout.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");

@@ -1,15 +1,33 @@
 ---
+import { type ComponentProps } from "astro/types";
+import { type CollectionEntry } from "astro:content";
 import Head from "@components/Head.astro";
 import MainContentLink from "@components/controls/MainContentLink.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 
+interface Props extends Omit<ComponentProps<typeof Head>, "title" | "description"> {
+  frontmatter: CollectionEntry<"posts">["data"];
+}
+
 const { frontmatter } = Astro.props;
 const locale = Astro.currentLocale;
+const ogImageUrl = `post-${frontmatter.locale}-${frontmatter.translationId}`;
+const articleMetadata = {
+  published: frontmatter.published,
+  updated: frontmatter.updated,
+  tags: frontmatter.tags,
+};
 ---
 
 <html lang={locale}>
-  <Head title={frontmatter.title} description={frontmatter.description} />
+  <Head
+    title={frontmatter.title + " | amelliya"}
+    description={frontmatter.description}
+    type="article"
+    image={ogImageUrl}
+    article={articleMetadata}
+  />
   <body>
     <Header />
     <main>

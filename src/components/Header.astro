@@ -1,32 +1,22 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getMainNavLinks } from "@scripts/constants.ts";
 import MenuLink from "@components/controls/MenuLink.astro";
 import Amelliya from "@logos/amelliya.svg";
 import ChevronDown from "@icons/chevron-down-outline.svg";
-
-export const mainNavLinks = [
-  {
-    path: "blog/1",
-    name: "Blog",
-  },
-  {
-    path: "games",
-    name: "Games",
-  },
-  {
-    path: "gallery",
-    name: "Gallery",
-  },
-];
+import { useTranslations } from "@i18n/utils.ts";
 
 const locale = Astro.currentLocale as string;
 const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
+const t = useTranslations(locale);
 ---
 
 <script src="@scripts/menu.js"></script>
 <header class="site-header">
-  <nav class="navbar" id="navigation" aria-label="Site navigation menu">
-    <a href={getRelativeLocaleUrl(locale)} class="brand" aria-label="Home"><Amelliya /></a>
+  <nav class="navbar" id="navigation" aria-label={t("navigation.main nav aria label")}>
+    <a href={getRelativeLocaleUrl(locale)} class="brand" aria-label="Home">
+      <Amelliya />
+    </a>
 
     <input type="checkbox" id="menu-button" aria-label="Toggle menu" />
     <label for="menu-button" class="menu-label">
@@ -37,7 +27,7 @@ const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
     <div class="dropdown-wrapper">
       <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">
         {
-          mainNavLinks.map((page) => (
+          getMainNavLinks(locale).map((page) => (
             <li role="none">
               <MenuLink
                 href={getRelativeLocaleUrl(locale, page.path)}

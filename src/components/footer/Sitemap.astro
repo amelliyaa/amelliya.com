@@ -1,33 +1,25 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { mainNavLinks } from "@components/Header.astro";
+import { useTranslations } from "@i18n/utils.ts";
+import { getSitemap } from "@scripts/constants.ts";
 import MenuLink from "@components/controls/MenuLink.astro";
 
-const sitemap = [
-  ...mainNavLinks,
-  {
-    path: "about",
-    name: "About",
-  },
-  {
-    path: "privacy",
-    name: "Privacy",
-  },
-];
-
-const locale = Astro.currentLocale as string;
 const { class: className, ...attrs } = Astro.props;
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
 ---
 
-<ul class:list={["_sitemap", className]} id="sitemap" aria-label="Site map" {...attrs}>
-  {
-    sitemap.map((page) => (
-      <li>
-        <MenuLink href={getRelativeLocaleUrl(locale, page.path)}>{page.name}</MenuLink>
-      </li>
-    ))
-  }
-</ul>
+<nav class={className} aria-label={t("navigation.sitemap aria label")} {...attrs}>
+  <ul class="_sitemap">
+    {
+      getSitemap(locale).map((page) => (
+        <li>
+          <MenuLink href={getRelativeLocaleUrl(locale, page.path)}>{page.name}</MenuLink>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
 
 <style>
   ._sitemap {

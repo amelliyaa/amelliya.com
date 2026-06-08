@@ -4,14 +4,11 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Link from "@components/controls/Link.astro";
 
-const title = "404 Not Found | amelliya";
-const description = "My site's homepage";
-
 const locale = Astro.currentLocale as string;
 const t = useTranslations(locale);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={t("404.meta.title")} description={t("404.meta.description")}>
   <div class="not-found">
     <h1 class="error-code">404</h1>
     <h2>
@@ -19,8 +16,11 @@ const t = useTranslations(locale);
       <span aria-hidden="true">🥲</span>
     </h2>
     <p class="hint">
-      {t("404.content")}
-      <Link href={getRelativeLocaleUrl(locale)}>{t("404.linkText")} </Link>
+      {
+        t("404.message", {
+          homeLink: (text: string) => <Link href={getRelativeLocaleUrl(locale)}>{text}</Link>,
+        })
+      }
     </p>
   </div>
 </BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@i18n/utils.ts";
 import BlogCard from "@components/cards/BlogCard.astro";
 import ArrowForward from "@icons/arrow-forward-outline.svg";
 
@@ -12,15 +13,12 @@ const recentPosts = (
 )
   .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
   .slice(0, 3);
+const t = useTranslations(locale);
 ---
 
 <section class="blog-posts">
-  <a
-    class="blog-posts-heading"
-    href={getRelativeLocaleUrl(locale, "blog/1")}
-    aria-label="Link to blog"
-  >
-    <h2>Latest Posts</h2>
+  <a class="blog-posts-heading" href={getRelativeLocaleUrl(locale, "blog/1")}>
+    <h2>{t("index.latest posts")}</h2>
     <ArrowForward class="arrow" aria-hidden={true} />
   </a>
   <div class="blog-posts-grid">

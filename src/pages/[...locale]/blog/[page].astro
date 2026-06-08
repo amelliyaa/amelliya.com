@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { GetStaticPaths } from "astro";
 import { i18n } from "astro:config/client";
+import { useTranslations } from "@i18n/utils.ts";
 import BlogArchive from "@components/BlogArchive.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
@@ -18,12 +19,17 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
-const title =
-  page.currentPage === 1 ? "Blog | amelliya" : `Blog – Page ${page.currentPage} | amelliya`;
-const description = "Blog of amelliya";
 const locale = Astro.currentLocale as string;
+const ogImageUrl = `/open-graph/blog-archive-${locale}.png`;
+const t = useTranslations(locale);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={page.currentPage === 1
+    ? t("blog.meta.title")
+    : t("blog.meta.title with page", { pageNumber: page.currentPage })}
+  description={t("blog.meta.description")}
+  image={ogImageUrl}
+>
   <BlogArchive page={page} />
 </BaseLayout>

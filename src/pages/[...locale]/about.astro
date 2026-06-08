@@ -1,5 +1,5 @@
 ---
-import { makeI18nStaticPathsGenerator } from "@i18n/utils";
+import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
 import { getEntry, render } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Palette from "@components/about/Palette.astro";
@@ -7,11 +7,20 @@ import Palette from "@components/about/Palette.astro";
 export const getStaticPaths = makeI18nStaticPathsGenerator();
 
 const page = await getEntry("pages", `${Astro.currentLocale}/about`);
+
 if (!page) throw new Error("Could not find about page");
+
 const { Content } = await render(page);
+const locale = Astro.currentLocale as string;
+const ogImageUrl = `/open-graph/about-${locale}.png`;
+const t = useTranslations(locale);
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
+<BaseLayout
+  title={t("about.meta.title")}
+  description={t("about.meta.description")}
+  image={ogImageUrl}
+>
   <Content components={Palette} />
 </BaseLayout>
 

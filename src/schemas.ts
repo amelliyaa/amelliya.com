@@ -5,12 +5,7 @@ const i18nSchema = z.object({
   locale: z.string(),
 });
 
-export const pageSchema = z
-  .object({
-    title: z.string(),
-    description: z.string(),
-  })
-  .extend(i18nSchema.shape);
+export const pageSchema = i18nSchema;
 
 export const postSchema = z
   .object({
@@ -18,10 +13,6 @@ export const postSchema = z
     description: z.string(),
     updated: z.coerce.date(),
     published: z.coerce.date(),
-    thumbnail: z.object({
-      imagePath: z.string(),
-      alt: z.string(),
-    }),
     tags: z.array(z.string().toLowerCase()),
     draft: z.boolean().optional(),
   })

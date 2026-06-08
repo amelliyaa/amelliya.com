@@ -1,16 +1,8 @@
 ---
 import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import Featured from "@components/index/Featured.astro";
-import PinBoard from "@components/index/PinBoard.astro";
-import LatestPosts from "@components/index/LatestPosts.astro";
-import SearchBar from "@components/SearchBar.astro";
-import Link from "@components/controls/Link.astro";
 
 export const getStaticPaths = makeI18nStaticPathsGenerator();
-
-const title = "Privacy Policy | amelliya";
-const description = "My site's privacy policy";
 
 const locale = Astro.currentLocale as string;
 const t = useTranslations(locale);
@@ -21,20 +13,25 @@ const localizedDate = new Intl.DateTimeFormat(locale, {
   day: "numeric",
   year: "numeric",
 }).format(lastUpdated);
+
+const ogImageUrl = `/open-graph/privacy-${locale}.png`;
 ---
 
-<BaseLayout title={title} description={description}>
-  <div class="policy">
-    <h1 class="policy-heading">{t("privacy.heading")}</h1>
-    <p><strong>{t("privacy.updated on").replace("{date}", localizedDate)}</strong></p>
-    <p class="intro">{t("privacy.introduction")}</p>
+<BaseLayout
+  title={t("privacy.meta.title")}
+  description={t("privacy.meta.description")}
+  image={ogImageUrl}
+/>
+<div class="policy">
+  <h1 class="policy-heading">{t("privacy.heading")}</h1>
+  <p><strong>{t("privacy.updated on", { date: localizedDate })}</strong></p>
+  <p class="intro">{t("privacy.introduction")}</p>
 
-    <hgroup>
-      <h2>{t("privacy.analytics heading")}</h2>
-      <p>{t("privacy.analytics disclosure")}</p>
-    </hgroup>
-  </div>
-</BaseLayout>
+  <hgroup>
+    <h2>{t("privacy.analytics heading")}</h2>
+    <p>{t("privacy.analytics disclosure")}</p>
+  </hgroup>
+</div>
 
 <style>
   :global(.content-grid) {

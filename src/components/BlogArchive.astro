@@ -1,8 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { type Page } from "astro";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Pagination from "@components/controls/Pagination.astro";
 import BlogCard from "@components/cards/BlogCard.astro";
+
+interface Props {
+  page: Page<CollectionEntry<"posts">>;
+  currentTag?: string;
+}
 
 const { page, currentTag } = Astro.props;
 const locale = Astro.currentLocale as string;

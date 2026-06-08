@@ -1,18 +1,19 @@
 ---
 import { getPaginatedList } from "@scripts/paginator";
-const { currentPage, lastPage, prevUrl, nextUrl } = Astro.props;
+import { useTranslations } from "@i18n/utils.ts";
 import ChevronForward from "@icons/chevron-forward-outline.svg";
 import ChevronBack from "@icons/chevron-back-outline.svg";
 
-const { tag } = Astro.props;
+const { currentPage, lastPage, prevUrl, nextUrl, tag } = Astro.props;
 const paginatedList = getPaginatedList(currentPage, lastPage, 1);
+const t = useTranslations(Astro.currentLocale as string);
 ---
 
-<nav class="pagination" aria-label="pagination">
+<nav class="pagination" aria-label={t("pagination.aria label")}>
   <a
     href={prevUrl}
     class="chevron-button"
-    aria-label="previous page"
+    aria-label={t("pagination.previous page")}
     aria-hidden={!prevUrl && "true"}
   >
     <ChevronBack class="chevron" aria-hidden={true} />
@@ -22,17 +23,15 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
       paginatedList.map((page) =>
         page !== -1 ? (
           <li>
-            <a
-              href={tag ? `/blog/${tag}/${page}` : `/blog/${page}`}
-              class="page-button"
-              aria-label={
-                page === 1 ? "First page" : page === lastPage ? "Last page" : `Page ${page}`
-              }
-              aria-current={page === currentPage && "page"}
-              tabindex={page === currentPage ? "-1" : "0"}
-            >
-              {page}
-            </a>
+            {page === currentPage ? (
+              <span class="page-button current-page" aria-current="page">
+                {page}
+              </span>
+            ) : (
+              <a href={tag ? `/blog/${tag}/${page}` : `/blog/${page}`} class="page-button">
+                {page}
+              </a>
+            )}
           </li>
         ) : (
           <span class="ellipses" aria-hidden="true">
@@ -42,7 +41,12 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
       )
     }
   </ul>
-  <a href={nextUrl} class="chevron-button" aria-label="next page" aria-hidden={!nextUrl && "true"}>
+  <a
+    href={nextUrl}
+    class="chevron-button"
+    aria-label={t("pagination.next page")}
+    aria-hidden={!nextUrl && "true"}
+  >
     <ChevronForward class="chevron" aria-hidden={true} />
   </a>
 </nav>
@@ -67,7 +71,8 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     overflow-x: auto;
   }
 
-  a {
+  .page-button,
+  .chevron-button {
     --_height: var(--space-lg);
 
     display: block;
@@ -86,7 +91,7 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
     outline: 3px solid var(--color-primary);
   }
 
-  .page-button[aria-current="page"] {
+  .current-page {
     pointer-events: none;
     color: var(--color-text-dark);
     background-color: var(--color-primary);

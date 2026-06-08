@@ -1,40 +1,47 @@
 ---
-import TikTokLogo from "@logos/tiktok.svg";
-import YouTubeLogo from "@logos/youtube.svg";
-import TwitchLogo from "@logos/twitch.svg";
+import { useTranslations } from "@i18n/utils.ts";
 import PinterestLogo from "@logos/pinterest.svg";
 import RedditLogo from "@logos/reddit.svg";
 import GitHubLogo from "@logos/github.svg";
 
-const tiktok = "https://www.tiktok.com/@__amelliya";
-const youtube = "https://www.youtube.com/@aamelliya";
-const twitch = "https://www.twitch.tv/amelliya_";
-const pinterest = "https://www.pinterest.com/amelliyacore/";
-const reddit = "https://www.reddit.com/user/amelliya";
-const github = "https://github.com/amelliyaa";
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
+const socialList = {
+  ...(locale === "zh-cn"
+    ? {
+        // RedNote: ,
+      }
+    : {
+        Pinterest: PinterestLogo,
+        // TikTok: TikTokLogo,
+        // YouTube: YouTubeLogo,
+        // Twitch: TwitchLogo,
+        Reddit: RedditLogo,
+      }),
 
-export const getLinkText = (platform: string, isPersonal = false) =>
-  `Link to ${isPersonal ? "liya" : "amelliya"}'s ${platform}`;
+  GitHub: GitHubLogo,
+};
+
+const getSocialUrl = (platform: string) => t(`social.${platform.toLowerCase()}`);
+const getLinkText = (platform: string) =>
+  t("social.ariaLabel", { brand: "amelliya", platform: platform });
 ---
 
 <ul class="social-media">
-  <li>
-    <a rel="me" href={pinterest} class="social-link" aria-label={getLinkText("Pinterest")}>
-      <PinterestLogo class="social-icon" aria-hidden={true} />
-    </a>
-  </li>
-
-  <li>
-    <a rel="me" href={reddit} class="social-link" aria-label={getLinkText("Reddit")}>
-      <RedditLogo class="social-icon" aria-hidden={true} />
-    </a>
-  </li>
-
-  <li>
-    <a rel="me" href={github} class="social-link" aria-label={getLinkText("GitHub")}>
-      <GitHubLogo class="social-icon" aria-hidden={true} />
-    </a>
-  </li>
+  {
+    Object.entries(socialList).map(([platform, Logo]) => (
+      <li>
+        <a
+          rel="me"
+          href={getSocialUrl(platform)}
+          class="social-link"
+          aria-label={getLinkText(platform)}
+        >
+          <Logo class="social-icon" aria-hidden={true} />
+        </a>
+      </li>
+    ))
+  }
 </ul>
 
 <style>

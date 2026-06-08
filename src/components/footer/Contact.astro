@@ -10,8 +10,11 @@ const t = useTranslations(Astro.currentLocale as string);
   <hgroup>
     <h2 class="contact-heading">{t("contact.heading")}</h2>
     <p class="typography-subtitle">
-      {t("contact.text")}
-      <Link href="mailto:hello@amelliya.com">hello@amelliya.com</Link>!
+      {
+        t("contact.text", {
+          emailLink: (text: string) => <Link href="mailto:hello@amelliya.com">{text}</Link>,
+        })
+      }
     </p>
   </hgroup>
 </div>

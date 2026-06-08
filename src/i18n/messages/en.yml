@@ -1,17 +1,62 @@
-# site settings
-site.title: "amelliya"
-# Homepage
-homepage.greeting: "Hello, World! I'm <b>Liya</b>"
-# 404 page
-404.title: "Page Not Found"
-404.content: "Sorry! But the page you're looking for doesn't seem to exist."
-404.linkText: "Take me home."
-# contact page
-contact.heading: "Want to get in touch?"
-contact.text: "Send me an email at"
-# privacy policy
-privacy.heading: "Privacy Policy"
-privacy.introduction: "We do not collect, use, or share your personal data."
-privacy.updated on: "Updated {date}"
-privacy.analytics heading: "Analytics"
-privacy.analytics disclosure: "This website uses Cloudflare Web Analytics for basic analysis of website performance. It is a non-invasive, privacy-respecting analytics solution. It does not use any client-side state, such as cookies or localStorage, to collect usage metrics, and it doesn’t “fingerprint” individuals via their IP address, User Agent string, or any other data for the purpose of displaying analytics."
+index:
+  meta:
+    title: "Home"
+    description: "The home page of my website"
+  greeting: "Hello, World! I'm <b>Liya</b>"
+  latest posts: "Latest Posts"
+
+navigation:
+  main nav aria label: "Main"
+  sitemap aria label: "Site map"
+  blog archives: "Blog"
+  about page: "About"
+  privacy page: "Privacy"
+
+contact:
+  heading: "Want to get in touch?"
+  text: "Send me an email at <emailLink>hello@amelliya.com</emailLink>!"
+
+social:
+  rednote: ""
+  pinterest: "https://www.pinterest.com/amelliyacore/"
+  tiktok: "https://www.tiktok.com/@__amelliya"
+  youtube: "https://www.youtube.com/@aamelliya"
+  twitch: "https://www.twitch.tv/amelliya_"
+  reddit: "https://www.reddit.com/user/amelliya"
+  github: "https://github.com/amelliyaa"
+  link label: "Link to {brand}'s {platform}"
+
+404:
+  meta:
+    title: "404 Not Found"
+    description: "My site's homepage"
+  message: "Sorry! But the page you're looking for doesn't seem to exist. <homeLink>Take me home.</homeLink>"
+
+about:
+  meta:
+    title: "About"
+    description: "About Page"
+
+blog:
+  meta:
+    title: "Blog"
+    title with page: "Blog - Page {currentPage}"
+    title with tag: "{tag} Blog Posts"
+    title with tag and page: "{tag} Blog Posts – Page {pageNumber}"
+    description: "Blog of amelliya"
+    description with tag: "Blog of amelliya showing {tag} posts"
+
+pagination:
+  aria label: "pagination"
+  next page: "next page"
+  previous page: "previous page"
+
+privacy:
+  meta:
+    title: "Privacy Policy"
+    description: "My site's privacy policy"
+  heading: "Privacy Policy"
+  introduction: "We do not collect, use, or share your personal data."
+  updated on: "Updated {date}"
+  analytics heading: "Analytics"
+  analytics disclosure: "This website uses Cloudflare Web Analytics for basic analysis of website performance. It is a non-invasive, privacy-respecting analytics solution. It does not use any client-side state, such as cookies or localStorage, to collect usage metrics, and it doesn’t “fingerprint” individuals via their IP address, User Agent string, or any other data for the purpose of displaying analytics."
