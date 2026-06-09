@@ -14,7 +14,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       .filter((post) => post.data.locale === lang && post.data.draft !== true)
       .sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
     const locale = lang === i18n?.defaultLocale ? undefined : (lang as string);
-    return paginate(posts, { pageSize: 6, params: { locale } });
+    return paginate(posts, { pageSize: 12, params: { locale } });
   });
 }) satisfies GetStaticPaths;
 

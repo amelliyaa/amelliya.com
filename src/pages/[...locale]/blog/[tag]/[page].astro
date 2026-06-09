@@ -21,7 +21,7 @@ export const getStaticPaths = (async ({ paginate }) => {
       const taggedPosts = posts.filter((post) => post.data.tags.includes(tag));
 
       return paginate(taggedPosts, {
-        pageSize: 6,
+        pageSize: 12,
         params: { locale, tag },
         props: { tag },
       });

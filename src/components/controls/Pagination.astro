@@ -10,14 +10,17 @@ const t = useTranslations(Astro.currentLocale as string);
 ---
 
 <nav class="pagination" aria-label={t("pagination.aria label")}>
-  <a
-    href={prevUrl}
-    class="chevron-button"
-    aria-label={t("pagination.previous page")}
-    aria-hidden={!prevUrl && "true"}
-  >
-    <ChevronBack class="chevron" aria-hidden={true} />
-  </a>
+  {
+    prevUrl ? (
+      <a href={prevUrl} class="chevron-button" aria-label={t("pagination.previous page")}>
+        <ChevronBack class="chevron" aria-hidden={true} />
+      </a>
+    ) : (
+      <span class="chevron-button" aria-hidden={true}>
+        <ChevronBack class="chevron" />
+      </span>
+    )
+  }
   <ul class="page-list">
     {
       paginatedList.map((page) =>
@@ -41,14 +44,17 @@ const t = useTranslations(Astro.currentLocale as string);
       )
     }
   </ul>
-  <a
-    href={nextUrl}
-    class="chevron-button"
-    aria-label={t("pagination.next page")}
-    aria-hidden={!nextUrl && "true"}
-  >
-    <ChevronForward class="chevron" aria-hidden={true} />
-  </a>
+  {
+    nextUrl ? (
+      <a href={nextUrl} class="chevron-button" aria-label={t("pagination.next page")}>
+        <ChevronForward class="chevron" aria-hidden={true} />
+      </a>
+    ) : (
+      <span class="chevron-button" aria-hidden={true}>
+        <ChevronForward class="chevron" />
+      </span>
+    )
+  }
 </nav>
 
 <style>

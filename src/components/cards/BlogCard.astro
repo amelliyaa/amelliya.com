@@ -1,5 +1,4 @@
 ---
-import { ImageMetadata } from "astro";
 import CalendarIcon from "@icons/calendar-clear-outline.svg";
 import TimeIcon from "@icons/time-outline.svg";
 
@@ -14,21 +13,18 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
 
 <a href={href} class="blog-card" {...rest}>
   <div class="blog-card-content">
-    <ul class="metadata-container">
-      {frontmatter.tags.map((tag: string) => <li class="post-metadata post-tag">{tag} ·</li>)}
-    </ul>
     <hgroup>
       <h3 class="post-heading">{frontmatter.title}</h3>
       <p class="post-desc">{frontmatter.description}</p>
     </hgroup>
     <ul class="metadata-container">
       <li>
-        <CalendarIcon class="post-icon" aria-hidden={true} />
-        <time class="post-metadata" datetime={frontmatter.published}>{date}</time>
-      </li>
-      <li>
         <TimeIcon class="post-icon" aria-hidden={true} />
         <span class="post-metadata">{frontmatter.readingTime}</span>
+      </li>
+      <li>
+        <CalendarIcon class="post-icon" aria-hidden={true} />
+        <time class="post-metadata" datetime={frontmatter.published}>{date}</time>
       </li>
     </ul>
   </div>
@@ -80,7 +76,7 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
 
   .post-heading {
     font-weight: var(--semibold);
-    margin-block-start: var(--space-2xs);
+    margin-block-start: var(--space-3xs);
     color: var(--color-heading);
   }
 
@@ -93,6 +89,7 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2xs-xs);
+    justify-content: space-between;
   }
 
   .post-metadata {
