@@ -1,0 +1,11 @@
+---
+// https://schema.org/WebSite
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "amelliya",
+  url: new URL(Astro.url.pathname, Astro.site),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

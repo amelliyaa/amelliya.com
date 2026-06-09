@@ -1,12 +1,13 @@
 ---
 import { type ComponentProps } from "astro/types";
 import { type CollectionEntry } from "astro:content";
-import Head from "@components/Head.astro";
+import BaseHead from "@components/BaseHead.astro";
 import MainContentLink from "@components/controls/MainContentLink.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import Article from "@components/schema-markup/Article.astro";
 
-interface Props extends Omit<ComponentProps<typeof Head>, "title" | "description"> {
+interface Props extends Omit<ComponentProps<typeof BaseHead>, "title" | "description"> {
   frontmatter: CollectionEntry<"posts">["data"];
 }
 
@@ -21,13 +22,21 @@ const articleMetadata = {
 ---
 
 <html lang={locale}>
-  <Head
-    title={frontmatter.title + " | amelliya"}
-    description={frontmatter.description}
-    type="article"
-    image={ogImageUrl}
-    article={articleMetadata}
-  />
+  <head>
+    <BaseHead
+      title={frontmatter.title + " | amelliya"}
+      description={frontmatter.description}
+      type="article"
+      image={ogImageUrl}
+      article={articleMetadata}
+    />
+    <Article
+      headline={frontmatter.title}
+      datePublished={frontmatter.published}
+      dateModified={frontmatter.updated}
+      description={frontmatter.description}
+    />
+  </head>
   <body>
     <Header />
     <main>

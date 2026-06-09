@@ -1,0 +1,32 @@
+---
+// https://schema.org/Article
+interface Props {
+  headline: string;
+  datePublished: Date;
+  dateModified: Date;
+  description: string;
+}
+
+const { headline, datePublished, dateModified, description } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: headline,
+  datePublished: datePublished.toISOString(),
+  dateModified: dateModified.toISOString(),
+  author: [
+    {
+      "@type": "Person",
+      name: "Liya Ali",
+    },
+  ],
+  description: description,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": new URL(Astro.url.pathname, Astro.site),
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
