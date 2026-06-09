@@ -8,7 +8,10 @@ import Footer from "@components/Footer.astro";
 import Article from "@components/schema-markup/Article.astro";
 
 interface Props extends Omit<ComponentProps<typeof BaseHead>, "title" | "description"> {
-  frontmatter: CollectionEntry<"posts">["data"];
+  frontmatter: CollectionEntry<"posts">["data"] & {
+    readingTime: string;
+    modified: string;
+  };
 }
 
 const { frontmatter } = Astro.props;
@@ -16,7 +19,7 @@ const locale = Astro.currentLocale;
 const ogImageUrl = `post-${frontmatter.locale}-${frontmatter.translationId}`;
 const articleMetadata = {
   published: frontmatter.published,
-  updated: frontmatter.updated,
+  modified: frontmatter.modified,
   tags: frontmatter.tags,
 };
 ---
@@ -33,7 +36,7 @@ const articleMetadata = {
     <Article
       headline={frontmatter.title}
       datePublished={frontmatter.published}
-      dateModified={frontmatter.updated}
+      dateModified={frontmatter.modified}
       description={frontmatter.description}
     />
   </head>

@@ -1,5 +1,31 @@
 ---
+import { useTranslations } from "@i18n/utils.ts";
+import { execSync } from "child_process";
+import { statSync } from "node:fs";
+import path from "node:path";
+
+const getLastUpdatedDate = (collection: string, id: string): Date => {
+  const filepath = path.join(process.cwd(), "src", "content", collection, id);
+
+  try {
+    const stdout = execSync(`git log -1 --format="%cI" "${filepath}"`);
+    const gitDate = stdout.toString().trim();
+    if (gitDate) return new Date(gitDate);
+  } catch (error) {
+    console.warn(`Failed to get git history for ${filepath}. Falling back to fs.`);
+  }
+
+  try {
+    return statSync(filepath).mtime;
+  } catch (fsError) {
+    console.error(`File not found: ${filepath}`);
+    return new Date();
+  }
+};
+
 const { project } = Astro.props;
+const t = useTranslations(Astro.currentLocale as string);
+const updated = getLastUpdatedDate(project.collection, project.id);
 ---
 
 <div class="pin-card" data-pin-size={project.data.pinSize}>
@@ -12,12 +38,14 @@ const { project } = Astro.props;
     <p class="pin-desc">{project.data.description}</p>
   </div>
   <span class="pin-updated">
-    Last updated
     {
-      new Date(project.data.updated).toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
+      t("pin card.updated on", {
+        dateString: updated.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          timeZone: "UTC",
+        }),
       })
     }
   </span>

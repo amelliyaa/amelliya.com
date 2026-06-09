@@ -1,4 +1,5 @@
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
+import { remarkReadingTime, remarkModifiedTime } from "./remark-plugins.mjs";
 import cloudflare from "@astrojs/cloudflare";
 
 import mdx from "@astrojs/mdx";
@@ -60,6 +61,7 @@ export default defineConfig({
   integrations: [mdx(), sitemap({ i18n: languages })],
   markdown: {
     shikiConfig: { theme: "dracula" },
+    remarkPlugins: [remarkReadingTime, remarkModifiedTime],
   },
   image: {
     layout: "constrained",

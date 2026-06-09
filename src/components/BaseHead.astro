@@ -9,7 +9,7 @@ export interface Props {
   type?: "website" | "article";
   article?: {
     published?: Date;
-    updated?: Date;
+    modified?: string;
     tags?: string[];
   };
 }
@@ -33,8 +33,8 @@ const ogImageURL = image ? new URL(image, Astro.site) : null;
       {article.published && (
         <meta property="article:published_time" content={article.published.toISOString()} />
       )}
-      {article.updated && (
-        <meta property="article:modified_time" content={article.updated.toISOString()} />
+      {article.modified && !isNaN(Date.parse(article.modified)) && (
+        <meta property="article:modified_time" content={article.modified} />
       )}
       <meta property="article:author" content="Liya Ali" />
       {article.tags && article.tags.map((tag) => <meta property="article:tag" content={tag} />)}

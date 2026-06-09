@@ -11,7 +11,6 @@ export const postSchema = z
   .object({
     title: z.string(),
     description: z.string(),
-    updated: z.coerce.date(),
     published: z.coerce.date(),
     tags: z.array(z.string().toLowerCase()),
     draft: z.boolean().optional(),
@@ -34,7 +33,6 @@ export const projectSchema = z
     workingTitle: z.string(),
     description: z.string(),
     progress: z.number(),
-    updated: z.coerce.date(),
     pinSize: z.string().optional(),
   })
   .extend(i18nSchema.shape);

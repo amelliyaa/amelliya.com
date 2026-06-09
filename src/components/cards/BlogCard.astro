@@ -1,57 +1,64 @@
 ---
 import { ImageMetadata } from "astro";
 import CalendarIcon from "@icons/calendar-clear-outline.svg";
+import TimeIcon from "@icons/time-outline.svg";
 
 const { href, frontmatter, ...rest } = Astro.props;
-const date = new Date(frontmatter.updated).toLocaleDateString(undefined, {
+const date = frontmatter.published.toLocaleDateString(undefined, {
   year: "numeric",
   month: "short",
   day: "numeric",
+  timeZone: "UTC",
 });
-
-const images = import.meta.glob<{ default: ImageMetadata }>("@images/*.{jpeg,jpg,png,gif}");
-if (!images[frontmatter.thumbnail.imagePath])
-  throw new Error(
-    `"${frontmatter.thumbnail.imagePath}" does not exist in glob: "@images/*.{jpeg,jpg,png,gif}"`,
-  );
 ---
 
 <a href={href} class="blog-card" {...rest}>
   <div class="blog-card-content">
-    <div class="post-tags">
-      {frontmatter.tags.map((tag: string) => <span class="post-metadata post-tag">{tag}</span>)}
-    </div>
+    <ul class="metadata-container">
+      {frontmatter.tags.map((tag: string) => <li class="post-metadata post-tag">{tag} ·</li>)}
+    </ul>
     <hgroup>
       <h3 class="post-heading">{frontmatter.title}</h3>
       <p class="post-desc">{frontmatter.description}</p>
     </hgroup>
-    <div class="post-date">
-      <CalendarIcon class="calendar" aria-hidden={true} />
-      <time class="post-metadata" datetime={frontmatter.updated}>{date}</time>
-    </div>
+    <ul class="metadata-container">
+      <li>
+        <CalendarIcon class="post-icon" aria-hidden={true} />
+        <time class="post-metadata" datetime={frontmatter.published}>{date}</time>
+      </li>
+      <li>
+        <TimeIcon class="post-icon" aria-hidden={true} />
+        <span class="post-metadata">{frontmatter.readingTime}</span>
+      </li>
+    </ul>
   </div>
 </a>
 
 <style>
   .blog-card {
     position: relative;
-    z-index: 10; /* prevent z-fighting with border & thumbnail */
     display: flex;
     flex-direction: column;
     min-inline-size: 200px;
 
     border-radius: var(--border-radius-lg);
-    outline: 1px solid var(--color-accent);
     color: var(--color-text-light);
     background: var(--color-bg-bright);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 0%, transparent);
     box-shadow: var(--box-shadow-md);
     overflow: hidden;
   }
 
   .blog-card:hover,
   .blog-card:focus {
-    transform: translateY(-4px);
+    transform: scale(102.5%);
     box-shadow: var(--box-shadow-lg);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 100%, transparent);
+  }
+
+  .blog-card:hover .post-heading,
+  .blog-card:focus .post-heading {
+    color: var(--color-secondary);
   }
 
   .blog-card:focus {
@@ -71,52 +78,53 @@ if (!images[frontmatter.thumbnail.imagePath])
     padding: var(--space-xs);
   }
 
-  .post-thumbnail {
-    aspect-ratio: 3 / 2;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    box-shadow: var(--box-shadow-lg);
-  }
-
   .post-heading {
+    font-weight: var(--semibold);
     margin-block-start: var(--space-2xs);
     color: var(--color-heading);
   }
 
   .post-desc {
+    font-family: var(--typeface-workhorse);
     margin-block: 0 var(--space-xs);
+  }
+
+  .metadata-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs-xs);
   }
 
   .post-metadata {
     font-family: var(--typeface-workhorse);
     font-size: var(--font-size-sm);
+    color: var(--color-text-faint);
   }
 
-  .post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2xs);
+  .post-icon {
+    inline-size: var(--space-xs);
+    block-size: var(--space-xs);
+    transform: translateY(10%);
+    color: var(--color-primary);
   }
 
   .post-tag {
     padding: var(--space-3xs) var(--space-xs);
     border-radius: var(--border-radius-md);
     font-weight: var(--semibold);
-    color: var(--color-text-dark);
-    background-color: var(--color-secondary);
-  }
-
-  .calendar {
-    inline-size: var(--space-xs);
-    block-size: var(--space-xs);
-    transform: translateY(10%);
-    color: var(--color-secondary);
+    color: var(--color-text-faint);
+    background-color: var(--color-bg-dark);
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .blog-card {
-      transition: transform var(--anim-length-short) ease-in-out;
+      transition:
+        transform var(--anim-length-short) ease-in-out,
+        outline var(--anim-length-short) ease-in-out;
+    }
+
+    .post-heading {
+      transition: color var(--anim-length-short) ease-in-out;
     }
   }
 </style>

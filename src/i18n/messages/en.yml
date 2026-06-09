@@ -5,6 +5,9 @@ index:
   greeting: "Hello, World! I'm <b>Liya</b>"
   latest posts: "Latest Posts"
 
+pin card:
+  updated on: "Last updated on {dateString}"
+
 navigation:
   main nav aria label: "Main"
   sitemap aria label: "Site map"

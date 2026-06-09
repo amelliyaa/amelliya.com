@@ -3,7 +3,7 @@
 interface Props {
   headline: string;
   datePublished: Date;
-  dateModified: Date;
+  dateModified: string;
   description: string;
 }
 
@@ -14,7 +14,7 @@ const schema = {
   "@type": "Article",
   headline: headline,
   datePublished: datePublished.toISOString(),
-  dateModified: dateModified.toISOString(),
+  dateModified: dateModified,
   author: [
     {
       "@type": "Person",

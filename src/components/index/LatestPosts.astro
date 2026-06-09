@@ -1,10 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "@i18n/utils.ts";
 import BlogCard from "@components/cards/BlogCard.astro";
 import ArrowForward from "@icons/arrow-forward-outline.svg";
 
+const numberOfPosts = 6;
 const locale = Astro.currentLocale as string;
 const recentPosts = (
   await getCollection("posts", ({ id, data }) => {
@@ -12,7 +13,17 @@ const recentPosts = (
   })
 )
   .sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
-  .slice(0, 3);
+  .slice(0, numberOfPosts);
+
+const postsFrontmatter = await Promise.all(
+  recentPosts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await render(post);
+    return {
+      ...post.data,
+      readingTime: remarkPluginFrontmatter.readingTime,
+    };
+  }),
+);
 const t = useTranslations(locale);
 ---
 
@@ -23,10 +34,10 @@ const t = useTranslations(locale);
   </a>
   <div class="blog-posts-grid">
     {
-      recentPosts.map((post) => (
+      postsFrontmatter.map((frontmatter) => (
         <BlogCard
-          href={getRelativeLocaleUrl(locale, `blog/${post.data.translationId}`)}
-          frontmatter={post.data}
+          href={getRelativeLocaleUrl(locale, `blog/${frontmatter.translationId}`)}
+          frontmatter={frontmatter}
         />
       ))
     }
@@ -73,8 +84,6 @@ const t = useTranslations(locale);
   .blog-posts-grid {
     display: grid;
     grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center;
     gap: var(--space-md-lg);
     margin-block-start: var(--space-md);
   }
@@ -82,10 +91,6 @@ const t = useTranslations(locale);
   @media only screen and (min-width: 36rem) and (max-width: 62rem) {
     .blog-posts-grid {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .blog-posts-grid > :first-child {
-      grid-column: span 2;
     }
   }
 

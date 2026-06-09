@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import PinCard from "@components/index/PinCard.astro";
 
 const projects = await getCollection("projects");

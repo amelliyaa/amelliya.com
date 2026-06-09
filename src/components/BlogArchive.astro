@@ -1,6 +1,6 @@
 ---
 import { type Page } from "astro";
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import Pagination from "@components/controls/Pagination.astro";
 import BlogCard from "@components/cards/BlogCard.astro";
@@ -15,6 +15,16 @@ const locale = Astro.currentLocale as string;
 const allPosts = await getCollection("posts");
 const localePosts = allPosts.filter((post) => post.data.locale === locale);
 const tags = [...new Set(localePosts.flatMap((post) => post.data.tags))];
+
+const postsFrontmatter = await Promise.all(
+  page.data.map(async (post) => {
+    const { remarkPluginFrontmatter } = await render(post);
+    return {
+      ...post.data,
+      readingTime: remarkPluginFrontmatter.readingTime,
+    };
+  }),
+);
 ---
 
 <h1>Blog Archives</h1>
@@ -39,10 +49,10 @@ const tags = [...new Set(localePosts.flatMap((post) => post.data.tags))];
 
 <div class="archive">
   {
-    page.data.map((post) => (
+    postsFrontmatter.map((frontmatter) => (
       <BlogCard
-        href={getRelativeLocaleUrl(locale, `blog/${post.data.translationId}`)}
-        frontmatter={post.data}
+        href={getRelativeLocaleUrl(locale, `blog/${frontmatter.translationId}`)}
+        frontmatter={frontmatter}
       />
     ))
   }
@@ -81,6 +91,7 @@ const tags = [...new Set(localePosts.flatMap((post) => post.data.tags))];
 
   .filters {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: var(--space-2xs);
     margin-block: var(--space-xs-sm) var(--space-md-lg);
