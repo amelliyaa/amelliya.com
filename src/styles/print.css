@@ -1,0 +1,54 @@
+@media print {
+  header,
+  footer,
+  button {
+    display: none !important;
+  }
+
+  main,
+  article {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  img,
+  table,
+  blockquote,
+  pre,
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  a:link,
+  a:visited,
+  a {
+    font-weight: var(--semibold);
+    text-decoration: underline;
+  }
+
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+  }
+}

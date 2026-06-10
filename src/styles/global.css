@@ -2,6 +2,7 @@
 @import "./theme.css";
 @import "./typography.css";
 @import "./view-transition.css";
+@import "./print.css";
 
 /* Default styles */
 html {
