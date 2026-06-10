@@ -74,8 +74,17 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
     padding: var(--space-xs);
   }
 
+  .post-heading,
+  .post-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
   .post-heading {
-    font-weight: var(--semibold);
+    font-weight: var(--medium);
+    font-size: var(--font-size-md);
     margin-block-start: var(--space-3xs);
     color: var(--color-heading);
   }
@@ -87,9 +96,10 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
 
   .metadata-container {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: var(--space-2xs-xs);
-    justify-content: space-between;
+    margin-block-start: auto;
   }
 
   .post-metadata {
