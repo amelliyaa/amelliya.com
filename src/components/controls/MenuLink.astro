@@ -16,6 +16,7 @@ const { href, role, isActive, ...attrs } = Astro.props;
   ._menu-link {
     display: inline-block;
     position: relative;
+    isolation: isolate;
     margin: 0;
     border-radius: var(--border-radius-sm);
     font-family: var(--typeface-workhorse);

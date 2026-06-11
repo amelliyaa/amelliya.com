@@ -48,24 +48,10 @@ const t = useTranslations(locale);
 </header>
 
 <style>
-  .site-header {
-    position: relative;
-  }
-
-  /* Add phantom element for grid layout,
-   * hacky but prevents dropdown from pushing content */
-  .site-header::after {
-    content: "\a0";
-    display: block;
-    margin: var(--space-sm);
-    padding-block-end: 1px;
-    font-size: var(--font-size-lg);
-  }
-
   /* Header styling */
   .navbar {
-    z-index: 100;
-    position: absolute;
+    z-index: 999;
+    position: relative;
 
     display: grid;
     grid-template-columns: 1fr auto;
@@ -85,8 +71,14 @@ const t = useTranslations(locale);
     padding-inline-end: calc(var(--scrollbar-width) + var(--space-sm));
   }
 
+  body.no-scroll .dropdown {
+    padding-inline-end: var(--scrollbar-width, 0px);
+  }
+
   .navbar:has(#menu-button:checked) {
-    gap: 8px;
+    column-gap: 8px;
+    border-block-end-color: transparent;
+    box-shadow: none;
   }
 
   .brand {
@@ -135,9 +127,16 @@ const t = useTranslations(locale);
 
   /* Navigation menu styling */
   .dropdown-wrapper {
-    grid-column: 1 / -1;
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline: 0;
+
     display: grid;
     grid-template-rows: 0fr;
+
+    background-color: var(--color-bg-dark);
+    border-block-end: 1px solid var(--color-bg-bright);
+    box-shadow: var(--box-shadow-sm);
   }
 
   #menu-button:checked ~ .dropdown-wrapper {
@@ -157,8 +156,12 @@ const t = useTranslations(locale);
     opacity: 0;
   }
 
+  .search-trigger:empty {
+    display: none;
+  }
+
   #menu-button:checked ~ .dropdown-wrapper .dropdown {
-    padding-block: var(--space-xs);
+    padding-block: var(--space-md);
     opacity: 1;
   }
 
@@ -175,7 +178,7 @@ const t = useTranslations(locale);
     .dropdown {
       transition:
         padding-block var(--anim-length-base) ease-in-out,
-        opacity var(--anim-length-medium) ease-in-out;
+        opacity var(--anim-length-base) ease-in-out;
     }
 
     .menu-label {
@@ -199,6 +202,11 @@ const t = useTranslations(locale);
     }
 
     .dropdown-wrapper {
+      position: static;
+      background-color: transparent;
+      border-block-end: none;
+      box-shadow: none;
+
       grid-row: 1;
       grid-column: 2;
       display: block;
