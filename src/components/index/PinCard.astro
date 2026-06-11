@@ -1,8 +1,10 @@
 ---
+import Link from "@components/controls/Link.astro";
 import { useTranslations } from "@i18n/utils.ts";
 import { execSync } from "child_process";
 import { statSync } from "node:fs";
 import path from "node:path";
+import OpenIcon from "@icons/open-outline.svg";
 
 const getLastUpdatedDate = (collection: string, id: string): Date => {
   const filepath = path.join(process.cwd(), "src", "content", collection, id);
@@ -26,14 +28,19 @@ const getLastUpdatedDate = (collection: string, id: string): Date => {
 const { project } = Astro.props;
 const t = useTranslations(Astro.currentLocale as string);
 const updated = getLastUpdatedDate(project.collection, project.id);
+const Container = project.data.projectLink ? "a" : "div";
+const containerAttrs = project.data.projectLink
+  ? { href: project.data.projectLink, "aria-labelledby": `project-${project.id}` }
+  : {};
 ---
 
-<div class="pin-card" data-pin-size={project.data.pinSize}>
+<Container class="pin-card" data-pin-size={project.data.pinSize} {...containerAttrs}>
   <div class="pin-content">
     <span class="pin-icon" aria-hidden="true"></span>
-    <h3 class="pin-heading">
+    <h3 class="pin-heading" id={`project-${project.id}`}>
       {project.data.workingTitle}
       <span class="pin-progress">{project.data.progress}%</span>
+      {project.data.projectLink && <OpenIcon class="open" aria-hidden={true} />}
     </h3>
     <p class="pin-desc">{project.data.description}</p>
   </div>
@@ -49,7 +56,7 @@ const updated = getLastUpdatedDate(project.collection, project.id);
       })
     }
   </span>
-</div>
+</Container>
 
 <style>
   .pin-card {
@@ -96,8 +103,26 @@ const updated = getLastUpdatedDate(project.collection, project.id);
   }
 
   .pin-heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3xs);
     font-size: var(--font-size-md);
     font-weight: var(--medium);
+  }
+
+  .project-link {
+    color: inherit;
+  }
+
+  .open {
+    margin-inline-start: auto;
+    inline-size: var(--space-sm);
+    block-size: var(--space-sm);
+  }
+
+  .project-link:hover,
+  .project-link:focus {
+    color: var(--color-bg-bright);
   }
 
   .pin-desc {
