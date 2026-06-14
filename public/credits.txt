@@ -3,10 +3,15 @@
 Copyright (c) 2015-present Ionic
 The MIT License (MIT)
 
-## pagefind (https://pagefind.app/)
+## Pagefind (https://pagefind.app/)
 
 Copyright 2022 Pagefind
 The MIT License (MIT)
+
+## Expressive Code (https://expressive-code.com/)
+
+Copyright (c) 2023 Tibor Schiemann
+he MIT License (MIT)
 
 ## Dracula (https://draculatheme.com/)
 
