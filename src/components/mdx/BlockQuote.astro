@@ -1,0 +1,60 @@
+---
+import Link from "@components/controls/Link.astro";
+
+interface Props {
+  by?: string;
+  title: string;
+  src: string;
+}
+
+const { by, title, src } = Astro.props;
+---
+
+<figure class="figure">
+  <blockquote class="quote" cite={src}>
+    <p class="inner-text">
+      <slot />
+    </p>
+  </blockquote>
+  <figcaption class="caption">
+    — {by && `${by},`}
+    <cite><Link href={src}>{title}</Link></cite>
+  </figcaption>
+</figure>
+
+<style>
+  .figure {
+    position: relative;
+    padding: var(--space-sm);
+    margin: 0 0 var(--space-md-lg) 0;
+    border-radius: var(--border-radius-md);
+    border-inline-start: solid var(--callout-left-border) var(--color-primary);
+    background-color: var(--color-bg-bright);
+    box-shadow: var(--box-shadow-lg);
+  }
+
+  .quote {
+    margin: var(--space-sm) var(--space-lg);
+  }
+
+  .inner-text {
+    margin: 0;
+  }
+
+  .figure::before {
+    content: "“";
+    position: absolute;
+    inset-block-start: var(--space-sm);
+    inset-inline-start: var(--space-sm);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--color-secondary);
+  }
+
+  .caption {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-faint);
+    text-align: end;
+  }
+</style>

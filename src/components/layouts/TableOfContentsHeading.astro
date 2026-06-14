@@ -1,0 +1,56 @@
+---
+import { TocItem } from "@components/layouts/TableOfContents.astro";
+
+interface Props {
+  heading: TocItem;
+}
+
+const { heading } = Astro.props;
+---
+
+<li class="list-node">
+  <a href={"#" + heading.slug} class="toc-link" data-slug={heading.slug}>
+    {heading.text}
+  </a>
+  {
+    heading.subheadings.length > 0 && (
+      <ul class="child-list">
+        {heading.subheadings.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  .list-node {
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+  }
+
+  .toc-link {
+    padding: var(--space-3xs) var(--space-2xs);
+    color: var(--color-text-faint);
+  }
+
+  .toc-link.active,
+  .toc-link:hover,
+  .toc-link:focus {
+    color: var(--color-primary);
+  }
+
+  .child-list {
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+    padding-inline-start: var(--space-sm);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .toc-link {
+      transition: color var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

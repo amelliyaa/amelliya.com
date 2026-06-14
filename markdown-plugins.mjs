@@ -2,6 +2,7 @@ import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 import { execSync } from "child_process";
 import { statSync } from "node:fs";
+import rehypeAutolinkHeadingsPlugin from "rehype-autolink-headings";
 
 export function remarkReadingTime() {
   return function (tree, { data }) {
@@ -37,3 +38,13 @@ export function remarkModifiedTime() {
     file.data.astro.frontmatter.lastModified = lastModified;
   };
 }
+
+export const rehypeAutolinkHeadings = [
+  rehypeAutolinkHeadingsPlugin,
+  {
+    behavior: "wrap",
+    properties: {
+      className: ["mdx-header"],
+    },
+  },
+];

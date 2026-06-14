@@ -7,7 +7,7 @@ import ChevronDown from "@icons/chevron-down-outline.svg";
 import { useTranslations } from "@i18n/utils.ts";
 
 const locale = Astro.currentLocale as string;
-const currentDir = new URL(Astro.request.url).pathname.split("/")[1];
+const currentPath = new URL(Astro.request.url).pathname;
 const t = useTranslations(locale);
 ---
 
@@ -32,7 +32,7 @@ const t = useTranslations(locale);
               <MenuLink
                 href={getRelativeLocaleUrl(locale, page.path)}
                 role="menuitem"
-                isActive={currentDir === page.name.toLowerCase()}
+                isActive={currentPath === getRelativeLocaleUrl(locale, page.path)}
               >
                 {page.name}
               </MenuLink>

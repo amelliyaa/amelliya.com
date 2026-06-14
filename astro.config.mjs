@@ -1,9 +1,14 @@
 import { defineConfig, fontProviders, svgoOptimizer } from "astro/config";
-import { remarkReadingTime, remarkModifiedTime } from "./remark-plugins.mjs";
+import {
+  remarkReadingTime,
+  remarkModifiedTime,
+  rehypeAutolinkHeadings,
+} from "./markdown-plugins.mjs";
 import cloudflare from "@astrojs/cloudflare";
-
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import { unified, rehypeHeadingIds } from "@astrojs/markdown-remark";
+import expressiveCode from "astro-expressive-code";
 
 const languages = {
   defaultLocale: "en",
@@ -58,10 +63,12 @@ export default defineConfig({
     defaultLocale: languages.defaultLocale,
     locales: Object.values(languages.locales),
   },
-  integrations: [mdx(), sitemap({ i18n: languages })],
+  integrations: [expressiveCode(), mdx(), sitemap({ i18n: languages })],
   markdown: {
-    shikiConfig: { theme: "dracula" },
-    remarkPlugins: [remarkReadingTime, remarkModifiedTime],
+    processor: unified({
+      remarkPlugins: [remarkReadingTime, remarkModifiedTime],
+      rehypePlugins: [rehypeHeadingIds, rehypeAutolinkHeadings],
+    }),
   },
   image: {
     layout: "constrained",

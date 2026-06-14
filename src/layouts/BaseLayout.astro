@@ -5,9 +5,11 @@ import MainContentLink from "@components/controls/MainContentLink.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 
-type Props = ComponentProps<typeof BaseHead>;
+type Props = ComponentProps<typeof BaseHead> & {
+  fluid?: boolean;
+};
 
-const { title, description, ...rest } = Astro.props;
+const { title, description, fluid, ...rest } = Astro.props;
 const locale = Astro.currentLocale;
 ---
 
@@ -19,7 +21,7 @@ const locale = Astro.currentLocale;
   <body>
     <MainContentLink />
     <Header />
-    <main id="main-content" class="content-grid">
+    <main id="main-content" class:list={[{ "content-grid": !fluid }]}>
       <slot />
     </main>
     <Footer />

@@ -2,8 +2,9 @@
 import { getCollection, render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "@i18n/utils.ts";
+import BlogCardsGrid from "@components/layouts/BlogCardsGrid.astro";
 import BlogCard from "@components/cards/BlogCard.astro";
-import ArrowForward from "@icons/arrow-forward-outline.svg";
+import ArrowLink from "@components/controls/ArrowLink.astro";
 
 const numberOfPosts = 6;
 const locale = Astro.currentLocale as string;
@@ -28,11 +29,15 @@ const t = useTranslations(locale);
 ---
 
 <section class="blog-posts">
-  <a class="blog-posts-heading" href={getRelativeLocaleUrl(locale, "blog/1")}>
-    <h2>{t("index.latest posts")}</h2>
-    <ArrowForward class="arrow" aria-hidden={true} />
-  </a>
-  <div class="blog-posts-grid">
+  <ArrowLink
+    class="arrow-link"
+    href={getRelativeLocaleUrl(locale, "blog/1")}
+    direction="forward"
+    iconSize="lg"
+  >
+    <h2 class="blog-posts-heading">{t("index.latest posts")}</h2>
+  </ArrowLink>
+  <BlogCardsGrid>
     {
       postsFrontmatter.map((frontmatter) => (
         <BlogCard
@@ -41,7 +46,7 @@ const t = useTranslations(locale);
         />
       ))
     }
-  </div>
+  </BlogCardsGrid>
 </section>
 
 <style>
@@ -50,65 +55,6 @@ const t = useTranslations(locale);
   }
 
   .blog-posts-heading {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    color: var(--color-text-light);
-  }
-
-  .blog-posts-heading > h2 {
     margin-block: 0;
-  }
-
-  .arrow {
-    inline-size: var(--font-size-lg);
-    block-size: var(--font-size-lg);
-  }
-
-  .blog-posts-heading:hover,
-  .blog-posts-heading:focus {
-    color: var(--color-primary);
-  }
-
-  .blog-posts-heading:hover > .arrow,
-  .blog-posts-heading:focus > .arrow {
-    color: var(--color-selected);
-    transform: translateX(10px);
-  }
-
-  [dir="rtl"] .blog-posts-heading:hover > .arrow,
-  [dir="rtl"] .blog-posts-heading:focus > .arrow {
-    transform: translateX(-10px);
-  }
-
-  .blog-posts-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md-lg);
-    margin-block-start: var(--space-md);
-  }
-
-  @media only screen and (min-width: 36rem) and (max-width: 62rem) {
-    .blog-posts-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media only screen and (min-width: 62rem) {
-    .blog-posts-grid {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .blog-posts-heading {
-      transition: color var(--anim-length-short) ease-in-out;
-    }
-
-    .arrow {
-      transition:
-        transform var(--anim-length-base) ease-in-out,
-        color var(--anim-length-short) ease-in-out;
-    }
   }
 </style>

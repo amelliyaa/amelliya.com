@@ -1,0 +1,78 @@
+---
+import { type HTMLAttributes } from "astro/types";
+import ArrowForward from "@icons/arrow-forward-outline.svg";
+import ArrowBack from "@icons/arrow-back-outline.svg";
+
+interface Props extends HTMLAttributes<"a"> {
+  class?: string;
+  href: string;
+  direction: "forward" | "backward";
+  iconSize: string;
+  hoverOffset?: number;
+}
+
+const {
+  class: className,
+  href,
+  direction = "forward",
+  iconSize,
+  hoverOffset = 10,
+  ...attrs
+} = Astro.props;
+const dir = direction === "forward" ? 1 : -1;
+const arrowSize = `var(--space-${iconSize})`;
+const arrowOffset = `${hoverOffset}px`;
+---
+
+<a class:list={["_arrow-link", className]} href={href} data-direction={direction} {...attrs}>
+  {direction === "backward" && <ArrowBack class="arrow" aria-hidden={true} />}
+  <slot />
+  {direction === "forward" && <ArrowForward class="arrow" aria-hidden={true} />}
+</a>
+
+<style define:vars={{ dir, arrowSize, arrowOffset }}>
+  ._arrow-link {
+    --rtl-factor: 1;
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: inherit;
+  }
+
+  [dir="rtl"] ._arrow-link {
+    --rtl-factor: -1;
+  }
+
+  [dir="rtl"] .arrow {
+    scale: -1 1;
+  }
+
+  .arrow {
+    inline-size: var(--arrowSize);
+    block-size: var(--arrowSize);
+  }
+
+  ._arrow-link:hover,
+  ._arrow-link:focus {
+    color: var(--color-primary);
+  }
+
+  ._arrow-link:hover .arrow,
+  ._arrow-link:focus .arrow {
+    color: var(--color-selected);
+    translate: calc(var(--arrowOffset) * var(--dir) * var(--rtl-factor)) 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    ._arrow-link {
+      transition: color var(--anim-length-short, 0.2s) ease-in-out;
+    }
+
+    .arrow {
+      transition:
+        translate var(--anim-length-base, 0.3s) ease-in-out,
+        color var(--anim-length-short, 0.2s) ease-in-out;
+    }
+  }
+</style>

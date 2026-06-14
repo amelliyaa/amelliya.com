@@ -3,6 +3,7 @@
 @import "./typography.css";
 @import "./view-transition.css";
 @import "./print.css";
+@import "./article.css";
 
 /* Default styles */
 html {
@@ -24,9 +25,22 @@ a {
   color: var(--color-selected);
 }
 
-code {
+code,
+kbd {
   padding: 2px 6px 2px 6px;
+  border-radius: var(--border-radius-sm);
+}
+
+code {
   background: var(--color-bg-inline-code);
+}
+
+kbd {
+  background: var(--color-bg-dark);
+  outline: 1px solid var(--color-text-faint);
+}
+
+samp {
 }
 
 :focus-visible {
@@ -64,11 +78,12 @@ code {
   --_max-width: var(--max-page-width);
   inline-size: min(100%, var(--_max-width));
   margin: var(--space-lg) auto var(--space-3xl) auto;
-  padding-inline: var(--space-lg);
+  padding-inline: var(--screen-inline-padding);
 }
 
 body.no-scroll .content-grid {
-  padding-inline: var(--space-lg) calc(var(--space-lg) + var(--scrollbar-width));
+  padding-inline: var(--screen-inline-padding)
+    calc(var(--screen-inline-padding) + var(--scrollbar-width));
 }
 
 .content-grid > * {

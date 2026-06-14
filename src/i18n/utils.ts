@@ -9,6 +9,17 @@ const getNestedValue = (obj: any, path: string): string | undefined => {
   }, obj);
 };
 
+export const getLocaleFormattedDate = (dateParam: Date | string) => {
+  const date = typeof dateParam === "string" ? new Date(dateParam) : dateParam;
+
+  return date.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+};
+
 /**
  * Custom i18n hook supporting both standard and rich text translation plus variable injection.
  * @param locale - The current locale

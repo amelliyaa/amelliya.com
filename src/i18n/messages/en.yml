@@ -49,6 +49,22 @@ blog:
     description: "Blog of amelliya"
     description with tag: "Blog of amelliya showing {tag} posts"
 
+article:
+  published on: "Published on {date}"
+  updated on: "Updated on {date}"
+  related writing: "Continue Exploring"
+  table of contents: "Table of Contents"
+  callout:
+    series: "Series"
+    info: "Info"
+    tip: "Tip"
+    warning: "Warning"
+    error: "Error"
+  series:
+    callout text: "This article is part {n} in a series of posts!"
+    previous post: "Read Part: {n}"
+    next post: "Read Part: {n}"
+
 pagination:
   aria label: "pagination"
   next page: "next page"

@@ -1,14 +1,10 @@
 ---
+import { getLocaleFormattedDate } from "@i18n/utils.ts";
 import CalendarIcon from "@icons/calendar-clear-outline.svg";
 import TimeIcon from "@icons/time-outline.svg";
 
 const { href, frontmatter, ...rest } = Astro.props;
-const date = frontmatter.published.toLocaleDateString(undefined, {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-  timeZone: "UTC",
-});
+const date = getLocaleFormattedDate(frontmatter.published);
 ---
 
 <a href={href} class="blog-card" {...rest}>
@@ -85,7 +81,7 @@ const date = frontmatter.published.toLocaleDateString(undefined, {
   .post-heading {
     font-weight: var(--medium);
     font-size: var(--font-size-md);
-    margin-block-start: var(--space-3xs);
+    margin-block: var(--space-3xs) var(--space-2xs);
     color: var(--color-heading);
   }
 

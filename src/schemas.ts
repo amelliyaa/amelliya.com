@@ -10,6 +10,12 @@ export const pageSchema = i18nSchema;
 export const postSchema = z
   .object({
     title: z.string(),
+    series: z
+      .object({
+        name: z.string(),
+        part: z.number(),
+      })
+      .optional(),
     description: z.string(),
     published: z.coerce.date(),
     tags: z.array(z.string().toLowerCase()),

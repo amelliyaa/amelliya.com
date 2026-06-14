@@ -1,22 +1,27 @@
 ---
 import { type ComponentProps } from "astro/types";
 import { type CollectionEntry } from "astro:content";
+import { type MarkdownHeading } from "astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 import BaseHead from "@components/BaseHead.astro";
-import MainContentLink from "@components/controls/MainContentLink.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
 import Article from "@components/schema-markup/Article.astro";
+import ArticleHeader from "@components/layouts/ArticleHeader.astro";
+import ArticleFooter from "@components/layouts/ArticleFooter.astro";
+import ReadingProgress from "@components/layouts/ReadingProgress.astro";
+import TableOfContents from "@components/layouts/TableOfContents.astro";
 
 interface Props extends Omit<ComponentProps<typeof BaseHead>, "title" | "description"> {
+  postId: string;
   frontmatter: CollectionEntry<"posts">["data"] & {
     readingTime: string;
     modified: string;
   };
+  headings: MarkdownHeading[];
 }
 
-const { frontmatter } = Astro.props;
+const { postId, frontmatter, headings } = Astro.props;
 const locale = Astro.currentLocale;
-const ogImageUrl = `post-${frontmatter.locale}-${frontmatter.translationId}`;
+const ogImageUrl = `post-${locale}-${frontmatter.translationId}`;
 const articleMetadata = {
   published: frontmatter.published,
   modified: frontmatter.modified,
@@ -24,38 +29,40 @@ const articleMetadata = {
 };
 ---
 
-<html lang={locale}>
-  <head>
-    <BaseHead
-      title={frontmatter.title + " | amelliya"}
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  type="article"
+  image={ogImageUrl}
+  article={articleMetadata}
+  fluid
+>
+  <Article
+    slot="schema-markup"
+    headline={frontmatter.title}
+    datePublished={frontmatter.published}
+    dateModified={frontmatter.modified}
+    description={frontmatter.description}
+  />
+  <ReadingProgress />
+  <article class="article-grid">
+    <ArticleHeader
+      title={frontmatter.title}
+      published={frontmatter.published}
+      modified={frontmatter.modified}
       description={frontmatter.description}
-      type="article"
-      image={ogImageUrl}
-      article={articleMetadata}
+      readingTime={frontmatter.readingTime}
+      tags={frontmatter.tags}
     />
-    <Article
-      headline={frontmatter.title}
-      datePublished={frontmatter.published}
-      dateModified={frontmatter.modified}
-      description={frontmatter.description}
-    />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <MainContentLink />
-      <header class="article-header"></header>
-      <article id="main-content" class="content-grid">
-        <slot />
-      </article>
-      <footer class="article-footer"></footer>
-    </main>
-    <Footer />
-  </body>
-</html>
+    <TableOfContents headings={headings} />
+    <slot />
+    <ArticleFooter postId={postId} tags={frontmatter.tags} />
+  </article>
+</BaseLayout>
 
 <style>
-  :global(.content-grid) {
-    --_max-width: var(--max-article-width);
+  .sidebar-left {
+    display: block;
+    text-wrap: wrap;
   }
 </style>

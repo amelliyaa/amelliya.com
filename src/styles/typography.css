@@ -60,6 +60,10 @@ p,
   line-height: 2;
 }
 
+hgroup > p {
+  line-height: 1.6;
+}
+
 p {
   margin-block: 0 var(--space-md-lg);
 }
@@ -79,7 +83,7 @@ kbd,
 samp,
 pre {
   font-size: var(--font-size-base);
-  line-height: 1.2;
+  line-height: 1.5;
   font-family:
     ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 }

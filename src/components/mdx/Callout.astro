@@ -1,0 +1,79 @@
+---
+import { useTranslations } from "@i18n/utils.ts";
+import Book from "@icons/book.svg";
+import InformationCircle from "@icons/information-circle.svg";
+import Sparkles from "@icons/Sparkles.svg";
+import Warning from "@icons/Warning.svg";
+import AlertCircle from "@icons/alert-circle.svg";
+
+interface Props {
+  calloutType: "series" | "info" | "tip" | "warning" | "error";
+  title?: string;
+}
+
+const { calloutType, title } = Astro.props;
+
+const t = useTranslations(Astro.currentLocale as string);
+const iconColor = `var(--callout-${calloutType}-icon)`;
+const bgColor = `var(--callout-${calloutType}-bg)`;
+
+const Icon = {
+  series: Book,
+  info: InformationCircle,
+  tip: Sparkles,
+  warning: Warning,
+  error: AlertCircle,
+}[calloutType] as any;
+---
+
+<div class="callout">
+  <Icon class="icon" />
+
+  <div class="text-container">
+    <p class="type">{title ? title : t(`article.callout.${calloutType}`)}</p>
+    <p class="inner-text">
+      <slot />
+    </p>
+    <slot name="controls" />
+  </div>
+</div>
+
+<style define:vars={{ iconColor, bgColor }}>
+  .callout {
+    position: relative;
+    padding: var(--space-sm);
+    margin-block-end: var(--space-md-lg);
+    border-radius: var(--border-radius-md);
+    border-inline-start: solid var(--callout-left-border) var(--iconColor);
+    box-shadow: var(--box-shadow-lg);
+    background-color: var(--bgColor);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    font-weight: var(--normal);
+    color: var(--color-text-light);
+  }
+
+  .icon {
+    position: absolute;
+    inset-block-start: var(--space-sm);
+    inset-inline-start: var(--space-sm);
+    inline-size: var(--space-md);
+    block-size: var(--space-md);
+    color: var(--iconColor);
+  }
+
+  .text-container {
+    margin-inline-start: var(--space-lg);
+  }
+
+  .type {
+    line-height: 1.5;
+    margin-block-end: var(--space-2xs-xs);
+    font-weight: var(--semibold);
+    color: var(--iconColor);
+  }
+
+  .inner-text {
+    margin-block-end: 0;
+  }
+</style>

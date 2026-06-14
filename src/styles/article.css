@@ -1,0 +1,106 @@
+.article-grid {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--screen-inline-padding), 1fr)
+    [prose-start] minmax(0, var(--max-article-width)) [prose-end]
+    minmax(var(--screen-inline-padding), 1fr) [full-end];
+
+  margin-block: var(--space-lg) var(--space-3xl);
+}
+
+body.no-scroll .article-grid {
+  padding-inline-end: var(--scrollbar-width);
+}
+
+.article-grid > * {
+  grid-column: prose;
+}
+
+.sidebar-left,
+.sidebar-right {
+  grid-column: prose;
+}
+
+.prose {
+  grid-column: prose;
+}
+
+.full-width {
+  grid-column: full;
+}
+
+.full-width.has-subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+.has-subgrid > * {
+  grid-column: prose;
+}
+
+.breakout,
+.expressive-code {
+  grid-column: full;
+  justify-self: center;
+  inline-size: min(var(--breakout-width), 100%);
+  padding-inline: var(--screen-inline-padding);
+}
+
+.expressive-code {
+  margin-block-end: var(--space-md-lg);
+}
+
+@media only screen and (min-width: 87.5rem) {
+  .sidebar-left {
+    grid-column: full-start / prose-start;
+    align-self: start;
+    padding-inline: var(--screen-inline-padding);
+  }
+
+  .sidebar-right {
+    grid-column: prose-end / full-end;
+    align-self: start;
+    margin-inline: var(--screen-inline-padding);
+  }
+}
+
+.article-divider {
+  width: 100%;
+  margin-inline: 0;
+  border: none;
+  border-top: 1px solid var(--color-bg-bright);
+  margin-block-end: var(--space-sm-md);
+}
+
+.mdx-header {
+  position: relative;
+  color: inherit;
+}
+
+.mdx-header::before {
+  content: "#";
+  position: absolute;
+  inset-inline-start: calc(-1ch - var(--space-3xs));
+  color: var(--color-primary);
+  opacity: 0;
+}
+
+.mdx-header:hover,
+.mdx-header:focus {
+  color: var(--color-primary);
+}
+
+.mdx-header:hover.mdx-header::before,
+.mdx-header:focus.mdx-header::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mdx-header {
+    transition: color var(--anim-length-base) ease-in-out;
+  }
+
+  .mdx-header::before {
+    transition: opacity var(--anim-length-base) ease-in-out;
+  }
+}

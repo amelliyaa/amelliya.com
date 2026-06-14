@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@i18n/utils.ts";
+import BlogCardsGrid from "@components/layouts/BlogCardsGrid.astro";
+import BlogCard from "@components/cards/BlogCard.astro";
+
+interface Props {
+  postId: string;
+  tags: string[];
+}
+
+const { postId, tags } = Astro.props;
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
+
+const relatedPosts = (
+  await getCollection("posts", ({ data }) => !data.draft && data.locale === locale)
+)
+  .filter((post) => post.id !== postId) // exclude the current post
+  .sort((a, b) => b.data.published.getTime() - a.data.published.getTime()) // sort by most recently published
+  .map((post) => {
+    // count matching tags
+    const postTags = post.data.tags || [];
+    const matched = postTags.filter((tag) => tags.includes(tag)).length;
+    return { post: post, matched };
+  })
+  .sort((a, b) => b.matched - a.matched) // sort by matching tags descending
+  .slice(0, 3)
+  .map((item) => item.post);
+
+const postsFrontmatter = await Promise.all(
+  relatedPosts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await render(post);
+    return {
+      ...post.data,
+      readingTime: remarkPluginFrontmatter.readingTime,
+    };
+  }),
+);
+---
+
+<footer class="full-width has-subgrid">
+  <hr class="article-divider" />
+  {
+    relatedPosts.length > 0 && (
+      <div class="breakout">
+        <h2>{t("article.related writing")}</h2>
+        <BlogCardsGrid>
+          {postsFrontmatter.map((frontmatter) => (
+            <BlogCard
+              href={getRelativeLocaleUrl(locale, `blog/${frontmatter.translationId}`)}
+              frontmatter={frontmatter}
+            />
+          ))}
+        </BlogCardsGrid>
+      </div>
+    )
+  }
+</footer>

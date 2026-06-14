@@ -1,0 +1,131 @@
+---
+import { useTranslations, getLocaleFormattedDate } from "@i18n/utils.ts";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import TimeIcon from "@icons/time-outline.svg";
+
+interface Props {
+  title: string;
+  published: Date;
+  modified: string;
+  description: string;
+  readingTime: string;
+  tags: string[];
+}
+
+const { title, published, modified, description, readingTime, tags } = Astro.props;
+const locale = Astro.currentLocale as string;
+const t = useTranslations(locale);
+const datePublished = getLocaleFormattedDate(published);
+const dateModified = getLocaleFormattedDate(modified);
+---
+
+<header class="article-header">
+  <ul class="tags-container">
+    {
+      tags.map((tag) => (
+        <li>
+          <a class="article-tag" href={getRelativeLocaleUrl(locale, `blog/${tag}/1`)}>
+            {tag}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <hgroup>
+    <h1>{title}</h1>
+    <p class="article-desc">{description}</p>
+  </hgroup>
+
+  <hr class="article-divider" />
+
+  <div class="metadata-container">
+    <div class="article-metadata reading-time">
+      <TimeIcon class="post-icon" aria-hidden={true} />
+      <strong>{readingTime}</strong>
+    </div>
+    <div class="dates-container">
+      <span class="article-metadata">
+        {t("article.published on", { date: datePublished })}
+      </span>
+      <span class="article-metadata">
+        {t("article.updated on", { date: dateModified })}
+      </span>
+    </div>
+  </div>
+</header>
+
+<style>
+  .article-header {
+    margin-block-end: var(--space-lg-xl);
+  }
+
+  .article-desc {
+    font-size: var(--font-size-md);
+    color: var(--color-text-faint);
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs-sm);
+  }
+
+  .article-tag {
+    padding: var(--space-3xs) var(--space-xs);
+    border-radius: var(--border-radius-md);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+    font-weight: var(--medium);
+    outline: 2px solid var(--color-accent-dark);
+    color: var(--color-text-light);
+  }
+
+  .article-tag:hover,
+  .article-tag:focus {
+    color: var(--color-text-dark);
+    outline: 2px solid var(--color-bg);
+    background: var(--color-accent-dark);
+    box-shadow: var(--box-shadow-sm);
+  }
+
+  .metadata-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs-xs);
+    margin-block-start: var(--space-xs);
+  }
+
+  .metadata-container > * {
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+  .article-metadata {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-faint);
+  }
+
+  .dates-container {
+    flex-direction: column;
+    text-align: right;
+  }
+
+  .post-icon {
+    inline-size: var(--space-xs);
+    block-size: var(--space-xs);
+    color: var(--color-primary);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .article-tag {
+      transition:
+        color var(--anim-length-short) ease-in-out,
+        background var(--anim-length-short) ease-in-out,
+        outline-color var(--anim-length-short) ease-in-out,
+        transform var(--anim-length-short) ease-in-out;
+    }
+  }
+</style>

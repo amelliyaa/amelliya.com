@@ -1,0 +1,26 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  className?: string;
+  src: string;
+  alt: string;
+}
+
+const { className, src, alt } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>("@images/*.{jpeg,jpg,png,gif}");
+const fileName = src.replace("@images", "");
+const imagePath = Object.keys(images).find((key) => key.endsWith(fileName));
+
+if (!imagePath) throw new Error(`"${src}" does not exist in glob repository.`);
+---
+
+<Image src={images[imagePath]()} alt={alt} class:list={["_image-wrapper", className]} />
+
+<style>
+  ._image-wrapper {
+    justify-self: center;
+    margin-block-end: var(--space-md-lg);
+  }
+</style>

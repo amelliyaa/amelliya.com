@@ -6,7 +6,7 @@ const { href, role, isActive, ...attrs } = Astro.props;
   href={href}
   role={role}
   class:list={["_menu-link", isActive && "active"]}
-  aria-current={isActive && "page"}
+  aria-current={isActive ? "page" : undefined}
   {...attrs}
 >
   <slot />

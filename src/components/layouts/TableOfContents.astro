@@ -1,0 +1,117 @@
+---
+import { type MarkdownHeading } from "astro";
+import { useTranslations } from "@i18n/utils.ts";
+import TableOfContentsHeading from "./TableOfContentsHeading.astro";
+import ChevronDown from "@icons/chevron-down-outline.svg";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+export interface TocItem extends MarkdownHeading {
+  subheadings: TocItem[];
+}
+
+const buildToc = (headings: MarkdownHeading[]) => {
+  const toc: TocItem[] = [];
+  const parentHeadings = new Map<number, TocItem>();
+
+  headings.forEach((h) => {
+    const heading = { ...h, subheadings: [] };
+    parentHeadings.set(heading.depth, heading);
+    if (heading.depth === 2) {
+      toc.push(heading);
+    } else {
+      parentHeadings.get(heading.depth - 1)!.subheadings.push(heading);
+    }
+  });
+
+  return toc;
+};
+
+const { headings } = Astro.props;
+const headingsTree = buildToc(headings);
+const t = useTranslations(Astro.currentLocale as string);
+---
+
+<nav class="sidebar-left toc-nav" aria-label="Article Table of Contents">
+  <details class="toc-details" open>
+    <summary class="toc-header">
+      {t("article.table of contents")}
+      <ChevronDown class="chevron" aria-hidden={true} />
+    </summary>
+    <ul class="root-list">
+      {headingsTree.map((heading) => <TableOfContentsHeading heading={heading} />)}
+    </ul>
+  </details>
+</nav>
+
+<style>
+  .toc-nav {
+    justify-self: center;
+    inline-size: max-content;
+    max-block-size: calc(100vh - var(--space-md-lg));
+    margin-block-end: var(--space-md-lg);
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-base);
+    margin-block-start: var(--space-sm);
+  }
+
+  .toc-header {
+    display: flex;
+    gap: var(--space-3xs);
+    align-items: center;
+    margin-block-end: var(--space-xs);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    font-weight: var(--semibold);
+  }
+
+  .chevron {
+    block-size: var(--space-md);
+    inline-size: var(--space-md);
+  }
+
+  .toc-details:not([open]) .chevron {
+    transform: rotate(-180deg);
+  }
+
+  .toc-details::details-content {
+    opacity: 0;
+  }
+
+  .toc-details[open]::details-content {
+    opacity: 1;
+  }
+
+  .root-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xs);
+    font-weight: var(--normal);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .toc-details::details-content {
+      transition:
+        opacity var(--anim-length-base) ease-in-out,
+        content-visibility var(--anim-length-base) ease-in-out allow-discrete;
+    }
+
+    .chevron {
+      transition: transform var(--anim-length-base) ease-in-out;
+    }
+  }
+
+  @media only screen and (min-width: 87.5rem) {
+    .toc-nav {
+      justify-self: start;
+      z-index: 9999;
+      position: sticky;
+      inset-block-start: var(--space-lg-xl);
+      margin-block-end: 0;
+      margin-inline-start: max(0px, calc(50vw - 75rem));
+    }
+  }
+</style>

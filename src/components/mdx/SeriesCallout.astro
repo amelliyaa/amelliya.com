@@ -1,0 +1,82 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@i18n/utils.ts";
+import Callout from "@components/mdx/Callout.astro";
+import ArrowLink from "@components/controls/ArrowLink.astro";
+
+const locale = Astro.currentLocale as string;
+const postId = `${locale}/${Astro.params.slug}`;
+const thisPost = await getEntry("posts", postId);
+const series = thisPost?.data.series;
+
+if (!series) return;
+
+const seriesPosts = (
+  await getCollection("posts", ({ data }) => !data.draft && data.locale === locale)
+)
+  .filter((post) => post.data.series?.name === series.name)
+  .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));
+
+const postIndex = seriesPosts.findIndex((post) => post.id === postId);
+
+const nextPost = seriesPosts[postIndex + 1] ?? null;
+const prevPost = seriesPosts[postIndex - 1] ?? null;
+
+if (!nextPost && !prevPost) return;
+
+const t = useTranslations(locale);
+---
+
+<Callout calloutType={"series"} title={series.name}>
+  {t("article.series.callout text", { n: series.part })}
+
+  <nav class="series-nav" slot="controls">
+    <ul class="series-controls">
+      {
+        prevPost && (
+          <li class="link">
+            <ArrowLink
+              direction="backward"
+              href={getRelativeLocaleUrl(locale, `blog/${prevPost.data.translationId}`)}
+              iconSize="sm"
+              hoverOffset={5}
+            >
+              {t("article.series.previous post", { n: prevPost.data.series!.part })}
+            </ArrowLink>
+          </li>
+        )
+      }
+
+      {
+        nextPost && (
+          <li class="link next">
+            <ArrowLink
+              direction="forward"
+              href={getRelativeLocaleUrl(locale, `blog/${nextPost.data.translationId}`)}
+              iconSize="sm"
+              hoverOffset={5}
+            >
+              {t("article.series.next post", { n: nextPost.data.series!.part })}
+            </ArrowLink>
+          </li>
+        )
+      }
+    </ul>
+  </nav>
+</Callout>
+
+<style>
+  .series-nav {
+    margin-block-start: var(--space-xs);
+  }
+
+  .series-controls {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .next {
+    margin-inline-start: auto;
+  }
+</style>

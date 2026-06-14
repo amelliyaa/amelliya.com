@@ -1,0 +1,28 @@
+---
+
+---
+
+<div class="blog-cards-grid">
+  <slot />
+</div>
+
+<style>
+  .blog-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md-lg);
+    margin-block-start: var(--space-md);
+  }
+
+  @media only screen and (min-width: 36rem) and (max-width: 62rem) {
+    .blog-cards-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media only screen and (min-width: 62rem) {
+    .blog-cards-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>

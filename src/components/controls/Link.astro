@@ -1,11 +1,13 @@
 ---
 import OpenIcon from "@icons/open-outline.svg";
-const { href } = Astro.props;
+const { href, class: className, ...attrs } = Astro.props;
+
+const isMdxLink = className === "mdx-header";
 
 // HTML must be a single line to prevent a trailing space from being generated
 ---
 
-<a href={href} class="_link"
+<a href={href} class:list={[{ _link: !isMdxLink }, className]} {...attrs}
   ><slot />{href.startsWith("https") && <OpenIcon class="_open" aria-hidden={true} />}</a
 ><style>
   ._link {

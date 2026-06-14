@@ -4,6 +4,7 @@
   /* Width caps */
   --max-page-width: 1400px;
   --max-article-width: 80ch;
+  --breakout-width: 1200px;
   --scrollbar-width: 0px; /* Fallback value if no JS */
 
   /* Colors */
@@ -24,6 +25,21 @@
   --color-secondary: #f8b8d6;
   --color-accent: #f8cb82;
   --color-accent-dark: #f7c067;
+
+  /* Callout styling */
+  --callout-left-border: 6px;
+
+  --callout-series-icon: #e7ccb3;
+  --callout-info-icon: #c9cdf7;
+  --callout-tip-icon: #ace1af;
+  --callout-warning-icon: var(--color-accent);
+  --callout-error-icon: #fbbec2;
+
+  --callout-series-bg: #473754;
+  --callout-info-bg: #433759;
+  --callout-tip-bg: #443a55;
+  --callout-warning-bg: #483852;
+  --callout-error-bg: #483452;
 
   /* UI animation lengths */
   --anim-length-short: 0.15s;
@@ -99,6 +115,7 @@
 
   /* Custom pairs */
   --space-2xl-4xl: clamp(5rem, 2.3182rem + 13.4091vw, 12.375rem);
+  --screen-inline-padding: var(--space-md-lg);
 
   /* pagefind configuration */
   /* Colors */
