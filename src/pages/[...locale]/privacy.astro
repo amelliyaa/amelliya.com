@@ -1,19 +1,20 @@
 ---
+import { getEntry, render } from "astro:content";
 import { makeI18nStaticPathsGenerator, useTranslations } from "@i18n/utils";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import Link from "@components/controls/Link.astro";
+import LastUpdated from "@components/mdx/unique/LastUpdated.astro";
 
 export const getStaticPaths = makeI18nStaticPathsGenerator();
 
+const page = await getEntry("pages", `${Astro.currentLocale}/privacy`);
+
+if (!page) throw new Error("Could not find about page");
+
+const { Content } = await render(page);
+
 const locale = Astro.currentLocale as string;
 const t = useTranslations(locale);
-
-const lastUpdated = new Date("2026-06-03");
-const localizedDate = new Intl.DateTimeFormat(locale, {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-}).format(lastUpdated);
-
 const ogImageUrl = `/open-graph/privacy-${locale}.png`;
 ---
 
@@ -22,29 +23,13 @@ const ogImageUrl = `/open-graph/privacy-${locale}.png`;
   description={t("privacy.meta.description")}
   image={ogImageUrl}
 >
-  <div class="policy">
-    <h1 class="policy-heading">{t("privacy.heading")}</h1>
-    <p><strong>{t("privacy.updated on", { date: localizedDate })}</strong></p>
-    <p class="intro">{t("privacy.introduction")}</p>
-
-    <hgroup>
-      <h2>{t("privacy.analytics heading")}</h2>
-      <p>{t("privacy.analytics disclosure")}</p>
-    </hgroup>
-  </div>
+  <Content components={{ a: Link, LastUpdated }} />
 </BaseLayout>
 
 <style>
   :global(.content-grid) {
     --_max-width: var(--max-article-width);
-  }
-
-  .policy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    block-size: 100%;
+    place-items: center;
     text-align: center;
   }
 </style>

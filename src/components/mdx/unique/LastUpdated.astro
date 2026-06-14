@@ -1,0 +1,13 @@
+---
+import { getLocaleFormattedDate, useTranslations } from "@i18n/utils.ts";
+
+interface Props {
+  lastModified: string;
+}
+
+const { lastModified } = Astro.props;
+const updated = getLocaleFormattedDate(lastModified);
+const t = useTranslations(Astro.currentLocale as string);
+---
+
+<p><strong>{t("privacy.updated on", { date: updated })}</strong></p>

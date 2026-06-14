@@ -79,8 +79,4 @@ privacy:
   meta:
     title: "Privacy Policy"
     description: "My site's privacy policy"
-  heading: "Privacy Policy"
-  introduction: "We do not collect, use, or share your personal data."
   updated on: "Updated {date}"
-  analytics heading: "Analytics"
-  analytics disclosure: "This website uses Cloudflare Web Analytics for basic analysis of website performance. It is a non-invasive, privacy-respecting analytics solution. It does not use any client-side state, such as cookies or localStorage, to collect usage metrics, and it doesn’t “fingerprint” individuals via their IP address, User Agent string, or any other data for the purpose of displaying analytics."
