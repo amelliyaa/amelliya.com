@@ -13,8 +13,9 @@ aria label:
 index:
   meta:
     title: "Home"
-    description: "The home page of my website"
-  greeting: "Hello, World! I'm <b>Liya</b>"
+    description: "The personal website of a computer science graduate student and library assistant, where I post my projects and technical blogs."
+  heading: "My personal website and home to my <highlight>projects</highlight> and <highlight>technical blogs</highlight>"
+  byline: "Computer science graduate student, currently working as a library assistant"
   latest posts: "Latest Posts"
 
 pin card:
@@ -42,13 +43,13 @@ social:
 404:
   meta:
     title: "404 Not Found"
-    description: "My site's homepage"
+    description: "The page you're looking for could not be found."
   message: "Sorry! But the page you're looking for doesn't seem to exist. <homeLink>Take me home.</homeLink>"
 
 about:
   meta:
     title: "About"
-    description: "About Page"
+    description: "Learn a little about me and a lot about how the website was made."
 
 blog:
   meta:
@@ -56,8 +57,8 @@ blog:
     title with page: "Blog - Page {currentPage}"
     title with tag: "{tag} Blog Posts"
     title with tag and page: "{tag} Blog Posts – Page {pageNumber}"
-    description: "Blog of amelliya"
-    description with tag: "Blog of amelliya showing {tag} posts"
+    description: "All the articles I've written."
+    description with tag: "All the articles I've written about {tag}."
 
 article:
   published on: "Published on {date}"
@@ -78,5 +79,5 @@ article:
 privacy:
   meta:
     title: "Privacy Policy"
-    description: "My site's privacy policy"
+    description: "Discover how this site respects your privacy and personal information."
   updated on: "Updated {date}"

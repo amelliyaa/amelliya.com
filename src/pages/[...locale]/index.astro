@@ -18,40 +18,29 @@ const t = useTranslations(locale);
   image={ogImageUrl}
 >
   <WebSite slot="schema-markup" />
-  <h1 class="who" set:html={t("index.greeting")} />
+  <hgroup class="site-intro">
+    <h1 class="what">
+      {t("index.heading", { highlight: (text) => <span class="highlight">{text}</span> })}
+    </h1>
+    <p class="who">{t("index.byline")}</p>
+  </hgroup>
   <PinBoard />
   <LatestPosts />
 </BaseLayout>
 
 <style>
-  .who {
-    margin-block-end: var(--space-3xl);
-
-    > b {
-      color: var(--color-primary);
-    }
+  .site-intro {
+    margin-block-end: var(--space-2xl-4xl);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .who::after {
-      display: inline-block;
-      content: "";
-      inline-size: 0.15em;
-      block-size: 1.25em;
-      margin-inline-start: 0.05em;
-      background-color: var(--color-primary);
-      transform: translateY(22%);
-      animation: blink-caret 0.8s step-end infinite;
-    }
+  .who {
+    font-family: var(--typeface-workhorse);
+    font-size: var(--font-size-lg);
+    font-weight: var(--medium);
+    color: var(--color-text-faint);
+  }
 
-    @keyframes blink-caret {
-      from,
-      to {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0;
-      }
-    }
+  .highlight {
+    color: var(--color-secondary);
   }
 </style>

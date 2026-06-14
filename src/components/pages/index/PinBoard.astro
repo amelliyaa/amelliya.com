@@ -6,7 +6,7 @@ const projects = await getCollection("projects");
 ---
 
 <section class="current-projects">
-  <h2 class="pin-board-heading">Liya's Project Board</h2>
+  <h2 class="pin-board-heading">My Project Board</h2>
   <div class="pin-board">
     {projects.map((project) => <PinCard project={project} />)}
   </div>
