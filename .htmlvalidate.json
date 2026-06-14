@@ -1,0 +1,19 @@
+{
+  "extends": ["html-validate:recommended"],
+  "elements": [
+    "html5",
+    {
+      "code": {
+        "permittedContent": ["@flow"]
+      },
+      "button": {
+        "permittedContent": ["@flow"],
+        "textContent": "default"
+      }
+    }
+  ],
+  "rules": {
+    "no-implicit-button-type": "off",
+    "void-style": "off"
+  }
+}

@@ -13,19 +13,23 @@ const t = useTranslations(locale);
 
 <script src="@scripts/menu.js"></script>
 <header class="site-header">
-  <nav class="navbar" id="navigation" aria-label={t("navigation.main nav aria label")}>
-    <a href={getRelativeLocaleUrl(locale)} class="brand" aria-label="Home">
+  <nav class="navbar" id="navigation" aria-label={t("aria label.nav.main")}>
+    <a
+      href={getRelativeLocaleUrl(locale)}
+      class="brand"
+      aria-label={t("aria label.icon button.home page")}
+    >
       <Amelliya />
     </a>
 
-    <input type="checkbox" id="menu-button" aria-label="Toggle menu" />
+    <input type="checkbox" id="menu-button" />
     <label for="menu-button" class="menu-label">
       Menu
-      <ChevronDown class="chevron" />
+      <ChevronDown class="chevron" aria-hidden={true} />
     </label>
 
     <div class="dropdown-wrapper">
-      <menu class="dropdown" id="menu" role="menu" aria-label="Navigation">
+      <menu class="dropdown" id="menu" role="menu">
         {
           getMainNavLinks(locale).map((page) => (
             <li role="none">

@@ -34,7 +34,7 @@ const headingsTree = buildToc(headings);
 const t = useTranslations(Astro.currentLocale as string);
 ---
 
-<nav class="sidebar-left toc-nav" aria-label="Article Table of Contents">
+<nav class="sidebar-left toc-nav" aria-label={t("aria label.nav.article table of contents")}>
   <details class="toc-details" open>
     <summary class="toc-header">
       {t("article.table of contents")}

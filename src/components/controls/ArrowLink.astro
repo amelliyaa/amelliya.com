@@ -40,11 +40,11 @@ const arrowOffset = `${hoverOffset}px`;
     color: inherit;
   }
 
-  [dir="rtl"] ._arrow-link {
+  :global([dir="rtl"]) ._arrow-link {
     --rtl-factor: -1;
   }
 
-  [dir="rtl"] .arrow {
+  :global([dir="rtl"]) .arrow {
     scale: -1 1;
   }
 

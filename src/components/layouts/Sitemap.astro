@@ -9,7 +9,7 @@ const locale = Astro.currentLocale as string;
 const t = useTranslations(locale);
 ---
 
-<nav class={className} aria-label={t("navigation.sitemap aria label")} {...attrs}>
+<nav class={className} aria-label={t("aria label.nav.sitemap")} {...attrs}>
   <ul class="_sitemap">
     {
       getSitemap(locale).map((page) => (

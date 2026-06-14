@@ -15,7 +15,6 @@ export interface Props {
 }
 
 const { title, description, image, type = "website", article } = Astro.props;
-
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = image ? new URL(image, Astro.site) : null;
 ---

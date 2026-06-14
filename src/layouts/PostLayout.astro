@@ -21,7 +21,7 @@ interface Props extends Omit<ComponentProps<typeof BaseHead>, "title" | "descrip
 
 const { postId, frontmatter, headings } = Astro.props;
 const locale = Astro.currentLocale;
-const ogImageUrl = `post-${locale}-${frontmatter.translationId}`;
+const ogImageUrl = `open-graph/post-${locale}-${frontmatter.translationId}.png`;
 const articleMetadata = {
   published: frontmatter.published,
   modified: frontmatter.modified,

@@ -29,14 +29,14 @@ const t = useTranslations(Astro.currentLocale as string);
 const updated = getLastUpdatedDate(project.collection, project.id);
 const Container = project.data.projectLink ? "a" : "div";
 const containerAttrs = project.data.projectLink
-  ? { href: project.data.projectLink, "aria-labelledby": `project-${project.id}` }
+  ? { href: project.data.projectLink, "aria-labelledby": `pin-${project.data.translationId}` }
   : {};
 ---
 
 <Container class="pin-card" data-pin-size={project.data.pinSize} {...containerAttrs}>
   <div class="pin-content">
     <span class="pin-icon" aria-hidden="true"></span>
-    <h3 class="pin-heading" id={`project-${project.id}`}>
+    <h3 class="pin-heading" id={`pin-${project.data.translationId}`}>
       {project.data.workingTitle}
       <span class="pin-progress">{project.data.progress}%</span>
       {project.data.projectLink && <OpenIcon class="open" aria-hidden={true} />}

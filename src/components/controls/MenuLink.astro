@@ -40,7 +40,7 @@ const { href, role, isActive, ...attrs } = Astro.props;
     transform: scale(0, 1.0001);
   }
 
-  [dir="rtl"] ._menu-link::after {
+  :global([dir="rtl"]) ._menu-link::after {
     transform-origin: left;
   }
 
@@ -50,8 +50,8 @@ const { href, role, isActive, ...attrs } = Astro.props;
     transform: scale(1, 1.0001);
   }
 
-  [dir="rtl"] :not(.active)._menu-link:hover::after,
-  [dir="rtl"] :not(.active)._menu-link:focus::after {
+  :global([dir="rtl"]) :not(.active)._menu-link:hover::after,
+  :global([dir="rtl"]) :not(.active)._menu-link:focus::after {
     transform-origin: right;
     transform: scale(1, 1.0001);
   }

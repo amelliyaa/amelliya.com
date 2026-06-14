@@ -9,10 +9,14 @@ const paginatedList = getPaginatedList(currentPage, lastPage, 1);
 const t = useTranslations(Astro.currentLocale as string);
 ---
 
-<nav class="pagination" aria-label={t("pagination.aria label")}>
+<nav class="pagination" aria-label={t("aria label.nav.pagination")}>
   {
     prevUrl ? (
-      <a href={prevUrl} class="chevron-button" aria-label={t("pagination.previous page")}>
+      <a
+        href={prevUrl}
+        class="chevron-button"
+        aria-label={t("aria label.icon button.previous page")}
+      >
         <ChevronBack class="chevron" aria-hidden={true} />
       </a>
     ) : (
@@ -46,7 +50,7 @@ const t = useTranslations(Astro.currentLocale as string);
   </ul>
   {
     nextUrl ? (
-      <a href={nextUrl} class="chevron-button" aria-label={t("pagination.next page")}>
+      <a href={nextUrl} class="chevron-button" aria-label={t("aria label.icon button.next page")}>
         <ChevronForward class="chevron" aria-hidden={true} />
       </a>
     ) : (

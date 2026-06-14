@@ -31,7 +31,11 @@ const t = useTranslations(locale);
 <Callout calloutType={"series"} title={series.name}>
   {t("article.series.callout text", { n: series.part })}
 
-  <nav class="series-nav" slot="controls">
+  <nav
+    class="series-nav"
+    slot="controls"
+    aria-label={t("aria label.nav.article series nav", { seriesName: series.name })}
+  >
     <ul class="series-controls">
       {
         prevPost && (

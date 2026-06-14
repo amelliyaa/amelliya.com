@@ -1,3 +1,15 @@
+aria label:
+  nav:
+    main: "main"
+    sitemap: "site map"
+    pagination: "pagination"
+    article table of contents: "article table of contents"
+    article series nav: "{seriesName} article series"
+  icon button:
+    previous page: "previous page"
+    next page: "next page"
+    home page: "home"
+
 index:
   meta:
     title: "Home"
@@ -9,8 +21,6 @@ pin card:
   updated on: "Last updated on {dateString}"
 
 navigation:
-  main nav aria label: "Main"
-  sitemap aria label: "Site map"
   blog archives: "Blog"
   about page: "About"
   privacy page: "Privacy"
@@ -64,11 +74,6 @@ article:
     callout text: "This article is part {n} in a series of posts!"
     previous post: "Read Part: {n}"
     next post: "Read Part: {n}"
-
-pagination:
-  aria label: "pagination"
-  next page: "next page"
-  previous page: "previous page"
 
 privacy:
   meta:
