@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import { GetStaticPaths } from "astro";
 import { i18n } from "astro:config/client";
 import { useTranslations } from "@i18n/utils.ts";
-import BlogArchive from "@components/BlogArchive.astro";
+import BlogArchive from "@components/pages/blog/BlogArchive.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {

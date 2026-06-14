@@ -21,17 +21,18 @@ const ogImageUrl = `/open-graph/privacy-${locale}.png`;
   title={t("privacy.meta.title")}
   description={t("privacy.meta.description")}
   image={ogImageUrl}
-/>
-<div class="policy">
-  <h1 class="policy-heading">{t("privacy.heading")}</h1>
-  <p><strong>{t("privacy.updated on", { date: localizedDate })}</strong></p>
-  <p class="intro">{t("privacy.introduction")}</p>
+>
+  <div class="policy">
+    <h1 class="policy-heading">{t("privacy.heading")}</h1>
+    <p><strong>{t("privacy.updated on", { date: localizedDate })}</strong></p>
+    <p class="intro">{t("privacy.introduction")}</p>
 
-  <hgroup>
-    <h2>{t("privacy.analytics heading")}</h2>
-    <p>{t("privacy.analytics disclosure")}</p>
-  </hgroup>
-</div>
+    <hgroup>
+      <h2>{t("privacy.analytics heading")}</h2>
+      <p>{t("privacy.analytics disclosure")}</p>
+    </hgroup>
+  </div>
+</BaseLayout>
 
 <style>
   :global(.content-grid) {

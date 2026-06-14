@@ -4,17 +4,17 @@ import { execSync } from "child_process";
 import { statSync } from "node:fs";
 import rehypeAutolinkHeadingsPlugin from "rehype-autolink-headings";
 
-export function remarkReadingTime() {
+export const remarkReadingTime = () => {
   return function (tree, { data }) {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
 
     data.astro.frontmatter.readingTime = readingTime.text;
   };
-}
+};
 
-export function remarkModifiedTime() {
-  return function (tree, file) {
+export const remarkModifiedTime = () => {
+  return function (_tree, file) {
     const filepath = file.history[0];
     let lastModified;
 
@@ -37,7 +37,7 @@ export function remarkModifiedTime() {
 
     file.data.astro.frontmatter.lastModified = lastModified;
   };
-}
+};
 
 export const rehypeAutolinkHeadings = [
   rehypeAutolinkHeadingsPlugin,

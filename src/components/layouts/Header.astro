@@ -1,10 +1,10 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "@i18n/utils.ts";
 import { getMainNavLinks } from "@scripts/constants.ts";
 import MenuLink from "@components/controls/MenuLink.astro";
 import Amelliya from "@logos/amelliya.svg";
 import ChevronDown from "@icons/chevron-down-outline.svg";
-import { useTranslations } from "@i18n/utils.ts";
 
 const locale = Astro.currentLocale as string;
 const currentPath = new URL(Astro.request.url).pathname;
