@@ -15,11 +15,15 @@ export const remarkReadingTime = () => {
 
 export const remarkModifiedTime = () => {
   return function (_tree, file) {
-    const filepath = file.history[0];
+    const filePath = file.history[0];
+    const fileDir = path.dirname(filePath);
+    const fileName = path.basename(filePath);
     let lastModified;
 
     try {
-      const result = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
+      const result = execSync(`git log -1 --pretty="format:%cI" "${fileName}"`, {
+        cwd: fileDir,
+      });
       lastModified = result.toString().trim();
 
       if (!lastModified) {
@@ -27,10 +31,10 @@ export const remarkModifiedTime = () => {
       }
     } catch (error) {
       try {
-        const stats = statSync(filepath);
+        const stats = statSync(filePath);
         lastModified = stats.mtime.toISOString();
       } catch (fsError) {
-        console.warn(`[remarkModifiedTime] Could not find ${filepath}. Using current time.`);
+        console.warn(`[remarkModifiedTime] Could not find ${filePath}. Using current time.`);
         lastModified = new Date().toISOString();
       }
     }

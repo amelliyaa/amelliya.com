@@ -5,28 +5,33 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import OpenIcon from "@icons/open-outline.svg";
 
-const getLastUpdatedDate = (collection: string, id: string): Date => {
-  const filepath = path.join(process.cwd(), "src", "content", collection, id);
+const getLastUpdatedDate = (filePath: string): Date => {
+  const absolutePath = path.isAbsolute(filePath) ? filePath : path.join(process.cwd(), filePath);
+  const fileDir = path.dirname(absolutePath);
+  const fileName = path.basename(absolutePath);
 
   try {
-    const stdout = execSync(`git log -1 --format="%cI" "${filepath}"`);
+    const stdout = execSync(`git log -1 --format="%cI" "${fileName}"`, {
+      cwd: fileDir,
+    });
+
     const gitDate = stdout.toString().trim();
     if (gitDate) return new Date(gitDate);
   } catch (error) {
-    console.warn(`Failed to get git history for ${filepath}. Falling back to fs.`);
+    console.warn(`Failed to get git history for ${filePath}.`);
   }
 
   try {
-    return statSync(filepath).mtime;
+    return statSync(filePath).mtime;
   } catch (fsError) {
-    console.error(`File not found: ${filepath}`);
+    console.error(`File not found: ${filePath}`);
     return new Date();
   }
 };
 
 const { project } = Astro.props;
 const t = useTranslations(Astro.currentLocale as string);
-const updated = getLastUpdatedDate(project.collection, project.id);
+const updated = getLastUpdatedDate(project.filePath);
 const Container = project.data.projectLink ? "a" : "div";
 const containerAttrs = project.data.projectLink
   ? { href: project.data.projectLink, "aria-labelledby": `pin-${project.data.translationId}` }

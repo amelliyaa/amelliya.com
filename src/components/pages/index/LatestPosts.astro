@@ -20,6 +20,7 @@ const postsFrontmatter = await Promise.all(
   recentPosts.map(async (post) => {
     const { remarkPluginFrontmatter } = await render(post);
     return {
+      filePath: post.filePath,
       ...post.data,
       readingTime: remarkPluginFrontmatter.readingTime,
     };
