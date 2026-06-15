@@ -32,11 +32,11 @@ kbd {
 }
 
 code {
-  background: var(--color-bg-inline-code);
+  background-color: var(--color-bg-inline-code);
 }
 
 kbd {
-  background: var(--color-bg-dark);
+  background-color: var(--color-bg-dark);
   outline: 1px solid var(--color-text-faint);
 }
 
