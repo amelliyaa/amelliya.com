@@ -75,8 +75,8 @@ const t = useTranslations(locale);
     padding-inline-end: calc(var(--scrollbar-width) + var(--space-sm));
   }
 
-  body.no-scroll .dropdown {
-    padding-inline-end: var(--scrollbar-width, 0px);
+  body.no-scroll .dropdown-wrapper {
+    padding-inline: var(--space-sm) calc(var(--scrollbar-width) + var(--space-sm));
   }
 
   .navbar:has(#menu-button:checked) {
@@ -134,6 +134,7 @@ const t = useTranslations(locale);
     position: absolute;
     inset-block-start: 100%;
     inset-inline: 0;
+    padding-inline: var(--space-sm);
 
     display: grid;
     grid-template-rows: 0fr;
@@ -210,6 +211,7 @@ const t = useTranslations(locale);
       background-color: transparent;
       border-block-end: none;
       box-shadow: none;
+      padding-inline: 0;
 
       grid-row: 1;
       grid-column: 2;
@@ -221,7 +223,7 @@ const t = useTranslations(locale);
       justify-content: flex-end;
       opacity: 1;
       overflow: visible;
-      padding-block: 0 !important;
+      padding-block: 0;
 
       transition: none;
     }
