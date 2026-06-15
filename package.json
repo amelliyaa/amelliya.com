@@ -1,9 +1,7 @@
 {
   "name": "amelliya.com",
-  "author": "",
-  "description": "",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -23,6 +21,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@expressive-code/plugin-line-numbers": "^0.43.1",
     "astro": "https://pkg.pr.new/astro@b57dafd",
+    "astro-compressor": "^1.3.0",
     "astro-expressive-code": "^0.43.1",
     "astro-og-canvas": "^0.11.1",
     "html-validate": "^11.4.0",

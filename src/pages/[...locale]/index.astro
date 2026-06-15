@@ -20,7 +20,7 @@ const t = useTranslations(locale);
   <WebSite slot="schema-markup" />
   <hgroup class="site-intro">
     <h1 class="what">
-      {t("index.heading", { highlight: (text) => <span class="highlight">{text}</span> })}
+      {t("index.heading", { highlight: (text: string) => <span class="highlight">{text}</span> })}
     </h1>
     <p class="who">{t("index.byline")}</p>
   </hgroup>

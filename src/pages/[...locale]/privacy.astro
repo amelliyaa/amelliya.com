@@ -12,7 +12,6 @@ const page = await getEntry("pages", `${Astro.currentLocale}/privacy`);
 if (!page) throw new Error("Could not find about page");
 
 const { Content } = await render(page);
-
 const locale = Astro.currentLocale as string;
 const t = useTranslations(locale);
 const ogImageUrl = `/open-graph/privacy-${locale}.png`;

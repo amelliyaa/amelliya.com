@@ -1,0 +1,36 @@
+name: Deploy Worker
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v6
+
+      - name: Checkout Content Repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: amelliyaa/amelliya.com-content
+          path: src/content
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/krypton
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

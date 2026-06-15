@@ -2,6 +2,7 @@ import getReadingTime from "reading-time";
 import { toString } from "mdast-util-to-string";
 import { execSync } from "child_process";
 import { statSync } from "node:fs";
+import path from "node:path";
 import rehypeAutolinkHeadingsPlugin from "rehype-autolink-headings";
 
 export const remarkReadingTime = () => {

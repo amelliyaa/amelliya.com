@@ -4,11 +4,12 @@ import {
   remarkModifiedTime,
   rehypeAutolinkHeadings,
 } from "./markdown-plugins.mjs";
+import { unified, rehypeHeadingIds } from "@astrojs/markdown-remark";
 import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { unified, rehypeHeadingIds } from "@astrojs/markdown-remark";
 import expressiveCode from "astro-expressive-code";
+import compressor from "astro-compressor";
 
 const languages = {
   defaultLocale: "en",
@@ -63,7 +64,7 @@ export default defineConfig({
     defaultLocale: languages.defaultLocale,
     locales: Object.values(languages.locales),
   },
-  integrations: [expressiveCode(), mdx(), sitemap({ i18n: languages })],
+  integrations: [expressiveCode(), mdx(), sitemap({ i18n: languages }), compressor()],
   markdown: {
     processor: unified({
       remarkPlugins: [remarkReadingTime, remarkModifiedTime],
