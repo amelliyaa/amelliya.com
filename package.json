@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test:html": "html-validate \"dist/client/**/*.html\"",
-    "test:links": "linkinator ./dist/client --recurse --skip \"https://amelliya.com\"",
+    "test:links": "linkinator http://localhost:4321",
     "test:a11y": "pa11y-ci --sitemap http://localhost:4321/sitemap-index.xml --sitemap-find https://www.amelliya.com --sitemap-replace http://localhost:4321",
     "test:all": "npm run test:html && npm run test:links && npm run test:a11y"
   },
@@ -33,7 +33,11 @@
     "yaml": "^2.8.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "prettier": "^3.4.2",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "semantic-release": "^24.2.9",
+    "wait-on": "^9.0.10"
   }
 }

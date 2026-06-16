@@ -31,7 +31,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 const { page, tag } = Astro.props;
 const locale = Astro.currentLocale as string;
-const ogImageUrl = `/open-graph/blog-archive-${locale}.png`;
+const ogImageUrl = `/open-graph/blog-${locale}.png`;
 const t = useTranslations(locale);
 ---
 
