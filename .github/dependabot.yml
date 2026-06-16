@@ -4,3 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    commit-message:
+      prefix: "fix"
+      prefix-development: "chore"
+      include: "scope"
+    groups:
+      production:
+        dependency-type: "production"
+      development:
+        dependency-type: "development"
