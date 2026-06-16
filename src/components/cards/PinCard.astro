@@ -69,15 +69,16 @@ const containerAttrs = project.data.projectLink
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    gap: var(--space-md);
 
-    min-inline-size: 140px;
-    max-inline-size: 36ch;
+    max-inline-size: 40ch;
     aspect-ratio: 1 / 1;
     padding: var(--space-md) var(--space-md) var(--space-sm) var(--space-sm);
     border-radius: var(--border-radius-sm);
     color: var(--color-text-dark);
     background-color: var(--color-accent);
     box-shadow: var(--box-shadow-lg);
+    font-family: var(--typeface-sans);
   }
 
   .pin-card:nth-child(odd) {
@@ -111,7 +112,7 @@ const containerAttrs = project.data.projectLink
     align-items: center;
     gap: var(--space-3xs);
     font-size: var(--font-size-md);
-    font-weight: var(--medium);
+    font-weight: var(--semibold);
   }
 
   .project-link {
@@ -135,8 +136,7 @@ const containerAttrs = project.data.projectLink
 
   .pin-progress,
   .pin-update {
-    font-family: var(--typeface-workhorse);
-    font-weight: var(--medium);
+    font-weight: var(--semibold);
   }
 
   .pin-progress {

@@ -6,7 +6,7 @@ export default defineEcConfig({
   themes: ["dracula"],
   styleOverrides: {
     borderRadius: "var(--border-radius-md)",
-    uiFontFamily: "var(--typeface-workhorse)",
+    uiFontFamily: "var(--typeface-sans)",
     uiFontSize: "var(--font-size-sm)",
     codeFontFamily:
       'ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace',

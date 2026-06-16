@@ -61,11 +61,11 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/assets/fonts/Laro.woff2"],
+            src: ["./src/assets/fonts/Lora.woff2"],
             fallback: ["Georgia"],
           },
           {
-            src: ["./src/assets/fonts/LaroItalics.woff2"],
+            src: ["./src/assets/fonts/LoraItalics.woff2"],
             fallback: ["Georgia"],
           },
         ],

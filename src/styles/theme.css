@@ -48,12 +48,12 @@
   --anim-length-long: 0.5s;
 
   /* Font weights */
-  --light: 200;
-  --normal: 300;
-  --medium: 400;
+  --light: 300;
+  --normal: 400;
   --semibold: 500;
   --bold: 600;
-  --black: 900;
+  --extra-bold: 700;
+  --black: 800;
 
   /* Fonts */
   --typeface-sans: var(--astro-sans), system-ui, sans-serif;
