@@ -18,35 +18,6 @@ const languages = {
   },
 };
 
-const sansFallbackStack = [
-  "system-ui",
-  "-apple-system",
-  "BlinkMacSystemFont",
-  "Segoe UI",
-  "Roboto",
-  "Helvetica Neue",
-  "Arial",
-  "PingFang SC",
-  "Microsoft YaHei",
-  "Hiragino Sans",
-  "Yu Gothic",
-  "Apple SD Gothic Neo",
-  "Malgun Gothic",
-  "sans-serif",
-];
-
-const serifFallbackStack = [
-  "Georgia",
-  "Times New Roman",
-  "Songti SC",
-  "SimSun",
-  "Hiragino Mincho ProN",
-  "Yu Mincho",
-  "AppleMyungjo",
-  "Batang",
-  "serif",
-];
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://amelliya.com",
@@ -73,12 +44,12 @@ export default defineConfig({
     {
       provider: fontProviders.local(),
       name: "Source Sans 3",
-      cssVariable: "--typeface-sans",
+      cssVariable: "--astro-sans",
       options: {
         variants: [
           {
             src: ["./src/assets/fonts/SourceSans3.woff2"],
-            fallback: sansFallbackStack,
+            fallback: ["Arial"],
           },
         ],
       },
@@ -86,16 +57,16 @@ export default defineConfig({
     {
       provider: fontProviders.local(),
       name: "Laro",
-      cssVariable: "--typeface-serif",
+      cssVariable: "--astro-serif",
       options: {
         variants: [
           {
             src: ["./src/assets/fonts/Laro.woff2"],
-            fallback: serifFallbackStack,
+            fallback: ["Georgia"],
           },
           {
             src: ["./src/assets/fonts/LaroItalics.woff2"],
-            fallback: serifFallbackStack,
+            fallback: ["Georgia"],
           },
         ],
       },

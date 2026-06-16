@@ -53,6 +53,11 @@
   --medium: 400;
   --semibold: 500;
   --bold: 600;
+  --black: 900;
+
+  /* Fonts */
+  --typeface-sans: var(--astro-sans), system-ui, sans-serif;
+  --typeface-serif: var(--astro-serif), serif;
 
   /* Border radius */
   --border-radius-sm: 0.2rem;
@@ -163,6 +168,22 @@
 
   /* Modal */
   --pf-modal-backdrop: var(--color-overlay); /* Swapped static rgba for your overlay variable */
+}
+
+:root:lang(zh-CN),
+:root:lang(zh) {
+  --typeface-sans: var(--astro-sans), "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --typeface-serif: var(--astro-serif);
+}
+
+:root:lang(ja) {
+  --typeface-sans: var(--astro-sans), "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --typeface-serif: var(--astro-serif);
+}
+
+:root:lang(ko) {
+  --typeface-sans: var(--astro-sans), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --typeface-serif: var(--astro-serif);
 }
 
 .pf-modal-body {
