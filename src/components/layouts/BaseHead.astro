@@ -52,9 +52,8 @@ const ogImageURL = image ? new URL(image, Astro.site) : null;
 <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
 <link rel="manifest" href="/site.webmanifest" />
 
-<Font cssVariable="--typeface-display" preload />
-<Font cssVariable="--typeface-body" />
-<Font cssVariable="--typeface-workhorse" />
+<Font cssVariable="--astro-sans" preload />
+<Font cssVariable="--astro-serif" />
 
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalURL} />

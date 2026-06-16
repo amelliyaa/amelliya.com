@@ -82,9 +82,8 @@ const postsFrontmatter = await Promise.all(
   .tag {
     padding: var(--space-3xs-2xs) var(--space-xs-sm);
     border-radius: var(--border-radius-md);
-    font-family: var(--typeface-workhorse);
+    font-family: var(--typeface-sans);
     font-size: var(--font-size-base);
-    font-weight: var(--semibold);
 
     color: var(--color-text-light);
     background-color: var(--color-bg-bright);
@@ -99,7 +98,7 @@ const postsFrontmatter = await Promise.all(
   }
 
   .current-tag {
-    font-weight: var(--bold);
+    font-weight: var(--semibold);
     color: var(--color-text-dark);
     background-color: var(--color-accent);
   }
