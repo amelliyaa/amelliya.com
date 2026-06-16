@@ -173,17 +173,17 @@
 :root:lang(zh-CN),
 :root:lang(zh) {
   --typeface-sans: var(--astro-sans), "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  --typeface-serif: var(--astro-serif);
+  --typeface-serif: var(--typeface-sans);
 }
 
 :root:lang(ja) {
   --typeface-sans: var(--astro-sans), "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
-  --typeface-serif: var(--astro-serif);
+  --typeface-serif: var(--typeface-sans);
 }
 
 :root:lang(ko) {
   --typeface-sans: var(--astro-sans), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
-  --typeface-serif: var(--astro-serif);
+  --typeface-serif: var(--typeface-sans);
 }
 
 .pf-modal-body {
