@@ -82,7 +82,11 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/assets/fonts/MerriweatherSans.woff2"],
+            src: ["./src/assets/fonts/MerriweatherSans500.woff2"],
+            fallback: sansFallbackStack,
+          },
+          {
+            src: ["./src/assets/fonts/MerriweatherSans600.woff2"],
             fallback: sansFallbackStack,
           },
         ],
@@ -95,15 +99,15 @@ export default defineConfig({
       options: {
         variants: [
           {
-            src: ["./src/assets/fonts/Merriweather-Light.woff2"],
+            src: ["./src/assets/fonts/Merriweather300.woff2"],
             fallback: serifFallbackStack,
           },
           {
-            src: ["./src/assets/fonts/Merriweather-LightItalic.woff2"],
+            src: ["./src/assets/fonts/Merriweather300Italic.woff2"],
             fallback: serifFallbackStack,
           },
           {
-            src: ["./src/assets/fonts/Merriweather-SemiBold.woff2"],
+            src: ["./src/assets/fonts/Merriweather600.woff2"],
             fallback: serifFallbackStack,
           },
         ],
