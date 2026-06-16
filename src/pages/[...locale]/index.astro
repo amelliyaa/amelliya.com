@@ -22,7 +22,7 @@ const t = useTranslations(locale);
     <h1 class="what">
       {t("index.heading", { highlight: (text: string) => <span class="highlight">{text}</span> })}
     </h1>
-    <p class="who">{t("index.byline")}</p>
+    <p class="typography-subtitle who">{t("index.byline")}</p>
   </hgroup>
   <PinBoard />
   <LatestPosts />
@@ -36,8 +36,6 @@ const t = useTranslations(locale);
   .who {
     font-family: var(--typeface-sans);
     font-size: var(--font-size-lg);
-    font-weight: var(--semibold);
-    color: var(--color-text-faint);
   }
 
   .highlight {

@@ -9,7 +9,7 @@ const t = useTranslations(Astro.currentLocale as string);
 <div class:list={["_contact", className]} {...attrs}>
   <hgroup>
     <h2 class="contact-heading">{t("contact.heading")}</h2>
-    <p class="typography-subtitle">
+    <p class="where">
       {
         t("contact.text", {
           emailLink: (text: string) => <Link href="mailto:hello@amelliya.com">{text}</Link>,
@@ -28,7 +28,10 @@ const t = useTranslations(Astro.currentLocale as string);
     color: var(--color-primary);
   }
 
-  .typography-subtitle {
+  .where {
+    margin-block: var(--space-xs);
+    font-family: var(--typeface-sans);
     font-size: var(--font-size-md);
+    color: var(--color-text-light);
   }
 </style>
