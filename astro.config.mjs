@@ -26,13 +26,10 @@ const sansFallbackStack = [
   "Roboto",
   "Helvetica Neue",
   "Arial",
-  "Hiragino Sans",
-  "Hiragino Kaku Gothic ProN",
-  "Yu Gothic",
-  "Meiryo",
   "PingFang SC",
-  "Hiragino Sans GB",
   "Microsoft YaHei",
+  "Hiragino Sans",
+  "Yu Gothic",
   "Apple SD Gothic Neo",
   "Malgun Gothic",
   "sans-serif",
@@ -41,12 +38,10 @@ const sansFallbackStack = [
 const serifFallbackStack = [
   "Georgia",
   "Times New Roman",
+  "Songti SC",
+  "SimSun",
   "Hiragino Mincho ProN",
   "Yu Mincho",
-  "MS PMincho",
-  "Songti SC",
-  "STSong",
-  "SimSun",
   "AppleMyungjo",
   "Batang",
   "serif",
@@ -77,16 +72,12 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.local(),
-      name: "Merriweather Sans",
-      cssVariable: "--typeface-display",
+      name: "Source Sans 3",
+      cssVariable: "--typeface-sans",
       options: {
         variants: [
           {
-            src: ["./src/assets/fonts/MerriweatherSans500.woff2"],
-            fallback: sansFallbackStack,
-          },
-          {
-            src: ["./src/assets/fonts/MerriweatherSans600.woff2"],
+            src: ["./src/assets/fonts/SourceSans3.woff2"],
             fallback: sansFallbackStack,
           },
         ],
@@ -94,34 +85,17 @@ export default defineConfig({
     },
     {
       provider: fontProviders.local(),
-      name: "Merriweather",
-      cssVariable: "--typeface-body",
+      name: "Laro",
+      cssVariable: "--typeface-serif",
       options: {
         variants: [
           {
-            src: ["./src/assets/fonts/Merriweather300.woff2"],
+            src: ["./src/assets/fonts/Laro.woff2"],
             fallback: serifFallbackStack,
           },
           {
-            src: ["./src/assets/fonts/Merriweather300Italic.woff2"],
+            src: ["./src/assets/fonts/LaroItalics.woff2"],
             fallback: serifFallbackStack,
-          },
-          {
-            src: ["./src/assets/fonts/Merriweather600.woff2"],
-            fallback: serifFallbackStack,
-          },
-        ],
-      },
-    },
-    {
-      provider: fontProviders.local(),
-      name: "Inter",
-      cssVariable: "--typeface-workhorse",
-      options: {
-        variants: [
-          {
-            src: ["./src/assets/fonts/Inter.woff2"],
-            fallback: sansFallbackStack,
           },
         ],
       },
