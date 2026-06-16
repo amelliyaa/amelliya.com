@@ -20,11 +20,8 @@ The MIT License (MIT)
 
 ## Fonts
 Copyright 2011 The Philosopher Project Authors (https://github.com/alexeiva/philosopher)
-Copyright 2019 The Merriweather Project Authors (https://github.com/SorkinType/Merriweather-Sans)
-with Reserved Font Name 'Merriweather'
-Copyright 2020 The Merriweather Project Authors (https://github.com/EbenSorkin/Merriweather4)
-with Reserved Font Name "Merriweather".
-Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+Copyright 2010-2020 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. All Rights Reserved. Source is a trademark of Adobe in the United States and/or other countries.
+Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic), with Reserved Font Name "Lora".
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
