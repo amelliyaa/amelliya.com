@@ -136,8 +136,10 @@ const t = useTranslations(locale);
     inset-inline: 0;
     padding-inline: var(--space-sm);
 
-    display: grid;
-    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-1rem);
 
     background-color: var(--color-bg-dark);
     border-block-end: 1px solid var(--color-bg-bright);
@@ -145,29 +147,22 @@ const t = useTranslations(locale);
   }
 
   #menu-button:checked ~ .dropdown-wrapper {
-    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .dropdown {
-    min-block-size: 0;
-    overflow: hidden;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-sm-md);
-
-    padding-block: 0;
-    opacity: 0;
+    padding-block: var(--space-md);
   }
 
   .search-trigger:empty {
     display: none;
-  }
-
-  #menu-button:checked ~ .dropdown-wrapper .dropdown {
-    padding-block: var(--space-md);
-    opacity: 1;
   }
 
   .search-trigger {
@@ -177,13 +172,10 @@ const t = useTranslations(locale);
 
   @media (prefers-reduced-motion: no-preference) {
     .dropdown-wrapper {
-      transition: grid-template-rows var(--anim-length-base) ease-in-out;
-    }
-
-    .dropdown {
       transition:
-        padding-block var(--anim-length-base) ease-in-out,
-        opacity var(--anim-length-base) ease-in-out;
+        opacity var(--anim-length-base) ease-in-out,
+        transform var(--anim-length-base) ease-in-out,
+        visibility var(--anim-length-base) ease-in-out;
     }
 
     .menu-label {
@@ -207,30 +199,18 @@ const t = useTranslations(locale);
     }
 
     .dropdown-wrapper {
-      position: static;
-      background-color: transparent;
-      border-block-end: none;
-      box-shadow: none;
-      padding-inline: 0;
-
-      grid-row: 1;
-      grid-column: 2;
-      display: block;
+      display: contents;
+      visibility: visible;
+      pointer-events: auto;
     }
 
     .dropdown {
+      grid-row: 1;
+      grid-column: 2;
+
       flex-direction: row;
       justify-content: flex-end;
-      opacity: 1;
-      overflow: visible;
       padding-block: 0;
-
-      transition: none;
-    }
-
-    .search-trigger {
-      inline-size: auto;
-      order: 0;
     }
   }
 </style>

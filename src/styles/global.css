@@ -63,15 +63,15 @@ samp {
 
 .no-scroll {
   overflow-y: hidden;
+}
 
-  &::before {
-    content: "";
-    position: fixed;
-    z-index: 90;
-    inline-size: 100%;
-    block-size: 100%;
-    background-color: var(--color-overlay);
-  }
+.no-scroll::before {
+  content: "";
+  position: fixed;
+  z-index: 90;
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: var(--color-overlay);
 }
 
 .content-grid {
